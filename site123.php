@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-/* ================= LIGAÇÃO BASE DE DADOS ================= */
+/* ================= LIGAÇÃO 1111BASE DEiugriuge DADOS ================= */
 $ligacao = new mysqli("localhost", "root", "", "biblioteca_db");
 if ($ligacao->connect_error) { die("Erro na ligação: " . $ligacao->connect_error); }
 
