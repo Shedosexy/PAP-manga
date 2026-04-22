@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carrinho — MangaVerse</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    :root {
+      --white: #ffffff;
+      --off-white: #f7f7f5;
+      --black: #0a0a0a;
+      --accent: #e8002d;
+      --accent2: #0057ff;
+      --grey: #8a8a8a;
+      --light-grey: #ececec;
+      --card-border: #e0e0e0;
+      --glow: rgba(232, 0, 45, 0.18);
+      --font-display: 'Orbitron', sans-serif;
+      --font-body: 'Noto Sans JP', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--black);
+      min-height: 100vh;
+    }
+
+    /* ─── NAVBAR ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1.5px solid var(--light-grey);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 72px;
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      color: var(--black);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-logo span {
+      color: var(--accent);
+    }
+
+    .logo-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.4;
+        transform: scale(1.5);
+      }
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--grey);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--black);
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--grey) !important;
+    }
+
+    .back-btn:hover {
+      color: var(--black) !important;
+    }
+
+    /* ─── PAGE LAYOUT ─── */
+    .page-wrap {
+      padding: 72px 0 0;
+      min-height: 100vh;
+    }
+
+    /* ─── PAGE HEADER ─── */
+    .page-header {
+      padding: 60px 80px 48px;
+      border-bottom: 1.5px solid var(--light-grey);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .page-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .page-eyebrow::before {
+      content: '';
+      width: 24px;
+      height: 1.5px;
+      background: var(--accent);
+    }
+
+    .page-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .page-header-right {
+      text-align: right;
+    }
+
+    .cart-item-count {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--grey);
+    }
+
+    /* ─── CONTENT ─── */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 0;
+      align-items: start;
+      min-height: calc(100vh - 220px);
+    }
+
+    /* ─── CART ITEMS ─── */
+    .cart-items-panel {
+      padding: 40px 80px;
+    }
+
+    /* ─── EMPTY STATE ─── */
+    .empty-state {
+      text-align: center;
+      padding: 100px 40px;
+    }
+
+    .empty-icon {
+      font-size: 5rem;
+      margin-bottom: 24px;
+      display: block;
+      animation: float 2.4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-12px);
+      }
+    }
+
+    .empty-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .empty-desc {
+      color: var(--grey);
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    /* ─── CATALOG (todos os produtos) ─── */
+    .catalog-section {
+      padding: 60px 80px;
+      background: var(--off-white);
+      border-top: 1.5px solid var(--light-grey);
+    }
+
+    .catalog-header {
+      margin-bottom: 40px;
+    }
+
+    .catalog-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 6px;
+    }
+
+    .catalog-sub {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--grey);
+    }
+
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    /* ─── CART ITEM ROW ─── */
+    .cart-item {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      gap: 20px;
+      align-items: center;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--light-grey);
+      animation: slideIn 0.35s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .cart-item-cover {
+      width: 80px;
+      height: 108px;
+      border-radius: 6px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .cart-item-cover-inner {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 0.5rem;
+      font-weight: 700;
+      color: white;
+      text-align: center;
+      padding: 8px;
+      line-height: 1.2;
+    }
+
+    .cart-item-info {}
+
+    .cart-item-type {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .cart-item-name {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 2px;
+    }
+
+    .cart-item-author {
+      color: var(--grey);
+      font-size: 0.8rem;
+      margin-bottom: 14px;
+    }
+
+    .qty-control {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .qty-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid var(--card-border);
+      background: var(--white);
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.18s;
+      color: var(--black);
+    }
+
+    .qty-btn:hover {
+      border-color: var(--black);
+      background: var(--black);
+      color: white;
+    }
+
+    .qty-num {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .cart-item-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
+    }
+
+    .cart-item-price {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .remove-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--grey);
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0.1em;
+      transition: color 0.2s;
+      padding: 4px 0;
+    }
+
+    .remove-btn:hover {
+      color: var(--accent);
+    }
+
+    /* ─── PRODUCT MINI CARD ─── */
+    .mini-card {
+      background: var(--white);
+      border: 1.5px solid var(--card-border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: all 0.25s;
+      cursor: pointer;
+    }
+
+    .mini-card:hover {
+      border-color: var(--black);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.09);
+    }
+
+    .mini-cover {
+      aspect-ratio: 3/4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: white;
+      text-align: center;
+      padding: 12px;
+      line-height: 1.3;
+    }
+
+    .mini-info {
+      padding: 12px 14px 14px;
+    }
+
+    .mini-type {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .mini-name {
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 2px;
+    }
+
+    .mini-author {
+      font-size: 0.7rem;
+      color: var(--grey);
+      margin-bottom: 10px;
+    }
+
+    .mini-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mini-price {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .mini-add-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--black);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.18s;
+    }
+
+    .mini-add-btn:hover {
+      background: var(--accent);
+      transform: scale(1.1);
+    }
+
+    /* ─── ORDER SUMMARY ─── */
+    .order-summary {
+      padding: 40px 40px;
+      border-left: 1.5px solid var(--light-grey);
+      position: sticky;
+      top: 72px;
+      background: var(--white);
+      min-height: calc(100vh - 220px);
+    }
+
+    .summary-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--light-grey);
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      font-size: 0.88rem;
+    }
+
+    .summary-row .label {
+      color: var(--grey);
+    }
+
+    .summary-row .value {
+      font-weight: 600;
+    }
+
+    .summary-divider {
+      border: none;
+      border-top: 1px solid var(--light-grey);
+      margin: 20px 0;
+    }
+
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 32px;
+    }
+
+    .total-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .total-value {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      background: var(--black);
+      color: var(--white);
+      padding: 16px;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 6px;
+      transition: all 0.22s;
+      margin-bottom: 14px;
+    }
+
+    .checkout-btn:hover {
+      background: var(--accent);
+      box-shadow: 0 8px 24px var(--glow);
+    }
+
+    .continue-btn {
+      width: 100%;
+      background: transparent;
+      color: var(--black);
+      padding: 14px;
+      border: 1.5px solid var(--light-grey);
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: 6px;
+      transition: all 0.2s;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+    }
+
+    .continue-btn:hover {
+      border-color: var(--black);
+    }
+
+    .payment-icons {
+      display: flex;
+      gap: 8px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .pay-icon {
+      padding: 6px 12px;
+      border: 1.5px solid var(--card-border);
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--grey);
+    }
+
+    .promo-section {
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--light-grey);
+    }
+
+    .promo-label {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .promo-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .promo-input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1.5px solid var(--card-border);
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .promo-input:focus {
+      border-color: var(--black);
+    }
+
+    .promo-apply {
+      padding: 10px 16px;
+      background: var(--black);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: background 0.2s;
+    }
+
+    .promo-apply:hover {
+      background: var(--accent);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--black);
+      color: white;
+      padding: 40px 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+
+    .footer-logo span {
+      color: var(--accent);
+    }
+
+    .footer-copy {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-primary {
+      background: var(--black);
+      color: var(--white);
+      padding: 14px 28px;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      transition: all 0.22s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 960px) {
+      nav {
+        padding: 0 24px;
+      }
+
+      .page-header {
+        padding: 40px 24px 32px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cart-items-panel {
+        padding: 24px 24px;
+      }
+
+      .order-summary {
+        border-left: none;
+        border-top: 1.5px solid var(--light-grey);
+        padding: 32px 24px;
+        position: static;
+      }
+
+      .catalog-section {
+        padding: 40px 24px;
+      }
+
+      footer {
+        padding: 32px 24px;
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══ NAVBAR ═══ -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="logo-dot"></div>
+      Manga<span>Verse</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Loja</a></li>
+      <li><a href="marketplace.php">Marketplace</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+      <li><a href="suporte.php">Suporte</a></li>
+      <li><a href="login.php">Login</a></li>
+      <li>
+        <a href="carrinho.php" class="cart-btn">
+          🛒 Carrinho
+          <span class="cart-count" id="nav-cart-count">0</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="page-wrap">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow">// O teu carrinho</div>
+        <h1 class="page-title">Carrinho</h1>
+      </div>
+      <div class="page-header-right">
+        <div class="cart-item-count" id="cart-count-label">0 artigos</div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content-grid">
+
+      <!-- Cart Items -->
+      <div class="cart-items-panel" id="cart-items-panel">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Order Summary -->
+      <div class="order-summary">
+        <div class="summary-title">Resumo da Encomenda</div>
+
+        <div class="summary-row">
+          <span class="label">Subtotal</span>
+          <span class="value" id="summary-subtotal">0,00€</span>
+        </div>
+        <div class="summary-row">
+          <span class="label">Envio</span>
+          <span class="value" id="summary-shipping">Grátis</span>
+        </div>
+        <div class="summary-row">
+          <span class="label">IVA (23%)</span>
+          <span class="value" id="summary-tax">0,00€</span>
+        </div>
+        <div class="summary-row" id="discount-row" style="display:none">
+          <span class="label" style="color:var(--accent)">Desconto</span>
+          <span class="value" style="color:var(--accent)" id="summary-discount">-0,00€</span>
+        </div>
+
+        <hr class="summary-divider">
+
+        <div class="summary-total">
+          <span class="total-label">Total</span>
+          <span class="total-value" id="summary-total">0,00€</span>
+        </div>
+
+        <button class="checkout-btn" id="checkout-btn">Finalizar Compra →</button>
+        <a href="index.html" class="continue-btn">Continuar a Comprar</a>
+
+        <div class="payment-icons">
+          <span class="pay-icon">Visa</span>
+          <span class="pay-icon">MC</span>
+          <span class="pay-icon">MB Way</span>
+          <span class="pay-icon">PayPal</span>
+          <span class="pay-icon">Ref. MB</span>
+        </div>
+
+        <div class="promo-section">
+          <span class="promo-label">Código Promocional</span>
+          <div class="promo-row">
+            <input type="text" class="promo-input" id="promo-input" placeholder="MANGA2026">
+            <button class="promo-apply" id="promo-apply-btn">Aplicar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Products Catalog -->
+    <section class="catalog-section">
+      <div class="catalog-header">
+        <div class="catalog-title">Todos os Produtos</div>
+        <div class="catalog-sub">// Adiciona à tua coleção</div>
+      </div>
+      <div class="catalog-grid" id="catalog-grid"></div>
+    </section>
+
+  </div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <span class="footer-logo">Manga<span>Verse</span></span>
+    <span class="footer-copy">© 2026 MangaVerse. Todos os direitos reservados.</span>
+  </footer>
+
+  <script>
+    // ════════════════════════════════════════════════════════
+    //  MVC ARCHITECTURE — CARRINHO
+    // ════════════════════════════════════════════════════════
+
+    // ── MODEL ──────────────────────────────────────────────
+    const Model = {
+      products: [
+        { id: 1, name: 'One Piece', author: 'Eiichiro Oda', type: 'manga', price: 7.99, badge: 'hot', color: ['#e8002d', '#f7a500'], vol: 'Vol. 104' },
+        { id: 2, name: 'Jujutsu Kaisen', author: 'Gege Akutami', type: 'manga', price: 6.99, badge: 'new', color: ['#0057ff', '#000'], vol: 'Vol. 24' },
+        { id: 3, name: 'Chainsaw Man', author: 'Tatsuki Fujimoto', type: 'manga', price: 7.49, badge: 'sale', color: ['#222', '#e8002d'], vol: 'Vol. 16' },
+        { id: 4, name: 'Berserk', author: 'Kentaro Miura', type: 'manga', price: 12.99, badge: null, color: ['#1a1a2e', '#c5a028'], vol: 'Vol. 41' },
+        { id: 5, name: 'Attack on Titan', author: 'Hajime Isayama', type: 'manga', price: 8.99, badge: 'sale', color: ['#3a3a3a', '#8b5a2b'], vol: 'Vol. 34' },
+        { id: 6, name: 'Demon Slayer', author: 'Koyoharu Gotouge', type: 'manga', price: 6.49, badge: 'new', color: ['#1a472a', '#c21807'], vol: 'Vol. 23' },
+        { id: 7, name: 'Duna', author: 'Frank Herbert', type: 'livro', price: 14.99, badge: 'sale', color: ['#c5a028', '#8b3a0a'], vol: 'Ed. Especial' },
+        { id: 8, name: 'Neuromancer', author: 'William Gibson', type: 'livro', price: 11.99, badge: 'new', color: ['#0d1117', '#00ff88'], vol: 'Edição 2026' },
+        { id: 9, name: 'Vinland Saga', author: 'Makoto Yukimura', type: 'manga', price: 9.99, badge: null, color: ['#2c4a6e', '#d4a017'], vol: 'Vol. 27' },
+        { id: 10, name: 'Tokyo Ghoul', author: 'Sui Ishida', type: 'manga', price: 7.99, badge: 'sale', color: ['#1a0a2e', '#8b1a4a'], vol: 'Vol. 14' },
+        { id: 11, name: 'Maus', author: 'Art Spiegelman', type: 'livro', price: 16.99, badge: 'hot', color: ['#2d2d2d', '#f0f0f0'], vol: 'Completo' },
+        { id: 12, name: 'Blue Period', author: 'Tsubasa Yamaguchi', type: 'manga', price: 7.49, badge: 'new', color: ['#1a3a6e', '#4a90d9'], vol: 'Vol. 14' },
+      ],
+
+      cart: JSON.parse(localStorage.getItem('mv_cart') || '[]'),
+      discount: 0,
+
+      getProduct(id) {
+        return this.products.find(p => p.id === id);
+      },
+
+      addToCart(id) {
+        const product = this.getProduct(id);
+        if (!product) return null;
+        const existing = this.cart.find(c => c.id === id);
+        if (existing) { existing.qty += 1; }
+        else { this.cart.push({ ...product, qty: 1 }); }
+        this._save();
+        return product;
+      },
+
+      updateQty(id, delta) {
+        const item = this.cart.find(c => c.id === id);
+        if (!item) return;
+        item.qty += delta;
+        if (item.qty <= 0) this.removeFromCart(id);
+        else this._save();
+      },
+
+      removeFromCart(id) {
+        this.cart = this.cart.filter(c => c.id !== id);
+        this._save();
+      },
+
+      applyPromo(code) {
+        const codes = { 'MANGA2026': 10, 'VERSE15': 15, 'ANUAL20': 20 };
+        if (codes[code.toUpperCase()]) {
+          this.discount = codes[code.toUpperCase()];
+          return this.discount;
+        }
+        return 0;
+      },
+
+      getSubtotal() {
+        return this.cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+      },
+
+      getShipping() {
+        return this.getSubtotal() > 30 ? 0 : 3.99;
+      },
+
+      getTax() {
+        return this.getSubtotal() * 0.23;
+      },
+
+      getDiscountAmount() {
+        return this.getSubtotal() * (this.discount / 100);
+      },
+
+      getTotal() {
+        return this.getSubtotal() + this.getShipping() - this.getDiscountAmount();
+      },
+
+      getCount() {
+        return this.cart.reduce((sum, item) => sum + item.qty, 0);
+      },
+
+      _save() {
+        localStorage.setItem('mv_cart', JSON.stringify(this.cart));
+      }
+    };
+
+    // ── VIEW ───────────────────────────────────────────────
+    const View = {
+      fmt(n) { return n.toFixed(2).replace('.', ',') + '€'; },
+
+      renderCart() {
+        const panel = document.getElementById('cart-items-panel');
+        const count = Model.getCount();
+        document.getElementById('cart-count-label').textContent = `${count} artigo${count !== 1 ? 's' : ''}`;
+
+        if (count === 0) {
+          panel.innerHTML = `
+          <div class="empty-state">
+            <span class="empty-icon">🛒</span>
+            <div class="empty-title">O teu carrinho está vazio</div>
+            <p class="empty-desc">Ainda não adicionaste nenhum produto.<br>Explora a nossa coleção abaixo!</p>
+            <a href="index.html" class="btn-primary">Ir à Loja</a>
+          </div>`;
+          return;
+        }
+
+        panel.innerHTML = Model.cart.map(item => `
+        <div class="cart-item" data-id="${item.id}">
+          <div class="cart-item-cover">
+            <div class="cart-item-cover-inner" style="background:linear-gradient(160deg,${item.color[0]},${item.color[1]})">
+              ${item.name}
+            </div>
+          </div>
+          <div class="cart-item-info">
+            <div class="cart-item-type">${item.type === 'manga' ? '// Mangá' : '// Livro'}</div>
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-author">${item.author} · ${item.vol}</div>
+            <div class="qty-control">
+              <button class="qty-btn" data-action="minus" data-id="${item.id}">−</button>
+              <span class="qty-num">${item.qty}</span>
+              <button class="qty-btn" data-action="plus" data-id="${item.id}">+</button>
+            </div>
+          </div>
+          <div class="cart-item-right">
+            <div class="cart-item-price">${this.fmt(item.price * item.qty)}</div>
+            <button class="remove-btn" data-remove="${item.id}">Remover ×</button>
+          </div>
+        </div>`).join('');
+      },
+
+      renderSummary() {
+        const subtotal = Model.getSubtotal();
+        const shipping = Model.getShipping();
+        const tax = Model.getTax();
+        const discount = Model.getDiscountAmount();
+        const total = Model.getTotal();
+
+        document.getElementById('summary-subtotal').textContent = this.fmt(subtotal);
+        document.getElementById('summary-shipping').textContent = shipping === 0 ? 'Grátis 🎉' : this.fmt(shipping);
+        document.getElementById('summary-tax').textContent = this.fmt(tax);
+        document.getElementById('summary-total').textContent = this.fmt(total);
+
+        const discRow = document.getElementById('discount-row');
+        if (discount > 0) {
+          discRow.style.display = 'flex';
+          document.getElementById('summary-discount').textContent = '−' + this.fmt(discount);
+        } else {
+          discRow.style.display = 'none';
+        }
+      },
+
+      renderCatalog() {
+        const grid = document.getElementById('catalog-grid');
+        grid.innerHTML = Model.products.map(p => `
+        <div class="mini-card">
+          <div class="mini-cover" style="background:linear-gradient(160deg,${p.color[0]},${p.color[1]})">
+            ${p.name}<br><span style="font-size:0.45rem;opacity:0.7;">${p.vol}</span>
+          </div>
+          <div class="mini-info">
+            <div class="mini-type">${p.type === 'manga' ? '// Mangá' : '// Livro'}</div>
+            <div class="mini-name">${p.name}</div>
+            <div class="mini-author">${p.author}</div>
+            <div class="mini-bottom">
+              <span class="mini-price">${this.fmt(p.price)}</span>
+              <button class="mini-add-btn" data-id="${p.id}" title="Adicionar">+</button>
+            </div>
+          </div>
+        </div>`).join('');
+      },
+
+      showToast(icon, title, text) {
+        Swal.fire({
+          toast: true,
+          position: 'bottom-end',
+          icon,
+          title: `<span style="font-family:'Orbitron',sans-serif;font-size:0.78rem;">${title}</span>`,
+          text,
+          showConfirmButton: false,
+          timer: 2400,
+          timerProgressBar: true,
+          background: '#0a0a0a',
+          color: '#fff',
+          iconColor: icon === 'success' ? '#e8002d' : '#f0a500',
+        });
+      }
+    };
+
+    // ── CONTROLLER ─────────────────────────────────────────
+    const Controller = {
+      init() {
+        View.renderCart();
+        View.renderSummary();
+        View.renderCatalog();
+        this._bindCartEvents();
+        this._bindCatalogEvents();
+        this._bindCheckout();
+        this._bindPromo();
+      },
+
+      refresh() {
+        View.renderCart();
+        View.renderSummary();
+        this._bindCartEvents();
+      },
+
+      _bindCartEvents() {
+        document.getElementById('cart-items-panel').addEventListener('click', e => {
+          // Qty buttons
+          const qtyBtn = e.target.closest('.qty-btn');
+          if (qtyBtn) {
+            const id = parseInt(qtyBtn.dataset.id);
+            const delta = qtyBtn.dataset.action === 'plus' ? 1 : -1;
+            Model.updateQty(id, delta);
+            this.refresh();
+          }
+          // Remove
+          const removeBtn = e.target.closest('.remove-btn');
+          if (removeBtn) {
+            const id = parseInt(removeBtn.dataset.remove);
+            const item = Model.getProduct(id);
+            Swal.fire({
+              title: 'Remover produto?',
+              text: `Tens a certeza que queres remover "${item.name}" do carrinho?`,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#e8002d',
+              cancelButtonColor: '#8a8a8a',
+              confirmButtonText: 'Sim, remover',
+              cancelButtonText: 'Cancelar'
+            }).then(result => {
+              if (result.isConfirmed) {
+                Model.removeFromCart(id);
+                this.refresh();
+                View.showToast('info', item.name, 'Removido do carrinho.');
+              }
+            });
+          }
+        });
+      },
+
+      _bindCatalogEvents() {
+        document.getElementById('catalog-grid').addEventListener('click', e => {
+          const btn = e.target.closest('.mini-add-btn');
+          if (!btn) return;
+          const id = parseInt(btn.dataset.id);
+          const product = Model.addToCart(id);
+          this.refresh();
+          View.showToast('success', product.name, 'Adicionado ao carrinho!');
+          btn.textContent = '✓';
+          btn.style.background = '#e8002d';
+          setTimeout(() => { btn.textContent = '+'; btn.style.background = ''; }, 1200);
+        });
+      },
+
+      _bindCheckout() {
+        document.getElementById('checkout-btn').addEventListener('click', () => {
+          if (Model.getCount() === 0) {
+            Swal.fire({ icon: 'info', title: 'Carrinho vazio', text: 'Adiciona produtos antes de finalizar.', confirmButtonColor: '#0a0a0a' });
+            return;
+          }
+          Swal.fire({
+            icon: 'success',
+            title: 'Encomenda realizada! 🎉',
+            html: `<div style="font-family:'Space Mono',monospace;font-size:0.75rem;line-height:2">
+            <b>Total pago:</b> ${View.fmt(Model.getTotal())}<br>
+            <b>Artigos:</b> ${Model.getCount()}<br>
+            <b>Envio:</b> ${Model.getShipping() === 0 ? 'Grátis' : View.fmt(Model.getShipping())}<br><br>
+            Receberás um email de confirmação em breve.
+          </div>`,
+            confirmButtonColor: '#0a0a0a',
+            confirmButtonText: 'Voltar à loja',
+          }).then(() => {
+            Model.cart = [];
+            Model.discount = 0;
+            Model._save();
+            this.refresh();
+            View.renderSummary();
+          });
+        });
+      },
+
+      _bindPromo() {
+        document.getElementById('promo-apply-btn').addEventListener('click', () => {
+          const code = document.getElementById('promo-input').value.trim();
+          const disc = Model.applyPromo(code);
+          if (disc > 0) {
+            View.showToast('success', `Desconto de ${disc}% aplicado!`, `Código "${code.toUpperCase()}" válido.`);
+            View.renderSummary();
+          } else {
+            Swal.fire({ icon: 'error', title: 'Código inválido', text: 'Tenta: MANGA2026, VERSE15 ou ANUAL20', confirmButtonColor: '#e8002d' });
+          }
+        });
+      }
+    };
+
+    // ── BOOT ───────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => Controller.init());
+  </script>
+</body>
+
+</html>
