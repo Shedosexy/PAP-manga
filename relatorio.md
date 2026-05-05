@@ -2,7 +2,7 @@
 
 ## 1. Introdução
 
-O **MangaVerse** é uma plataforma web de e-commerce dedicada à venda de mangás, light novels e merchandise otaku. O projeto foi desenvolvido como MVP (Minimum Viable Product) pronto para produção, seguindo a arquitetura **MVC (Model-View-Controller)** com tecnologias web modernas.
+O **MangaVerse** é uma plataforma web de e-commerce dedicada à venda de mangás. O projeto foi desenvolvido como MVP (Minimum Viable Product) pronto para produção, seguindo a arquitetura **MVC (Model-View-Controller)** com tecnologias web modernas.
 
 ---
 
@@ -103,9 +103,11 @@ Base de Dados (MySQL)
 
 ### 5.2 Dados de teste
 
-- **12 produtos** de exemplo inseridos (mangás populares)
-- **5 categorias**: Mangá, Light Novel, Artbook, Merchandise, Edição Especial
+- **Vários produtos** de exemplo inseridos (mangás populares)
+- **1 categorias**: Mangá
 - **1 utilizador admin**: admin@mangaverse.pt / 123456
+- **1 utilizador cliente**: cliente@mangaverse.pt / 123456
+- **1 utilizador vendedor**: vendedor@mangaverse.pt / 123456
 
 ---
 
@@ -257,6 +259,7 @@ PAP-manga/
 - **Email:** cliente@mangaverse.pt
 - **Password:** 123456
 - **Email:** vendedor@mangaverse.pt
+- **Password:** 123456
 
 ### Códigos promocionais
 - `MANGA10` — 10% desconto
