@@ -1,4 +1,4 @@
-# 📘 Relatório do Projeto — MangaVerse
+# 📘 Relatório do Projeto - MangaVerse
 
 ## 1. Introdução
 
