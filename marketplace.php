@@ -274,8 +274,8 @@ $basePath    = '';
       </div>
     </div>
 
-    <!-- ═══ MY PRODUCTS (se logado) ═══ -->
-    <?php if ($user): ?>
+    <!-- ═══ MY PRODUCTS (apenas para vendedores) ═══ -->
+    <?php if ($user && in_array($user['role'], ['vendedor', 'admin'])): ?>
     <section class="my-products-section">
       <div class="my-products-header">
         <div class="my-products-title">Os teus produtos no Marketplace</div>

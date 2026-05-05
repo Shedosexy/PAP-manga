@@ -11,7 +11,7 @@ $basePath    = '';
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MangaVerse — Loja de Mangás & Livros</title>
+  <title>MangaVerse — Loja de Mangás</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&family=Space+Mono:wght@400;700&display=swap"
     rel="stylesheet">
@@ -482,7 +482,7 @@ $basePath    = '';
     }
 
     .badge-hot {
-      background: var(--black);
+      background: #333333;
       color: white;
     }
 
@@ -1283,7 +1283,7 @@ $basePath    = '';
         chegou.
       </h1>
       <p class="hero-desc">
-        Descobre a maior coleção de mangás e livros do universo. Edições limitadas, lançamentos exclusivos e as tuas
+        Descobre a maior coleção de mangás do universo. Edições limitadas, lançamentos exclusivos e as tuas
         séries favoritas — tudo num só lugar.
       </p>
       <div class="hero-actions">
@@ -1317,8 +1317,6 @@ $basePath    = '';
     </div>
     <div class="filter-tabs reveal" id="filter-tabs">
       <button class="filter-tab active" data-filter="all">Todos</button>
-      <button class="filter-tab" data-filter="manga">Mangá</button>
-      <button class="filter-tab" data-filter="livro">Livro</button>
       <button class="filter-tab" data-filter="novo">Novidades</button>
       <button class="filter-tab" data-filter="sale">Em Promoção</button>
     </div>
@@ -1328,9 +1326,8 @@ $basePath    = '';
   <section class="banner-section reveal" id="livros">
     <div>
       <div class="banner-eyebrow">// Edições Especiais · 2026</div>
-      <h2 class="banner-title">Coleções<br>Exclusivas &amp;<br>Edições Limitadas</h2>
-      <p class="banner-desc">Artbooks, box sets, edições de colecionador com foil e acabamentos premium. Quantidades
-        muito limitadas.</p>
+      <h2 class="banner-title">Mergulha no<br>Universo dos<br>Mangás</h2>
+      <p class="banner-desc">Descobre histórias épicas, personagens memoráveis e arte magnifica de autores renomados. Edições especiais e lançamentos exclusivos.</p>
     </div>
     <div>
       <a href="#destaques" class="btn-primary" style="white-space:nowrap;">Ver Edições →</a>
