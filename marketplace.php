@@ -395,9 +395,16 @@ $basePath    = '';
           var typeLabel = p.categoria_slug === 'manga' ? '// Mangá' : p.categoria_slug === 'livro' ? '// Livro' : '// ' + p.categoria_nome;
           var oldPriceHtml = p.preco_antigo ? '<div class="listing-old-price">' + parseFloat(p.preco_antigo).toFixed(2) + '€</div>' : '';
 
+          var coverHtml = '';
+          if (p.imagem) {
+            coverHtml = '<img src="assets/images/' + p.imagem + '" alt="' + $('<span>').text(p.nome).html() + '" style="width:100%;height:100%;object-fit:cover;">';
+          } else {
+            coverHtml = '<div class="listing-cover" style="background:linear-gradient(160deg,' + (p.cor1||'#0a0a0a') + ',' + (p.cor2||'#e8002d') + ')">' + $('<span>').text(p.nome).html() + '<br><span style="font-size:0.5rem;opacity:0.7">' + $('<span>').text(p.volume||'').html() + '</span></div>';
+          }
+          
           var card = $('<div class="listing-card reveal" style="transition-delay:' + (idx * 50) + 'ms">' +
             badgeHtml +
-            '<div class="listing-img-wrap"><div class="listing-cover" style="background:linear-gradient(160deg,' + (p.cor1||'#0a0a0a') + ',' + (p.cor2||'#e8002d') + ')">' + $('<span>').text(p.nome).html() + '<br><span style="font-size:0.5rem;opacity:0.7">' + $('<span>').text(p.volume||'').html() + '</span></div></div>' +
+            '<div class="listing-img-wrap">' + coverHtml + '</div>' +
             '<div class="listing-info">' +
               '<div class="listing-type">' + typeLabel + '</div>' +
               '<div class="listing-name">' + $('<span>').text(p.nome).html() + '</div>' +

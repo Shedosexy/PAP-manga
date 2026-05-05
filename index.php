@@ -1432,18 +1432,18 @@ $basePath    = '';
   <script>
     const Model = {
       products: [
-        { id: 1, name: 'One Piece', author: 'Eiichiro Oda', type: 'manga', price: 7.99, oldPrice: null, badge: 'hot', color: ['#e8002d', '#f7a500'], vol: 'Vol. 104' },
-        { id: 2, name: 'Jujutsu Kaisen', author: 'Gege Akutami', type: 'manga', price: 6.99, oldPrice: null, badge: 'new', color: ['#0057ff', '#000'], vol: 'Vol. 24' },
-        { id: 3, name: 'Chainsaw Man', author: 'Tatsuki Fujimoto', type: 'manga', price: 7.49, oldPrice: 9.99, badge: 'sale', color: ['#222', '#e8002d'], vol: 'Vol. 16' },
-        { id: 4, name: 'Berserk', author: 'Kentaro Miura', type: 'manga', price: 12.99, oldPrice: null, badge: null, color: ['#1a1a2e', '#c5a028'], vol: 'Vol. 41' },
-        { id: 5, name: 'Attack on Titan', author: 'Hajime Isayama', type: 'manga', price: 8.99, oldPrice: 10.99, badge: 'sale', color: ['#3a3a3a', '#8b5a2b'], vol: 'Vol. 34' },
-        { id: 6, name: 'Demon Slayer', author: 'Koyoharu Gotouge', type: 'manga', price: 6.49, oldPrice: null, badge: 'new', color: ['#1a472a', '#c21807'], vol: 'Vol. 23' },
-        { id: 7, name: 'Duna', author: 'Frank Herbert', type: 'livro', price: 14.99, oldPrice: 18.99, badge: 'sale', color: ['#c5a028', '#8b3a0a'], vol: 'Ed. Especial' },
-        { id: 8, name: 'Neuromancer', author: 'William Gibson', type: 'livro', price: 11.99, oldPrice: null, badge: 'new', color: ['#0d1117', '#00ff88'], vol: 'Edição 2026' },
-        { id: 9, name: 'Vinland Saga', author: 'Makoto Yukimura', type: 'manga', price: 9.99, oldPrice: null, badge: null, color: ['#2c4a6e', '#d4a017'], vol: 'Vol. 27' },
-        { id: 10, name: 'Tokyo Ghoul', author: 'Sui Ishida', type: 'manga', price: 7.99, oldPrice: 9.49, badge: 'sale', color: ['#1a0a2e', '#8b1a4a'], vol: 'Vol. 14' },
-        { id: 11, name: 'Maus', author: 'Art Spiegelman', type: 'livro', price: 16.99, oldPrice: null, badge: 'hot', color: ['#2d2d2d', '#f0f0f0'], vol: 'Completo' },
-        { id: 12, name: 'Blue Period', author: 'Tsubasa Yamaguchi', type: 'manga', price: 7.49, oldPrice: null, badge: 'new', color: ['#1a3a6e', '#4a90d9'], vol: 'Vol. 14' },
+        { id: 1, name: 'One Piece', author: 'Eiichiro Oda', type: 'manga', price: 7.99, oldPrice: null, badge: 'hot', color: ['#e8002d', '#f7a500'], vol: 'Vol. 104', imagem: 'one piece vol 104.jpg' },
+        { id: 2, name: 'Jujutsu Kaisen', author: 'Gege Akutami', type: 'manga', price: 6.99, oldPrice: null, badge: 'new', color: ['#0057ff', '#000'], vol: 'Vol. 24', imagem: 'jujutsu kaisen vol 24.jpg' },
+        { id: 3, name: 'Chainsaw Man', author: 'Tatsuki Fujimoto', type: 'manga', price: 7.49, oldPrice: 9.99, badge: 'sale', color: ['#222', '#e8002d'], vol: 'Vol. 16', imagem: 'chainsaw man vol16.jpg' },
+        { id: 4, name: 'Berserk', author: 'Kentaro Miura', type: 'manga', price: 12.99, oldPrice: null, badge: null, color: ['#1a1a2e', '#c5a028'], vol: 'Vol. 41', imagem: 'berserk vol 41.jpg' },
+        { id: 5, name: 'Attack on Titan', author: 'Hajime Isayama', type: 'manga', price: 8.99, oldPrice: 10.99, badge: 'sale', color: ['#3a3a3a', '#8b5a2b'], vol: 'Vol. 34', imagem: 'attack on titan vol 32.jpg' },
+        { id: 6, name: 'Demon Slayer', author: 'Koyoharu Gotouge', type: 'manga', price: 6.49, oldPrice: null, badge: 'new', color: ['#1a472a', '#c21807'], vol: 'Vol. 23', imagem: 'demon slayer vol 23.jpg' },
+        { id: 7, name: 'Duna', author: 'Frank Herbert', type: 'livro', price: 14.99, oldPrice: 18.99, badge: 'sale', color: ['#c5a028', '#8b3a0a'], vol: 'Ed. Especial', imagem: null },
+        { id: 8, name: 'Neuromancer', author: 'William Gibson', type: 'livro', price: 11.99, oldPrice: null, badge: 'new', color: ['#0d1117', '#00ff88'], vol: 'Edição 2026', imagem: null },
+        { id: 9, name: 'Vinland Saga', author: 'Makoto Yukimura', type: 'manga', price: 9.99, oldPrice: null, badge: null, color: ['#2c4a6e', '#d4a017'], vol: 'Vol. 27', imagem: 'vinland saga vol 27.jpg' },
+        { id: 10, name: 'Tokyo Ghoul', author: 'Sui Ishida', type: 'manga', price: 7.99, oldPrice: 9.49, badge: 'sale', color: ['#1a0a2e', '#8b1a4a'], vol: 'Vol. 14', imagem: 'tokyo ghoul vol 14.jpg' },
+        { id: 11, name: 'Maus', author: 'Art Spiegelman', type: 'livro', price: 16.99, oldPrice: null, badge: 'hot', color: ['#2d2d2d', '#f0f0f0'], vol: 'Completo', imagem: null },
+        { id: 12, name: 'Blue Period', author: 'Tsubasa Yamaguchi', type: 'manga', price: 7.49, oldPrice: null, badge: 'new', color: ['#1a3a6e', '#4a90d9'], vol: 'Vol. 14', imagem: null },
       ],
 
       cart: JSON.parse(localStorage.getItem('mv_cart') || '[]'),
@@ -1487,10 +1487,18 @@ $basePath    = '';
       renderHeroStack() {
         const stack = document.getElementById('hero-stack');
         if (!stack) return;
-        this.heroColors.forEach(([c1, c2], i) => {
+        const heroProducts = [
+          { imagem: 'one piece vol 104.jpg', name: 'One Piece' },
+          { imagem: 'jujutsu kaisen vol 24.jpg', name: 'Jujutsu Kaisen' },
+          { imagem: 'chainsaw man vol16.jpg', name: 'Chainsaw Man' },
+          { imagem: 'berserk vol 41.jpg', name: 'Berserk' },
+          { imagem: 'attack on titan vol 32.jpg', name: 'Attack on Titan' },
+          { imagem: 'demon slayer vol 23.jpg', name: 'Demon Slayer' },
+        ];
+        heroProducts.forEach((product, i) => {
           const card = document.createElement('div');
           card.className = 'hero-manga-card';
-          card.innerHTML = `<div class="manga-cover" style="background:linear-gradient(160deg,${c1},${c2});font-size:0.55rem;">Vol.${i + 1}</div>`;
+          card.innerHTML = `<img src="assets/images/${product.imagem}" alt="${product.name}" style="width:100%;height:100%;object-fit:cover;">`;
           stack.appendChild(card);
         });
       },
@@ -1503,12 +1511,18 @@ $basePath    = '';
           const card = document.createElement('div');
           card.className = 'product-card reveal';
           card.style.transitionDelay = `${idx * 60}ms`;
+          let coverHtml = '';
+          if (p.imagem) {
+            coverHtml = `<img src="assets/images/${p.imagem}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;">`;
+          } else {
+            coverHtml = `<div class="product-cover" style="background:linear-gradient(160deg,${p.color[0]},${p.color[1]})">
+              ${p.name}<br><span style="font-size:0.5rem;opacity:0.7">${p.vol}</span>
+            </div>`;
+          }
           card.innerHTML = `
           ${p.badge ? `<span class="product-badge badge-${p.badge}">${p.badge === 'new' ? 'Novo' : p.badge === 'hot' ? '🔥 Hot' : 'Sale'}</span>` : ''}
           <div class="product-img-wrap">
-            <div class="product-cover" style="background:linear-gradient(160deg,${p.color[0]},${p.color[1]})">
-              ${p.name}<br><span style="font-size:0.5rem;opacity:0.7">${p.vol}</span>
-            </div>
+            ${coverHtml}
           </div>
           <div class="product-info">
             <div class="product-type">${p.type === 'manga' ? '// Mangá' : '// Livro'}</div>

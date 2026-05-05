@@ -1050,11 +1050,16 @@ $basePath    = '';
                 var typeLabel = item.categoria_slug === 'manga' ? '// Mangá' : '// Produto';
                 var itemTotal = (parseFloat(item.preco) * parseInt(item.quantidade)).toFixed(2);
 
+                var coverHtml = '';
+                if (item.imagem) {
+                    coverHtml = '<img src="assets/images/' + item.imagem + '" alt="' + $('<span>').text(item.nome).html() + '" style="width:100%;height:100%;object-fit:cover;">';
+                } else {
+                    coverHtml = '<div style="background:linear-gradient(160deg,' + (item.cor1 || '#0a0a0a') + ',' + (item.cor2 || '#e8002d') + ');width:100%;height:100%;display:flex;align-items:center;justify-content:center;text-align:center;">' + $('<span>').text(item.nome).html() + '</div>';
+                }
+
                 var card = $(
                     '<div class="cart-item" data-id="' + item.produto_id + '">' +
-                    '<div class="ci-cover" style="background:linear-gradient(160deg,' + (item
-                        .cor1 || '#0a0a0a') + ',' + (item.cor2 || '#e8002d') + ')">' + $('<span>')
-                    .text(item.nome).html() + '</div>' +
+                    '<div class="ci-cover">' + coverHtml + '</div>' +
                     '<div class="ci-info">' +
                     '<div class="ci-type">' + typeLabel + '</div>' +
                     '<div class="ci-name">' + $('<span>').text(item.nome).html() + '</div>' +

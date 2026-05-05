@@ -1,4 +1,4 @@
-# 🏯 MangaVerse — Marketplace de Manga Online
+#  MangaVerse — Marketplace de Manga Online
 
 <p align="center">
   <img src="https://img.shields.io/badge/PHP-8.x-777BB4?style=for-the-badge&logo=php&logoColor=white" />
@@ -10,7 +10,7 @@
 
 ---
 
-## 📋 Índice
+##  Índice
 
 1. [Sobre o Projeto](#sobre-o-projeto)
 2. [Funcionalidades](#funcionalidades)
@@ -40,29 +40,29 @@ O **MangaVerse** é uma plataforma web de e-commerce dedicada à compra e venda 
 
 ## Funcionalidades
 
-### 🛒 Para Clientes
+###  Para Clientes
 - **Catálogo de Manga** — Pesquisa, filtragem por categoria e visualização detalhada de produtos
 - **Carrinho de Compras** — Adição, remoção e atualização de quantidades em tempo real (AJAX)
 - **Checkout com Stripe** — Pagamento seguro com confirmação visual (página de sucesso/erro)
 - **Sistema de Encomendas** — Registo automático de encomendas com morada, telefone e método de pagamento
 - **Suporte por Tickets** — Criação de tickets com categorias e prioridades, chat em tempo real com o administrador
 
-### 🏪 Para Vendedores
+### Para Vendedores
 - **Gestão de Produtos** — Publicação de mangas no marketplace com imagem, preço e descrição
 - **Painel Pessoal** — Visualização de vendas e produtos publicados
 
-### 🔧 Para Administradores
+### Para Administradores
 - **Dashboard Analítico** — Cards com estatísticas gerais + gráficos interativos:
-  - 📈 Receita mensal (gráfico de linha)
-  - 🍩 Produtos por categoria (doughnut)
-  - 🥧 Encomendas por estado (pie)
-  - 🥧 Tickets por estado (pie)
-  - 📊 Registos diários (barras)
+  -  Receita mensal (gráfico de linha)
+  -  Produtos por categoria (doughnut)
+  -  Encomendas por estado (pie)
+  -  Tickets por estado (pie)
+  -  Registos diários (barras)
 - **Gestão de Encomendas** — Atualização de estados (pendente → enviado → entregue)
 - **Gestão de Tickets** — Resposta e fecho de tickets de suporte
 - **Gestão de Utilizadores** — Listagem e moderação de contas
 
-### 🌙 Experiência de Utilizador
+### Experiência de Utilizador
 - **Dark Mode** — Alternância com persistência via `localStorage`
 - **Design Responsivo** — Adaptação total a desktop, tablet e mobile
 - **Feedback Visual** — Notificações com SweetAlert2 em todas as ações
