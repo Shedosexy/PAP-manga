@@ -118,6 +118,9 @@ if (isLoggedIn() && $_nav_role !== 'admin') {
 <!-- CSS da navbar (injeta uma vez) -->
 <?php if (!defined('NAVBAR_STYLES_LOADED')): define('NAVBAR_STYLES_LOADED', true); ?>
 <style>
+/* SweetAlert2 — garantir que fica acima de qualquer overlay/drawer */
+.swal2-container { z-index: 99999 !important; }
+
 nav {
     position: fixed;
     top: 0;
