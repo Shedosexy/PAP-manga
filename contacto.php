@@ -489,14 +489,12 @@ $basePath    = '';
       border: 1.5px solid var(--card-border);
       border-radius: 12px;
       padding: 24px;
-      transition: all 0.25s;
       cursor: pointer;
     }
 
     .faq-item:hover {
-      border-color: var(--black);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      border-color: var(--card-border);
+      box-shadow: none;
     }
 
     .faq-question {

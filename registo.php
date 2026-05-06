@@ -153,7 +153,7 @@ if (isLoggedIn()) { header('Location: marketplace.php'); exit; }
       <div class="register-visual-grid"></div>
       <div class="register-visual-content">
         <h2>Junta-te ao<br><em>MangaVerse</em></h2>
-        <p>Cria a tua conta e acede a milhares de mangás, livros e ao marketplace P2P.</p>
+        <p>Cria a tua conta e acede a milhares de mangás e ao marketplace P2P.</p>
         <div class="register-benefits">
           <div class="benefit-item">
             <div class="benefit-icon">🛒</div>

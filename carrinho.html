@@ -886,12 +886,9 @@
         { id: 4, name: 'Berserk', author: 'Kentaro Miura', type: 'manga', price: 12.99, badge: null, color: ['#1a1a2e', '#c5a028'], vol: 'Vol. 41' },
         { id: 5, name: 'Attack on Titan', author: 'Hajime Isayama', type: 'manga', price: 8.99, badge: 'sale', color: ['#3a3a3a', '#8b5a2b'], vol: 'Vol. 34' },
         { id: 6, name: 'Demon Slayer', author: 'Koyoharu Gotouge', type: 'manga', price: 6.49, badge: 'new', color: ['#1a472a', '#c21807'], vol: 'Vol. 23' },
-        { id: 7, name: 'Duna', author: 'Frank Herbert', type: 'livro', price: 14.99, badge: 'sale', color: ['#c5a028', '#8b3a0a'], vol: 'Ed. Especial' },
-        { id: 8, name: 'Neuromancer', author: 'William Gibson', type: 'livro', price: 11.99, badge: 'new', color: ['#0d1117', '#00ff88'], vol: 'Edição 2026' },
         { id: 9, name: 'Vinland Saga', author: 'Makoto Yukimura', type: 'manga', price: 9.99, badge: null, color: ['#2c4a6e', '#d4a017'], vol: 'Vol. 27' },
         { id: 10, name: 'Tokyo Ghoul', author: 'Sui Ishida', type: 'manga', price: 7.99, badge: 'sale', color: ['#1a0a2e', '#8b1a4a'], vol: 'Vol. 14' },
-        { id: 11, name: 'Maus', author: 'Art Spiegelman', type: 'livro', price: 16.99, badge: 'hot', color: ['#2d2d2d', '#f0f0f0'], vol: 'Completo' },
-        { id: 12, name: 'Blue Period', author: 'Tsubasa Yamaguchi', type: 'manga', price: 7.49, badge: 'new', color: ['#1a3a6e', '#4a90d9'], vol: 'Vol. 14' },
+        { id: 12, name: 'Blue Period Vol. 14', author: 'Tsubasa Yamaguchi', type: 'manga', price: 7.49, badge: 'new', color: ['#1a3a6e', '#4a90d9'], vol: 'Vol. 14' },
       ],
 
       cart: JSON.parse(localStorage.getItem('mv_cart') || '[]'),
@@ -990,7 +987,7 @@
             </div>
           </div>
           <div class="cart-item-info">
-            <div class="cart-item-type">${item.type === 'manga' ? '// Mangá' : '// Livro'}</div>
+            <div class="cart-item-type">// Mangá</div>
             <div class="cart-item-name">${item.name}</div>
             <div class="cart-item-author">${item.author} · ${item.vol}</div>
             <div class="qty-control">
@@ -1035,7 +1032,7 @@
             ${p.name}<br><span style="font-size:0.45rem;opacity:0.7;">${p.vol}</span>
           </div>
           <div class="mini-info">
-            <div class="mini-type">${p.type === 'manga' ? '// Mangá' : '// Livro'}</div>
+            <div class="mini-type">// Mangá</div>
             <div class="mini-name">${p.name}</div>
             <div class="mini-author">${p.author}</div>
             <div class="mini-bottom">

@@ -102,7 +102,7 @@ $basePath    = '';
     .listing-card:hover { border-color: var(--black); transform: translateY(-6px); box-shadow: 0 20px 48px rgba(0,0,0,0.1); }
     .listing-badge { position: absolute; top: 14px; left: 14px; font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; z-index: 2; }
     .badge-new { background: var(--accent); color: white; }
-    .badge-hot { background: var(--black); color: white; }
+    .badge-hot { background: #333333; color: white; }
     .badge-sale { background: #f0a500; color: white; }
     .listing-img-wrap { aspect-ratio: 3/4; overflow: hidden; position: relative; }
     .listing-cover { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 16px 12px; font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; color: white; text-align: center; line-height: 1.25; transition: transform 0.3s; }
@@ -328,7 +328,7 @@ $basePath    = '';
           </div>
           <div class="form-group">
             <label class="form-label">Autor</label>
-            <input type="text" class="form-input" id="sell-author" placeholder="Autor do mangá/livro">
+            <input type="text" class="form-input" id="sell-author" placeholder="Autor do mangá">
           </div>
           <div class="form-group">
             <label class="form-label">Descrição</label>
@@ -392,7 +392,7 @@ $basePath    = '';
             var badgeLabel = p.badge === 'new' ? 'Novo' : p.badge === 'hot' ? '🔥 Hot' : 'Sale';
             badgeHtml = '<span class="listing-badge ' + badgeClass + '">' + badgeLabel + '</span>';
           }
-          var typeLabel = p.categoria_slug === 'manga' ? '// Mangá' : p.categoria_slug === 'livro' ? '// Livro' : '// ' + p.categoria_nome;
+          var typeLabel = '// Mangá';
           var oldPriceHtml = p.preco_antigo ? '<div class="listing-old-price">' + parseFloat(p.preco_antigo).toFixed(2) + '€</div>' : '';
 
           var coverHtml = '';
@@ -558,7 +558,7 @@ $basePath    = '';
           $('#drawer-badge').hide();
         }
 
-        var typeLabel = p.categoria_slug === 'manga' ? '// Mangá' : p.categoria_slug === 'livro' ? '// Livro' : '// ' + p.categoria_nome;
+        var typeLabel = '// Mangá';
         $('#drawer-type').text(typeLabel);
         $('#drawer-title').text(p.nome + (p.volume ? ' — ' + p.volume : ''));
         $('#drawer-author').text('por ' + p.autor);

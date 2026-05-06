@@ -307,16 +307,16 @@ $basePath    = '';
     .hero-manga-stack {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      max-width: 420px;
+      gap: 20px;
+      max-width: 520px;
       width: 100%;
     }
 
     .hero-manga-card {
       aspect-ratio: 3/4;
-      border-radius: 8px;
+      border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
       transition: transform 0.3s;
       position: relative;
     }
@@ -1279,7 +1279,7 @@ $basePath    = '';
       <div class="hero-eyebrow">Novo Universo · 2026</div>
       <h1 class="hero-title">
         O Futuro dos<br>
-        <em>Mangás &amp; Livros</em><br>
+        <em>Mangás</em><br>
         chegou.
       </h1>
       <p class="hero-desc">
@@ -1323,7 +1323,7 @@ $basePath    = '';
     <div class="product-grid" id="product-grid"></div>
   </section>
 
-  <section class="banner-section reveal" id="livros">
+  <section class="banner-section reveal" id="edicos-especiais">
     <div>
       <div class="banner-eyebrow">// Edições Especiais · 2026</div>
       <h2 class="banner-title">Mergulha no<br>Universo dos<br>Mangás</h2>
@@ -1388,8 +1388,8 @@ $basePath    = '';
     <div class="footer-grid">
       <div class="footer-brand">
         <span class="logo">Manga<span>Verse</span></span>
-        <p>A loja de mangás e livros do futuro. Curadoria premium, envio rápido e uma comunidade apaixonada por cultura
-          japonesa e literatura.</p>
+        <p>A loja de mangás do futuro. Curadoria premium, envio rápido e uma comunidade apaixonada por cultura
+          japonesa.</p>
       </div>
       <div class="footer-col">
         <h4>Loja</h4>
@@ -1429,18 +1429,15 @@ $basePath    = '';
   <script>
     const Model = {
       products: [
-        { id: 1, name: 'One Piece', author: 'Eiichiro Oda', type: 'manga', price: 7.99, oldPrice: null, badge: 'hot', color: ['#e8002d', '#f7a500'], vol: 'Vol. 104', imagem: 'one piece vol 104.jpg' },
-        { id: 2, name: 'Jujutsu Kaisen', author: 'Gege Akutami', type: 'manga', price: 6.99, oldPrice: null, badge: 'new', color: ['#0057ff', '#000'], vol: 'Vol. 24', imagem: 'jujutsu kaisen vol 24.jpg' },
-        { id: 3, name: 'Chainsaw Man', author: 'Tatsuki Fujimoto', type: 'manga', price: 7.49, oldPrice: 9.99, badge: 'sale', color: ['#222', '#e8002d'], vol: 'Vol. 16', imagem: 'chainsaw man vol16.jpg' },
-        { id: 4, name: 'Berserk', author: 'Kentaro Miura', type: 'manga', price: 12.99, oldPrice: null, badge: null, color: ['#1a1a2e', '#c5a028'], vol: 'Vol. 41', imagem: 'berserk vol 41.jpg' },
-        { id: 5, name: 'Attack on Titan', author: 'Hajime Isayama', type: 'manga', price: 8.99, oldPrice: 10.99, badge: 'sale', color: ['#3a3a3a', '#8b5a2b'], vol: 'Vol. 34', imagem: 'attack on titan vol 32.jpg' },
-        { id: 6, name: 'Demon Slayer', author: 'Koyoharu Gotouge', type: 'manga', price: 6.49, oldPrice: null, badge: 'new', color: ['#1a472a', '#c21807'], vol: 'Vol. 23', imagem: 'demon slayer vol 23.jpg' },
-        { id: 7, name: 'Duna', author: 'Frank Herbert', type: 'livro', price: 14.99, oldPrice: 18.99, badge: 'sale', color: ['#c5a028', '#8b3a0a'], vol: 'Ed. Especial', imagem: null },
-        { id: 8, name: 'Neuromancer', author: 'William Gibson', type: 'livro', price: 11.99, oldPrice: null, badge: 'new', color: ['#0d1117', '#00ff88'], vol: 'Edição 2026', imagem: null },
-        { id: 9, name: 'Vinland Saga', author: 'Makoto Yukimura', type: 'manga', price: 9.99, oldPrice: null, badge: null, color: ['#2c4a6e', '#d4a017'], vol: 'Vol. 27', imagem: 'vinland saga vol 27.jpg' },
-        { id: 10, name: 'Tokyo Ghoul', author: 'Sui Ishida', type: 'manga', price: 7.99, oldPrice: 9.49, badge: 'sale', color: ['#1a0a2e', '#8b1a4a'], vol: 'Vol. 14', imagem: 'tokyo ghoul vol 14.jpg' },
-        { id: 11, name: 'Maus', author: 'Art Spiegelman', type: 'livro', price: 16.99, oldPrice: null, badge: 'hot', color: ['#2d2d2d', '#f0f0f0'], vol: 'Completo', imagem: null },
-        { id: 12, name: 'Blue Period', author: 'Tsubasa Yamaguchi', type: 'manga', price: 7.49, oldPrice: null, badge: 'new', color: ['#1a3a6e', '#4a90d9'], vol: 'Vol. 14', imagem: null },
+        { id: 1, name: 'One Piece', author: 'Eiichiro Oda', type: 'manga', price: 7.99, oldPrice: null, badge: 'hot', color: ['#e8002d', '#f7a500'], vol: 'Vol. 104', imagem: 'one piece vol 104.jpg', desc: 'Acompanha Luffy e sua tripulação em busca do tesouro lendário. Uma aventura épica cheia de ação, amizade e sonhos impossíveis.' },
+        { id: 2, name: 'Jujutsu Kaisen', author: 'Gege Akutami', type: 'manga', price: 6.99, oldPrice: null, badge: 'new', color: ['#0057ff', '#000'], vol: 'Vol. 24', imagem: 'jujutsu kaisen vol 24.jpg', desc: 'Yuji Itadori mergulha no mundo perigoso do jujutsu, enfrentando maldições e desvendando segredos sombrios. Ação intensa e misticismo envolvente.' },
+        { id: 3, name: 'Chainsaw Man', author: 'Tatsuki Fujimoto', type: 'manga', price: 7.49, oldPrice: 9.99, badge: 'sale', color: ['#222', '#e8002d'], vol: 'Vol. 16', imagem: 'chainsaw man vol16.jpg', desc: 'Denji, um jovem desesperado, ganha poderes sobrenaturais para caçar demónios. Uma história sombria, visceral e cheia de reviravoltas.' },
+        { id: 4, name: 'Berserk', author: 'Kentaro Miura', type: 'manga', price: 12.99, oldPrice: null, badge: null, color: ['#1a1a2e', '#c5a028'], vol: 'Vol. 41', imagem: 'berserk vol 41.jpg', desc: 'A jornada épica de Guts numa tragédia medieval sombria. Obra-prima da arte manga, questionando destino e resistência humana.' },
+        { id: 5, name: 'Attack on Titan', author: 'Hajime Isayama', type: 'manga', price: 8.99, oldPrice: 10.99, badge: 'sale', color: ['#3a3a3a', '#8b5a2b'], vol: 'Vol. 34', imagem: 'attack on titan vol 32.jpg', desc: 'Titãs gigantes atacam a humanidade encurralada em muros. Um thriller estratégico repleto de mistérios e combat espetacular.' },
+        { id: 6, name: 'Demon Slayer', author: 'Koyoharu Gotouge', type: 'manga', price: 6.49, oldPrice: null, badge: 'new', color: ['#1a472a', '#c21807'], vol: 'Vol. 23', imagem: 'demon slayer vol 23.jpg', desc: 'Tanjiro luta para salvar sua irmã transformada em demónio. Ação belíssima com ilustrações respirantes e coração emocional.' },
+        { id: 9, name: 'Vinland Saga', author: 'Makoto Yukimura', type: 'manga', price: 9.99, oldPrice: null, badge: null, color: ['#2c4a6e', '#d4a017'], vol: 'Vol. 27', imagem: 'vinland saga vol 27.jpg', desc: 'Uma saga histórica sobre vingança e redenção na era viking. Narrativa profunda explorando o significado da vida e guerra.' },
+        { id: 10, name: 'Tokyo Ghoul', author: 'Sui Ishida', type: 'manga', price: 7.99, oldPrice: 9.49, badge: 'sale', color: ['#1a0a2e', '#8b1a4a'], vol: 'Vol. 14', imagem: 'tokyo ghoul vol 14.jpg', desc: 'Ken Kaneki descobre um mundo oculto de criaturas sobrenaturais em Tóquio. Psicológico, sombrio e perturbadoramente cativante.' },
+        { id: 12, name: 'Blue Period', author: 'Tsubasa Yamaguchi', type: 'manga', price: 7.49, oldPrice: null, badge: 'new', color: ['#1a3a6e', '#4a90d9'], vol: 'Vol. 14', imagem: 'blue period vol 14.jpg', desc: 'Um estudante descobre paixão pela arte enquanto questiona seu futuro. Obra inspiradora sobre criatividade, ambição e identidade pessoal.' },
       ],
 
       cart: JSON.parse(localStorage.getItem('mv_cart') || '[]'),
@@ -1522,7 +1519,7 @@ $basePath    = '';
             ${coverHtml}
           </div>
           <div class="product-info">
-            <div class="product-type">${p.type === 'manga' ? '// Mangá' : '// Livro'}</div>
+            <div class="product-type">// Mangá</div>
             <div class="product-name">${p.name}</div>
             <div class="product-author">${p.author}</div>
             <div class="product-bottom">
@@ -1705,7 +1702,7 @@ $basePath    = '';
           badgeEl.style.display = 'none';
         }
 
-        document.getElementById('drawer-type').textContent = p.type === 'manga' ? '// Mangá' : '// Livro';
+        document.getElementById('drawer-type').textContent = '// Mangá';
         document.getElementById('drawer-title').textContent = p.name + (p.vol ? ' — ' + p.vol : '');
         document.getElementById('drawer-author').textContent = 'por ' + p.author;
         document.getElementById('drawer-desc').textContent = 'Sem descrição disponível.';
