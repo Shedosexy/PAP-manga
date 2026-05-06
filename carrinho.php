@@ -54,23 +54,6 @@ $basePath    = '';
         overflow-x: hidden;
     }
 
-    /* ─── NAVBAR ─── */
-    nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        background: rgba(255, 255, 255, 0.92);
-        backdrop-filter: blur(16px);
-        border-bottom: 1.5px solid var(--light-grey);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 48px;
-        height: 72px;
-    }
-
     /* navbar via assets/includes/navbar.php */
 
     .page-wrap {
@@ -724,10 +707,6 @@ $basePath    = '';
     }
 
     @media (max-width: 768px) {
-        nav {
-            padding: 0 24px;
-        }
-
         .cart-hero {
             min-height: auto;
             padding: 60px 24px;

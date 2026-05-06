@@ -976,32 +976,14 @@ $basePath    = '';
         }
     }
 
-    @media (max-width: 1180px) {
-        .price-inputs {
-            display: grid;
-            padding: 24px 24px 0;
-            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-        }
-
-        .sidebar-search input,
-        .price-input,
-            border-bottom: none;
-        }
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 12px;
     /* ─── PRODUCT DRAWER ─── */
     .drawer-overlay {
         position: fixed;
-        .mp-sidebar-head {
-            grid-column: 1 / -1;
-            margin-bottom: 0;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
         backdrop-filter: blur(4px);
         z-index: 3000;
-        .mp-sidebar .sidebar-section {
-            margin-bottom: 0;
-        }
-
-        .mp-sidebar .categories-section {
+        opacity: 0;
         pointer-events: none;
         transition: opacity 0.3s;
     }
@@ -1012,6 +994,10 @@ $basePath    = '';
     }
 
     .product-drawer {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
         width: 460px;
         max-width: 100vw;
         background: var(--white);
@@ -1036,15 +1022,13 @@ $basePath    = '';
         padding: 28px;
         position: relative;
         flex-shrink: 0;
-            padding: 20px;
         overflow: hidden;
-    }
     }
 
     .drawer-cover-media img {
         width: 100%;
         height: 100%;
-            padding: 0 0 24px;
+        object-fit: cover;
         display: block;
     }
 
@@ -1256,11 +1240,8 @@ $basePath    = '';
 
     @media (max-width: 520px) {
         .product-drawer {
-            grid-template-columns: 1fr;
+            width: 100vw;
         }
-
-        .price-sep {
-            display: none;
     }
     </style>
 </head>

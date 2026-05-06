@@ -52,118 +52,6 @@ $basePath    = '';
       overflow-x: hidden;
     }
 
-    /* ─── NAVBAR ─── */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(16px);
-      border-bottom: 1.5px solid var(--light-grey);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 48px;
-      height: 72px;
-    }
-
-    .nav-logo {
-      font-family: var(--font-display);
-      font-size: 1.35rem;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      color: var(--black);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .nav-logo span {
-      color: var(--accent);
-    }
-
-    .nav-logo .logo-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--accent);
-      border-radius: 50%;
-      animation: pulse 1.8s infinite;
-    }
-
-    @keyframes pulse {
-
-      0%,
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-
-      50% {
-        opacity: 0.4;
-        transform: scale(1.5);
-      }
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 36px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--grey);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover {
-      color: var(--black);
-    }
-
-    .cart-btn {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--black);
-      color: var(--white) !important;
-      padding: 10px 20px;
-      border-radius: 4px;
-      font-family: var(--font-mono) !important;
-      font-size: 0.72rem !important;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
-      position: relative;
-    }
-
-    .cart-btn:hover {
-      background: var(--accent) !important;
-      transform: translateY(-1px);
-    }
-
-    .cart-count {
-      background: var(--accent);
-      color: #fff;
-      border-radius: 50%;
-      width: 18px;
-      height: 18px;
-      font-size: 0.65rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-mono);
-      font-weight: 700;
-    }
-
     .hero {
       min-height: 46vh;
       padding: 72px 80px 64px;
@@ -922,10 +810,6 @@ $basePath    = '';
     }
 
     @media (max-width: 900px) {
-      nav {
-        padding: 0 24px;
-      }
-
       .hero {
         min-height: auto;
         padding: 60px 24px;
@@ -960,27 +844,6 @@ $basePath    = '';
       }
     }
 
-    /* ─── DARK MODE TOGGLE ─── */
-    .dark-mode-toggle {
-      background: none;
-      border: 1.5px solid var(--light-grey);
-      border-radius: 50%;
-      width: 36px;
-      height: 36px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.25s;
-      font-size: 1rem;
-      padding: 0;
-    }
-
-    .dark-mode-toggle:hover {
-      border-color: var(--black);
-      transform: scale(1.1);
-    }
-
     /* ═══ DARK MODE ═══ */
     body.dark-mode {
       --white: #0e0e0e;
@@ -991,42 +854,6 @@ $basePath    = '';
       --card-border: #333;
       background: #0e0e0e !important;
       color: #f0f0f0 !important;
-    }
-
-    body.dark-mode nav {
-      background: rgba(14, 14, 14, 0.95) !important;
-      border-bottom-color: #2a2a2a !important;
-    }
-
-    body.dark-mode .nav-logo {
-      color: #f0f0f0;
-    }
-
-    body.dark-mode .nav-links a {
-      color: #999;
-    }
-
-    body.dark-mode .nav-links a:hover,
-    body.dark-mode .nav-links a.active {
-      color: #f0f0f0;
-    }
-
-    body.dark-mode .cart-btn {
-      background: #f0f0f0;
-      color: #0e0e0e !important;
-    }
-
-    body.dark-mode .cart-btn:hover {
-      background: #e8002d !important;
-      color: #fff !important;
-    }
-
-    body.dark-mode .dark-mode-toggle {
-      border-color: #444;
-    }
-
-    body.dark-mode .dark-mode-toggle:hover {
-      border-color: #f0f0f0;
     }
 
     /* Hero — keep dark */
@@ -1442,6 +1269,8 @@ $basePath    = '';
 
 
   <script>
+    const isLoggedIn = <?= $user ? 'true' : 'false' ?>;
+
     const Model = {
       products: [
         { id: 1, name: 'One Piece', author: 'Eiichiro Oda', type: 'manga', price: 7.99, oldPrice: null, badge: 'hot', color: ['#e8002d', '#f7a500'], vol: 'Vol. 104', imagem: 'assets/images/one piece vol 104.jpg', desc: 'A aventura épica de Monkey D. Luffy para se tornar o Rei dos Piratas.' },
@@ -1609,6 +1438,16 @@ $basePath    = '';
         document.querySelectorAll('.add-cart-btn').forEach(btn => {
           btn.addEventListener('click', e => {
             e.stopPropagation();
+            if (!isLoggedIn) {
+              Swal.fire({
+                icon: 'info',
+                title: 'Login necessário',
+                text: 'Precisa de fazer login para adicionar ao carrinho.',
+                confirmButtonColor: '#0a0a0a',
+                confirmButtonText: 'Ir para Login'
+              }).then(() => { window.location.href = 'login.php'; });
+              return;
+            }
             const id = parseInt(btn.dataset.id);
             const product = Model.addToCart(id);
             View.updateCartCount(Model.getCartCount());
@@ -1646,7 +1485,7 @@ $basePath    = '';
       },
 
       _bindScrollReveal() {
-        const obs = new IntersectionObserver(entries => {
+        const obs = new window.IntersectionObserver(entries => {
           entries.forEach(entry => {
             if (entry.isIntersecting) entry.target.classList.add('visible');
           });
@@ -1662,7 +1501,7 @@ $basePath    = '';
     const origRenderProducts = View.renderProducts.bind(View);
     View.renderProducts = function (products) {
       origRenderProducts(products);
-      const obs = new IntersectionObserver(entries => {
+      const obs = new window.IntersectionObserver(entries => {
         entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
       }, { threshold: 0.1 });
       document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
@@ -1771,6 +1610,16 @@ $basePath    = '';
 
       document.getElementById('drawer-add-btn').addEventListener('click', function() {
         if (!_drawerProduct) return;
+        if (!isLoggedIn) {
+          Swal.fire({
+            icon: 'info',
+            title: 'Login necessário',
+            text: 'Precisa de fazer login para adicionar ao carrinho.',
+            confirmButtonColor: '#0a0a0a',
+            confirmButtonText: 'Ir para Login'
+          }).then(function() { window.location.href = 'login.php'; });
+          return;
+        }
         var btn = this;
         var product = Model.addToCart(_drawerProduct.id);
         View.updateCartCount(Model.getCartCount());

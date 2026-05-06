@@ -191,56 +191,70 @@ $registosDiarios = $pdo->query("
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 16px;
+      gap: 12px;
     }
     .stat-card {
-      background: rgba(255,255,255,0.95);
+      background: #fff;
       border: 1.5px solid var(--card-border);
-      border-radius: 18px;
-      padding: 16px;
+      border-radius: 14px;
+      padding: 14px 16px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 6px;
       overflow: hidden;
-      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--sc-color, var(--card-border));
+      border-radius: 14px 14px 0 0;
     }
     .stat-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
-      border-color: rgba(232,0,45,0.22);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.07);
     }
-    .stat-card.accent { border-color: var(--accent); background: #fff5f6; }
+    .stat-card.sc-red    { --sc-color: #e8002d; }
+    .stat-card.sc-blue   { --sc-color: #0057ff; }
+    .stat-card.sc-green  { --sc-color: #1a9c5b; }
+    .stat-card.sc-orange { --sc-color: #f97316; }
+    .stat-card.sc-purple { --sc-color: #7c3aed; }
+    .stat-card.sc-teal   { --sc-color: #0ea5e9; }
     .stat-icon {
       font-family: var(--font-mono);
-      font-size: 0.64rem;
-      letter-spacing: 0.16em;
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--sc-color, var(--grey));
+      font-weight: 700;
     }
     .stat-value {
       font-family: var(--font-display);
-      font-size: clamp(1.25rem, 1.5vw, 1.75rem);
+      font-size: clamp(1.1rem, 1.4vw, 1.5rem);
       font-weight: 900;
       line-height: 1;
+      color: var(--black);
     }
-    .stat-card.accent .stat-value { color: var(--accent); }
     .stat-label {
-      font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.15em;
+      font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.14em;
       text-transform: uppercase; color: var(--grey);
     }
     .stat-link {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      margin-top: auto;
+      gap: 5px;
+      margin-top: 4px;
       font-family: var(--font-mono);
-      font-size: 0.55rem;
-      letter-spacing: 0.12em;
+      font-size: 0.52rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--sc-color, var(--accent));
       text-decoration: none;
+      opacity: 0.75;
       transition: opacity 0.2s;
-      opacity: 0.78;
     }
     .stat-link:hover { opacity: 1; }
 
@@ -397,37 +411,37 @@ $registosDiarios = $pdo->query("
   <!-- ─── STATS ─── -->
   <section class="stats-section">
     <div class="stats-grid">
-      <div class="stat-card">
+      <div class="stat-card sc-blue">
         <div class="stat-icon">UT</div>
         <div class="stat-value"><?= number_format($stats['utilizadores']) ?></div>
         <div class="stat-label">Utilizadores</div>
         <a href="#" class="stat-link">Ver todos →</a>
       </div>
-      <div class="stat-card">
+      <div class="stat-card sc-teal">
         <div class="stat-icon">PD</div>
         <div class="stat-value"><?= number_format($stats['produtos']) ?></div>
         <div class="stat-label">Produtos</div>
         <a href="../marketplace.php" class="stat-link">Ver loja →</a>
       </div>
-      <div class="stat-card">
+      <div class="stat-card sc-orange">
         <div class="stat-icon">EC</div>
         <div class="stat-value"><?= number_format($stats['encomendas']) ?></div>
         <div class="stat-label">Encomendas</div>
         <a href="#" class="stat-link">Ver todas →</a>
       </div>
-      <div class="stat-card">
+      <div class="stat-card sc-purple">
         <div class="stat-icon">TK</div>
         <div class="stat-value"><?= number_format($stats['tickets']) ?></div>
         <div class="stat-label">Tickets Suporte</div>
         <a href="../suporte.php" class="stat-link">Ver suporte →</a>
       </div>
-      <div class="stat-card">
+      <div class="stat-card sc-green">
         <div class="stat-icon">CT</div>
         <div class="stat-value"><?= number_format($stats['contactos']) ?></div>
         <div class="stat-label">Contactos</div>
         <a href="../contacto.php" class="stat-link">Ver formulário →</a>
       </div>
-      <div class="stat-card accent">
+      <div class="stat-card sc-red">
         <div class="stat-icon">€</div>
         <div class="stat-value"><?= number_format($stats['receita'], 2, ',', '.') ?>€</div>
         <div class="stat-label">Receita Total</div>
