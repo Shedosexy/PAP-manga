@@ -67,8 +67,8 @@ $basePath    = '';
     .form-input:focus, .form-textarea:focus, .form-select:focus { border-color: var(--black); }
     .form-textarea { min-height: 120px; resize: vertical; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .form-submit { background: var(--black); color: white; padding: 14px 32px; border: none; border-radius: 8px; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
-    .form-submit:hover { background: var(--accent); box-shadow: 0 8px 24px var(--glow); }
+    .form-submit { background: var(--accent); color: white; padding: 14px 32px; border: none; border-radius: 8px; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; font-weight: 600; box-shadow: 0 4px 12px rgba(232, 0, 45, 0.2); }
+    .form-submit:hover { background: #d60028; box-shadow: 0 8px 24px rgba(232, 0, 45, 0.3); transform: translateY(-2px); }
 
     /* ─── TICKET LIST ─── */
     .ticket-list { display: flex; flex-direction: column; gap: 16px; }

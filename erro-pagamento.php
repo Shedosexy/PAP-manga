@@ -37,7 +37,7 @@ $basePath    = '';
       <p class="erro-msg"><?= htmlspecialchars($_GET['motivo']) ?></p>
     <?php endif; ?>
     <div style="margin-top:28px">
-      <a href="carrinho.html" class="btn-accent">Voltar ao Carrinho</a>
+      <a href="carrinho.php" class="btn-accent">Voltar ao Carrinho</a>
       <a href="index.php" class="btn-outline">Página Inicial</a>
     </div>
   </div>

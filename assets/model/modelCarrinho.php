@@ -38,6 +38,11 @@ class ModelCarrinho {
             return ['success' => false, 'message' => 'Produto não encontrado.'];
         }
 
+        // Validar se há stock suficiente
+        if ($quantidade > $produto['stock']) {
+            return ['success' => false, 'message' => 'Stock insuficiente. Disponível: ' . $produto['stock'] . ' unidades.'];
+        }
+
         // UPSERT: inserir ou atualizar quantidade
         $stmt = $db->prepare("
             INSERT INTO carrinho (utilizador_id, produto_id, quantidade)

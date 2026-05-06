@@ -54,7 +54,7 @@ $basePath    = '';
 
     .hero {
       min-height: 46vh;
-      padding: 72px 80px 64px;
+      padding: 120px 80px 64px;
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
       align-items: center;

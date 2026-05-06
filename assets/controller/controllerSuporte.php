@@ -76,7 +76,7 @@ switch ($acao) {
             jsonResponse(['success' => false, 'message' => 'Ticket não encontrado.'], 404);
         }
 
-        if (($_SESSION['user_role'] ?? '') !== 'admin' && $ticket['utilizador_id'] != $_SESSION['user_id']) {
+        if (($_SESSION['user_role'] ?? '') !== 'admin' && (int)$ticket['utilizador_id'] !== (int)$_SESSION['user_id']) {
             jsonResponse(['success' => false, 'message' => 'Acesso negado.'], 403);
         }
 
@@ -101,7 +101,7 @@ switch ($acao) {
         }
 
         $isAdmin = (($_SESSION['user_role'] ?? '') === 'admin');
-        if (!$isAdmin && $ticket['utilizador_id'] != $_SESSION['user_id']) {
+        if (!$isAdmin && (int)$ticket['utilizador_id'] !== (int)$_SESSION['user_id']) {
             jsonResponse(['success' => false, 'message' => 'Acesso negado.'], 403);
         }
 
@@ -124,7 +124,7 @@ switch ($acao) {
         }
 
         $isAdmin = (($_SESSION['user_role'] ?? '') === 'admin');
-        if (!$isAdmin && $ticket['utilizador_id'] != $_SESSION['user_id']) {
+        if (!$isAdmin && (int)$ticket['utilizador_id'] !== (int)$_SESSION['user_id']) {
             jsonResponse(['success' => false, 'message' => 'Acesso negado.'], 403);
         }
 

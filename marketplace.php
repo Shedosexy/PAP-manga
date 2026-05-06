@@ -1914,6 +1914,7 @@ $basePath    = '';
                 icon: 'warning',
                 title: 'Eliminar produto?',
                 text: 'Esta ação remove o produto do marketplace.',
+                position: 'top',
                 showCancelButton: true,
                 confirmButtonText: 'Eliminar',
                 cancelButtonText: 'Cancelar',
@@ -1937,6 +1938,7 @@ $basePath    = '';
                                 icon: 'success',
                                 title: 'Eliminado!',
                                 text: 'O produto foi removido do marketplace.',
+                                position: 'top',
                                 confirmButtonColor: '#0a0a0a'
                             });
                             loadProducts();
@@ -1945,6 +1947,7 @@ $basePath    = '';
                                 icon: 'error',
                                 title: 'Erro',
                                 text: res.message,
+                                position: 'top',
                                 confirmButtonColor: '#e8002d'
                             });
                         }
@@ -1956,6 +1959,7 @@ $basePath    = '';
                             title: 'Erro',
                             text: data.message ||
                                 'Não foi possível eliminar o produto.',
+                            position: 'top',
                             confirmButtonColor: '#e8002d'
                         });
                     }

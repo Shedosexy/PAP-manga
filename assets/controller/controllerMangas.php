@@ -16,8 +16,8 @@ switch ($acao) {
             'categoria' => $_GET['categoria'] ?? '',
             'badge'     => $_GET['badge'] ?? '',
             'pesquisa'  => $_GET['pesquisa'] ?? '',
-            'preco_min' => $_GET['preco_min'] ?? '',
-            'preco_max' => $_GET['preco_max'] ?? '',
+            'preco_min' => !empty($_GET['preco_min']) ? floatval($_GET['preco_min']) : null,
+            'preco_max' => !empty($_GET['preco_max']) ? floatval($_GET['preco_max']) : null,
             'condicao'  => $_GET['condicao'] ?? '',
             'ordenar'   => $_GET['ordenar'] ?? 'recente',
         ];

@@ -31,6 +31,10 @@ switch ($acao) {
         if ($produtoId <= 0) {
             jsonResponse(['success' => false, 'message' => 'Produto inválido.'], 400);
         }
+        
+        if ($quantidade <= 0) {
+            jsonResponse(['success' => false, 'message' => 'Quantidade deve ser maior que zero.'], 400);
+        }
 
         $result = ModelCarrinho::adicionar($userId, $produtoId, $quantidade);
         $result['total_itens'] = ModelCarrinho::contar($userId);
@@ -43,6 +47,10 @@ switch ($acao) {
 
         if ($produtoId <= 0) {
             jsonResponse(['success' => false, 'message' => 'Produto inválido.'], 400);
+        }
+        
+        if ($quantidade < 0) {
+            jsonResponse(['success' => false, 'message' => 'Quantidade não pode ser negativa.'], 400);
         }
 
         $result = ModelCarrinho::atualizarQtd($userId, $produtoId, $quantidade);
@@ -80,6 +88,11 @@ switch ($acao) {
         $codigoPostal = trim($_POST['codigo_postal'] ?? '');
         $telefone     = trim($_POST['telefone'] ?? '');
         $codigoPromo  = $_POST['codigo_promo'] ?? '';
+
+        // Validação de dados de entrega obrigatórios
+        if (empty($morada) || empty($cidade) || empty($codigoPostal) || empty($telefone)) {
+            jsonResponse(['success' => false, 'message' => 'Todos os dados de entrega (morada, cidade, código postal, telefone) são obrigatórios.'], 400);
+        }
 
         $result = ModelCarrinho::criarEncomenda($userId, $stripeToken, $metodo, $morada, $cidade, $codigoPostal, $telefone);
 

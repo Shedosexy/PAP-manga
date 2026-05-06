@@ -39,7 +39,7 @@ $basePath    = '';
       <p>O teu pagamento foi processado com sucesso.</p>
     <?php endif; ?>
     <div style="margin-top:28px">
-      <a href="marketplace.html" class="btn-accent">Continuar a Comprar</a>
+      <a href="marketplace.php" class="btn-accent">Continuar a Comprar</a>
       <a href="index.php" class="btn-outline">Página Inicial</a>
     </div>
   </div>
