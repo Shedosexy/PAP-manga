@@ -54,23 +54,6 @@ $basePath    = '';
         overflow-x: hidden;
     }
 
-    /* ─── NAVBAR ─── */
-    nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        background: rgba(255, 255, 255, 0.92);
-        backdrop-filter: blur(16px);
-        border-bottom: 1.5px solid var(--light-grey);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 48px;
-        height: 72px;
-    }
-
     /* navbar via assets/includes/navbar.php */
 
     .page-wrap {
@@ -244,35 +227,67 @@ $basePath    = '';
     /* ─── LAYOUT ─── */
     .mp-layout {
         display: grid;
-        grid-template-columns: 280px 1fr;
-        gap: 0;
+        grid-template-columns: minmax(300px, 328px) minmax(0, 1fr);
+        gap: 24px;
         align-items: start;
         min-height: 80vh;
+        padding: 32px 32px 0;
     }
 
     /* ─── SIDEBAR ─── */
     .mp-sidebar {
-        padding: 40px 32px;
-        border-right: 1.5px solid var(--light-grey);
+        padding: 24px;
+        border: 1.5px solid var(--card-border);
+        border-radius: 20px;
+        background: var(--off-white);
         position: sticky;
-        top: 72px;
-        max-height: calc(100vh - 72px);
+        top: 96px;
+        max-height: calc(100vh - 128px);
         overflow-y: auto;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+    }
+
+    .mp-sidebar-head {
+        margin-bottom: 20px;
+    }
+
+    .sidebar-kicker {
+        font-family: var(--font-mono);
+        font-size: 0.58rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 10px;
+    }
+
+    .sidebar-title {
+        font-family: var(--font-display);
+        font-size: 1.18rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .sidebar-desc {
+        font-size: 0.86rem;
+        line-height: 1.65;
+        color: var(--grey);
     }
 
     .sidebar-section {
-        margin-bottom: 36px;
+        margin-bottom: 14px;
+        padding: 16px;
+        border: 1.5px solid var(--card-border);
+        border-radius: 14px;
+        background: var(--white);
     }
 
     .sidebar-section-title {
         font-family: var(--font-mono);
-        font-size: 0.6rem;
-        letter-spacing: 0.22em;
+        font-size: 0.58rem;
+        letter-spacing: 0.18em;
         text-transform: uppercase;
-        color: var(--grey);
-        margin-bottom: 16px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid var(--light-grey);
+        color: var(--accent);
+        margin-bottom: 12px;
     }
 
     .sidebar-search {
@@ -281,12 +296,12 @@ $basePath    = '';
 
     .sidebar-search input {
         width: 100%;
-        padding: 10px 14px 10px 36px;
+        padding: 12px 14px 12px 38px;
         border: 1.5px solid var(--card-border);
-        border-radius: 6px;
+        border-radius: 10px;
         font-family: var(--font-mono);
-        font-size: 0.7rem;
-        letter-spacing: 0.05em;
+        font-size: 0.74rem;
+        letter-spacing: 0.04em;
         outline: none;
         color: var(--black);
         transition: border-color 0.2s;
@@ -300,7 +315,7 @@ $basePath    = '';
     .sidebar-search::before {
         content: '⌕';
         position: absolute;
-        left: 11px;
+        left: 14px;
         top: 50%;
         transform: translateY(-50%);
         color: var(--grey);
@@ -309,24 +324,24 @@ $basePath    = '';
     }
 
     .cat-list {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
+        display: grid;
+        gap: 8px;
     }
 
     .cat-item {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 9px 12px;
-        border-radius: 6px;
+        padding: 12px 14px;
+        border-radius: 12px;
         cursor: pointer;
         transition: all 0.18s;
-        border: 1.5px solid transparent;
+        border: 1.5px solid var(--light-grey);
+        background: var(--off-white);
     }
 
     .cat-item:hover {
-        background: var(--off-white);
+        border-color: var(--black);
     }
 
     .cat-item.active {
@@ -345,37 +360,39 @@ $basePath    = '';
 
     .cat-name {
         font-family: var(--font-mono);
-        font-size: 0.68rem;
-        letter-spacing: 0.1em;
+        font-size: 0.64rem;
+        letter-spacing: 0.12em;
         text-transform: uppercase;
         color: var(--black);
     }
 
     .cat-count {
         font-family: var(--font-mono);
-        font-size: 0.6rem;
+        font-size: 0.58rem;
         background: var(--light-grey);
-        padding: 2px 8px;
+        padding: 3px 8px;
         border-radius: 100px;
         color: var(--grey);
     }
 
     .price-inputs {
-        display: flex;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
         gap: 10px;
         align-items: center;
     }
 
     .price-input {
-        flex: 1;
-        padding: 8px 10px;
+        min-width: 0;
+        padding: 11px 12px;
         border: 1.5px solid var(--card-border);
-        border-radius: 6px;
+        border-radius: 10px;
         font-family: var(--font-mono);
-        font-size: 0.7rem;
+        font-size: 0.72rem;
         outline: none;
         color: var(--black);
         transition: border-color 0.2s;
+        background: var(--white);
     }
 
     .price-input:focus {
@@ -393,31 +410,34 @@ $basePath    = '';
         background: var(--black);
         color: white;
         border: none;
-        padding: 12px;
-        border-radius: 6px;
+        padding: 14px 16px;
+        border-radius: 12px;
         font-family: var(--font-mono);
         font-size: 0.68rem;
         letter-spacing: 0.15em;
         text-transform: uppercase;
         cursor: pointer;
-        transition: background 0.2s;
-        margin-top: 8px;
+        transition: background 0.2s, transform 0.18s, box-shadow 0.18s;
+        margin-top: 6px;
+        box-shadow: 0 10px 24px rgba(10, 10, 10, 0.12);
     }
 
     .apply-filters-btn:hover {
         background: var(--accent);
+        transform: translateY(-1px);
     }
 
     /* ─── MAIN ─── */
     .mp-main {
-        padding: 40px 48px;
+        min-width: 0;
+        padding: 4px 0 24px;
     }
 
     .mp-toolbar {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 36px;
+        margin-bottom: 28px;
         flex-wrap: wrap;
         gap: 16px;
     }
@@ -435,15 +455,16 @@ $basePath    = '';
     }
 
     .sort-select {
-        padding: 8px 14px;
+        padding: 10px 14px;
         border: 1.5px solid var(--card-border);
-        border-radius: 6px;
+        border-radius: 10px;
         font-family: var(--font-mono);
         font-size: 0.68rem;
         outline: none;
         color: var(--black);
         cursor: pointer;
         background: white;
+        min-width: 180px;
     }
 
     /* ─── PRODUCT GRID ─── */
@@ -913,10 +934,6 @@ $basePath    = '';
     }
 
     @media (max-width: 900px) {
-        nav {
-            padding: 0 24px;
-        }
-
         .mp-hero {
             min-height: auto;
             padding: 60px 24px;
@@ -959,27 +976,32 @@ $basePath    = '';
         }
     }
 
-    @media (max-width: 680px) {
+    @media (max-width: 1180px) {
         .price-inputs {
             display: grid;
+            padding: 24px 24px 0;
             grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
         }
 
         .sidebar-search input,
         .price-input,
-        .apply-filters-btn {
-            width: 100%;
+            border-bottom: none;
         }
-    }
-
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
     /* ─── PRODUCT DRAWER ─── */
     .drawer-overlay {
         position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.55);
+        .mp-sidebar-head {
+            grid-column: 1 / -1;
+            margin-bottom: 0;
         backdrop-filter: blur(4px);
         z-index: 3000;
-        opacity: 0;
+        .mp-sidebar .sidebar-section {
+            margin-bottom: 0;
+        }
+
+        .mp-sidebar .categories-section {
         pointer-events: none;
         transition: opacity 0.3s;
     }
@@ -990,10 +1012,6 @@ $basePath    = '';
     }
 
     .product-drawer {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
         width: 460px;
         max-width: 100vw;
         background: var(--white);
@@ -1018,18 +1036,15 @@ $basePath    = '';
         padding: 28px;
         position: relative;
         flex-shrink: 0;
+            padding: 20px;
         overflow: hidden;
     }
-
-    .drawer-cover-media {
-        position: absolute;
-        inset: 0;
     }
 
     .drawer-cover-media img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+            padding: 0 0 24px;
         display: block;
     }
 
@@ -1241,8 +1256,11 @@ $basePath    = '';
 
     @media (max-width: 520px) {
         .product-drawer {
-            width: 100vw;
+            grid-template-columns: 1fr;
         }
+
+        .price-sep {
+            display: none;
     }
     </style>
 </head>
@@ -1286,17 +1304,22 @@ $basePath    = '';
 
             <!-- Sidebar -->
             <aside class="mp-sidebar">
-                <div class="sidebar-section">
+                <div class="mp-sidebar-head">
+                    <div class="sidebar-kicker">// Filtros rápidos</div>
+                    <h2 class="sidebar-title">Explora o marketplace</h2>
+                    <p class="sidebar-desc">Pesquisa por título, escolhe a categoria e limita o preço para encontrares mais depressa o que queres.</p>
+                </div>
+                <div class="sidebar-section search-section">
                     <div class="sidebar-section-title">Pesquisa</div>
                     <div class="sidebar-search">
                         <input type="text" placeholder="Título, autor..." id="search-input">
                     </div>
                 </div>
-                <div class="sidebar-section">
+                <div class="sidebar-section categories-section">
                     <div class="sidebar-section-title">Categoria</div>
                     <div class="cat-list" id="cat-list"></div>
                 </div>
-                <div class="sidebar-section">
+                <div class="sidebar-section price-section">
                     <div class="sidebar-section-title">Preço</div>
                     <div class="price-inputs">
                         <input type="number" class="price-input" placeholder="0€" id="price-min">
@@ -1744,7 +1767,7 @@ $basePath    = '';
             var isEditing = editingProductId !== null;
             $('#sell-submit').prop('disabled', true).text(isEditing ? 'A guardar...' : 'A publicar...');
 
-            var formData = new FormData();
+            var formData = new window.FormData();
             formData.append('acao', isEditing ? 'atualizar' : 'criar');
             if (isEditing) {
                 formData.append('id', editingProductId);
@@ -1807,7 +1830,7 @@ $basePath    = '';
         }
 
         // ── Scroll reveal ──
-        var obs = new IntersectionObserver(function(entries) {
+        var obs = new window.IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
                 if (entry.isIntersecting) entry.target.classList.add('visible');
             });

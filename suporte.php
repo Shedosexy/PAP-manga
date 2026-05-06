@@ -29,14 +29,6 @@ $basePath    = '';
     html { scroll-behavior: smooth; }
     body { font-family: var(--font-body); background: var(--white); color: var(--black); overflow-x: hidden; }
 
-    /* ─── NAVBAR ─── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      background: rgba(255,255,255,0.92); backdrop-filter: blur(16px);
-      border-bottom: 1.5px solid var(--light-grey);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 48px; height: 72px;
-    }
     /* navbar via assets/includes/navbar.php */
 
     .page-wrap { padding-top: 72px; }
@@ -137,7 +129,6 @@ $basePath    = '';
     /* ─── FOOTER (via footer.php) ─── */
 
     @media (max-width: 900px) {
-      nav { padding: 0 24px; }
       .sup-hero { min-height: auto; padding: 60px 24px; }
       .sup-content { padding: 40px 20px; }
       .faq-grid { column-count: 1; }
@@ -384,7 +375,7 @@ $basePath    = '';
           res.tickets.forEach(function(t) {
             var statusClass = 'status-' + t.estado.replace(/ /g, '_');
             var statusLabel = t.estado === 'aberto' ? 'Aberto' : t.estado === 'em_andamento' ? 'Em Andamento' : 'Fechado';
-            var dateStr = new Date(t.criado_em).toLocaleDateString('pt-PT', { day: '2-digit', month: 'short', year: 'numeric' });
+            var dateStr = new window.Date(t.criado_em).toLocaleDateString('pt-PT', { day: '2-digit', month: 'short', year: 'numeric' });
 
             var card = $('<div class="ticket-card" data-id="' + t.id + '">' +
               '<span class="ticket-id">#' + t.id + '</span>' +
@@ -417,7 +408,7 @@ $basePath    = '';
 
           $('#detail-title').text(t.assunto);
           $('#detail-id').text('Ticket #' + t.id);
-          $('#detail-date').text('Criado ' + new Date(t.criado_em).toLocaleDateString('pt-PT'));
+          $('#detail-date').text('Criado ' + new window.Date(t.criado_em).toLocaleDateString('pt-PT'));
           $('#detail-status').html('<span class="ticket-status status-' + t.estado.replace(/ /g, '_') + '">' + statusLabel + '</span>');
           $('#detail-prioridade').text('Prioridade: ' + t.prioridade);
 
@@ -430,7 +421,7 @@ $basePath    = '';
             '<div class="message-bubble msg-user">' +
               '<div class="msg-author">Tu</div>' +
               '<div class="msg-text">' + $('<span>').text(t.mensagem).html().replace(/\n/g, '<br>') + '</div>' +
-              '<div class="msg-time">' + new Date(t.criado_em).toLocaleString('pt-PT') + '</div>' +
+              '<div class="msg-time">' + new window.Date(t.criado_em).toLocaleString('pt-PT') + '</div>' +
             '</div>'
           );
 
@@ -442,7 +433,7 @@ $basePath    = '';
                 '<div class="message-bubble ' + (isAdmin ? 'msg-admin' : 'msg-user') + '">' +
                   '<div class="msg-author">' + (isAdmin ? 'Suporte MangaVerse' : 'Tu') + '</div>' +
                   '<div class="msg-text">' + $('<span>').text(r.mensagem).html().replace(/\n/g, '<br>') + '</div>' +
-                  '<div class="msg-time">' + new Date(r.criado_em).toLocaleString('pt-PT') + '</div>' +
+                  '<div class="msg-time">' + new window.Date(r.criado_em).toLocaleString('pt-PT') + '</div>' +
                 '</div>'
               );
             });

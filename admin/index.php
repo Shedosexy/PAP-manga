@@ -131,16 +131,35 @@ $registosDiarios = $pdo->query("
     }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { font-family: var(--font-body); background: var(--off-white); color: var(--black); min-height: 100vh; display: flex; flex-direction: column; }
+    body {
+      font-family: var(--font-body);
+      background:
+        radial-gradient(circle at top right, rgba(232,0,45,0.05), transparent 28%),
+        linear-gradient(180deg, #faf9f7 0%, #f4f3f1 100%);
+      color: var(--black);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
     /* ─── ADMIN LAYOUT ─── */
-    .admin-wrap { padding-top: 72px; flex: 1; }
+    .admin-wrap { padding-top: 72px; padding-bottom: 32px; flex: 1; }
 
     .admin-header {
-      background: var(--black); color: white; padding: 48px 64px 40px;
-      position: relative; overflow: hidden;
+      padding: 24px 32px 0;
     }
-    .admin-header::before {
+    .admin-header-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      background: var(--black);
+      color: white;
+      padding: 36px clamp(24px, 4vw, 44px) 30px;
+      border-radius: 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.12);
+    }
+    .admin-header-inner::before {
       content: 'ADMIN'; position: absolute; right: -20px; top: 50%;
       transform: translateY(-50%); font-family: var(--font-display);
       font-size: 9rem; font-weight: 900; color: rgba(255,255,255,0.04);
@@ -158,44 +177,86 @@ $registosDiarios = $pdo->query("
     }
     .admin-header p { color: rgba(255,255,255,0.45); font-size: 0.9rem; }
 
+    .stats-section,
+    .charts-section,
+    .tables-section,
+    .contactos-section,
+    .compras-section {
+      width: min(1440px, calc(100% - 64px));
+      margin: 20px auto 0;
+      padding: 0;
+    }
+
     /* ─── STATS GRID ─── */
-    .stats-section { padding: 48px 64px 0; }
     .stats-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 16px;
     }
     .stat-card {
-      background: var(--white); border: 1.5px solid var(--card-border); border-radius: 12px;
-      padding: 20px 18px; position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;
+      background: rgba(255,255,255,0.95);
+      border: 1.5px solid var(--card-border);
+      border-radius: 18px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
     }
-    .stat-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+      border-color: rgba(232,0,45,0.22);
+    }
     .stat-card.accent { border-color: var(--accent); background: #fff5f6; }
-    .stat-icon { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 10px; }
+    .stat-icon {
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
     .stat-value {
-      font-family: var(--font-display); font-size: 1.5rem; font-weight: 900;
-      line-height: 1; margin-bottom: 4px;
+      font-family: var(--font-display);
+      font-size: clamp(1.25rem, 1.5vw, 1.75rem);
+      font-weight: 900;
+      line-height: 1;
     }
     .stat-card.accent .stat-value { color: var(--accent); }
     .stat-label {
-      font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em;
+      font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.15em;
       text-transform: uppercase; color: var(--grey);
     }
     .stat-link {
-      position: absolute; bottom: 16px; right: 20px;
-      font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--accent); text-decoration: none;
-      transition: opacity 0.2s; opacity: 0.7;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: auto;
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      transition: opacity 0.2s;
+      opacity: 0.78;
     }
     .stat-link:hover { opacity: 1; }
 
     /* ─── TABLES SECTION ─── */
-    .tables-section { padding: 40px 64px 64px; }
-    .tables-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px; }
+    .tables-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(340px, 0.92fr); gap: 18px; }
     .panel-card {
-      background: var(--white); border: 1.5px solid var(--card-border); border-radius: 12px; overflow: hidden;
+      background: rgba(255,255,255,0.96);
+      border: 1.5px solid var(--card-border);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(0,0,0,0.04);
     }
     .panel-card-header {
-      padding: 20px 24px 18px; border-bottom: 1.5px solid var(--light-grey);
+      padding: 16px 18px 14px; border-bottom: 1.5px solid var(--light-grey);
       display: flex; align-items: center; justify-content: space-between;
+      gap: 12px;
     }
     .panel-card-title {
       font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.18em;
@@ -207,13 +268,15 @@ $registosDiarios = $pdo->query("
       transition: opacity 0.2s; opacity: 0.7;
     }
     .panel-card-more:hover { opacity: 1; }
+    .panel-table-wrap { overflow-x: auto; }
     .panel-table { width: 100%; border-collapse: collapse; }
+    .panel-table--wide { min-width: 760px; }
     .panel-table th {
       font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--grey); padding: 12px 24px 10px;
+      text-transform: uppercase; color: var(--grey); padding: 12px 18px 10px;
       text-align: left; border-bottom: 1px solid var(--light-grey);
     }
-    .panel-table td { padding: 12px 24px; font-size: 0.88rem; border-bottom: 1px solid var(--off-white); vertical-align: middle; }
+    .panel-table td { padding: 12px 18px; font-size: 0.84rem; border-bottom: 1px solid var(--off-white); vertical-align: middle; }
     .panel-table tr:last-child td { border-bottom: none; }
     .panel-table tr:hover td { background: var(--off-white); }
     .estado-badge {
@@ -231,11 +294,10 @@ $registosDiarios = $pdo->query("
     .td-mono { font-family: var(--font-mono); font-size: 0.78rem; color: var(--grey); }
 
     /* ─── CONTACTOS SECTION ─── */
-    .contactos-section { padding: 0 64px 64px; }
-    .contactos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+    .contactos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
     .contacto-card {
-      background: var(--white); border: 1.5px solid var(--card-border); border-radius: 10px;
-      padding: 20px 22px;
+      background: rgba(255,255,255,0.96); border: 1.5px solid var(--card-border); border-radius: 16px;
+      padding: 18px 18px 16px;
     }
     .contacto-card .nome { font-weight: 700; font-size: 0.92rem; margin-bottom: 2px; }
     .contacto-card .email { font-family: var(--font-mono); font-size: 0.62rem; color: var(--grey); margin-bottom: 8px; }
@@ -243,7 +305,6 @@ $registosDiarios = $pdo->query("
     .contacto-card .data { font-family: var(--font-mono); font-size: 0.58rem; color: var(--grey); letter-spacing: 0.08em; }
 
     /* ─── COMPRAS POR CLIENTE ─── */
-    .compras-section { padding: 40px 64px; }
     .livros-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
     .livro-badge {
       background: var(--off-white); border: 1px solid var(--card-border); border-radius: 6px;
@@ -261,30 +322,60 @@ $registosDiarios = $pdo->query("
     .empty-row td { text-align: center; color: var(--grey); font-size: 0.82rem; padding: 28px; }
 
     /* ─── CHARTS ─── */
-    .charts-section { padding: 16px 64px 16px; }
-    .charts-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 14px; }
+    .charts-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.95fr); gap: 16px; }
     .chart-card {
-      background: var(--white); border: 1.5px solid var(--card-border); border-radius: 10px;
+      background: rgba(255,255,255,0.96);
+      border: 1.5px solid var(--card-border);
+      border-radius: 18px;
       overflow: hidden;
+      box-shadow: 0 14px 36px rgba(0,0,0,0.04);
     }
     .chart-card-header {
-      padding: 8px 14px 6px; border-bottom: 1.5px solid var(--light-grey);
+      padding: 14px 16px 12px; border-bottom: 1.5px solid var(--light-grey);
     }
     .chart-card-title {
-      font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.18em;
+      font-family: var(--font-mono); font-size: 0.56rem; letter-spacing: 0.18em;
       text-transform: uppercase; color: var(--black); font-weight: 700;
     }
-    .chart-card-body { padding: 8px 10px; position: relative; }
-    .charts-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .chart-card-body { padding: 14px 16px 18px; position: relative; min-height: 250px; }
+    .chart-card-body.compact { min-height: 210px; }
+    .chart-card-body canvas { width: 100% !important; }
+    .charts-grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
 
+    @media (max-width: 1400px) {
+      .stats-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
     @media (max-width: 1100px) {
-      .admin-header, .stats-section, .tables-section, .contactos-section, .charts-section { padding-left: 24px; padding-right: 24px; }
+      .admin-header { padding-left: 20px; padding-right: 20px; }
+      .stats-section,
+      .charts-section,
+      .tables-section,
+      .contactos-section,
+      .compras-section { width: calc(100% - 40px); }
       .tables-grid { grid-template-columns: 1fr; }
       .charts-grid { grid-template-columns: 1fr; }
-      .charts-grid-3 { grid-template-columns: 1fr; }
+      .charts-grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 768px) {
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .admin-header-inner { border-radius: 20px; padding: 28px 22px 24px; }
+      .admin-header-inner::before { font-size: 5.5rem; right: -8px; }
+      .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .charts-grid-3 { grid-template-columns: 1fr; }
+      .panel-card-header { align-items: flex-start; flex-direction: column; }
+      .panel-table--wide { min-width: 680px; }
+      .chart-card-body { min-height: 220px; }
+    }
+    @media (max-width: 560px) {
+      .admin-header,
+      .stats-section,
+      .charts-section,
+      .tables-section,
+      .contactos-section,
+      .compras-section { width: calc(100% - 28px); padding-left: 0; padding-right: 0; }
+      .admin-header { padding-top: 14px; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .stat-card { padding: 14px; }
+      .panel-table--wide { min-width: 620px; }
     }
   </style>
 </head>
@@ -296,9 +387,11 @@ $registosDiarios = $pdo->query("
 
   <!-- ─── HEADER ─── -->
   <div class="admin-header">
-    <div class="admin-eyebrow">// Painel de Controlo</div>
-    <h1>Admin Dashboard</h1>
-    <p>Bem-vindo, <?= htmlspecialchars($_SESSION['user_nome']) ?>. Aqui tens um resumo da plataforma.</p>
+    <div class="admin-header-inner">
+      <div class="admin-eyebrow">// Painel de Controlo</div>
+      <h1>Admin Dashboard</h1>
+      <p>Bem-vindo, <?= htmlspecialchars($_SESSION['user_nome']) ?>. Aqui tens uma visão rápida da plataforma, com foco nos dados mais úteis.</p>
+    </div>
   </div>
 
   <!-- ─── STATS ─── -->
@@ -359,7 +452,7 @@ $registosDiarios = $pdo->query("
         <div class="chart-card-header">
           <span class="chart-card-title">// Produtos por Categoria</span>
         </div>
-        <div class="chart-card-body" style="display:flex;align-items:center;justify-content:center;">
+        <div class="chart-card-body compact" style="display:flex;align-items:center;justify-content:center;">
           <canvas id="chart-categorias" height="80"></canvas>
         </div>
       </div>
@@ -370,7 +463,7 @@ $registosDiarios = $pdo->query("
         <div class="chart-card-header">
           <span class="chart-card-title">// Encomendas por Estado</span>
         </div>
-        <div class="chart-card-body" style="display:flex;align-items:center;justify-content:center;">
+        <div class="chart-card-body compact" style="display:flex;align-items:center;justify-content:center;">
           <canvas id="chart-encomendas" height="60"></canvas>
         </div>
       </div>
@@ -379,7 +472,7 @@ $registosDiarios = $pdo->query("
         <div class="chart-card-header">
           <span class="chart-card-title">// Tickets por Estado</span>
         </div>
-        <div class="chart-card-body" style="display:flex;align-items:center;justify-content:center;">
+        <div class="chart-card-body compact" style="display:flex;align-items:center;justify-content:center;">
           <canvas id="chart-tickets" height="60"></canvas>
         </div>
       </div>
@@ -405,7 +498,8 @@ $registosDiarios = $pdo->query("
           <span class="panel-card-title">// Últimas Encomendas</span>
           <a href="#" class="panel-card-more">Ver todas →</a>
         </div>
-        <table class="panel-table">
+        <div class="panel-table-wrap">
+        <table class="panel-table panel-table--wide">
           <thead>
             <tr>
               <th>#</th>
@@ -429,6 +523,7 @@ $registosDiarios = $pdo->query("
             <?php endforeach; endif; ?>
           </tbody>
         </table>
+        </div>
       </div>
 
       <!-- Tickets abertos -->
@@ -437,6 +532,7 @@ $registosDiarios = $pdo->query("
           <span class="panel-card-title">// Tickets Abertos</span>
           <a href="../suporte.php" class="panel-card-more">Ver suporte →</a>
         </div>
+        <div class="panel-table-wrap">
         <table class="panel-table">
           <thead>
             <tr>
@@ -459,6 +555,7 @@ $registosDiarios = $pdo->query("
             <?php endforeach; endif; ?>
           </tbody>
         </table>
+        </div>
       </div>
 
     </div>
@@ -490,7 +587,8 @@ $registosDiarios = $pdo->query("
       <div class="panel-card-header">
         <span class="panel-card-title">// Livros Comprados por Cliente</span>
       </div>
-      <table class="panel-table">
+      <div class="panel-table-wrap">
+      <table class="panel-table panel-table--wide">
         <thead>
           <tr>
             <th>Cliente</th>
@@ -522,6 +620,7 @@ $registosDiarios = $pdo->query("
           <?php endforeach; ?>
         </tbody>
       </table>
+      </div>
     </div>
   </section>
   <?php endif; ?>
@@ -541,31 +640,31 @@ const chartColors = ['#e8002d','#ff6384','#36a2eb','#ffce56','#4bc0c0','#9966ff'
 const receitaRaw = <?= json_encode($vendasMensais) ?>;
 const receitaLabels = receitaRaw.map(r => r.mes);
 const receitaData = receitaRaw.map(r => parseFloat(r.receita));
-new Chart(document.getElementById('chart-receita'),{type:'line',data:{labels:receitaLabels,datasets:[{label:'Receita (€)',data:receitaData,borderColor:accent,backgroundColor:accentSoft,fill:true,tension:.35,pointRadius:4,pointBackgroundColor:accent}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:v=>'€'+v}},x:{grid:{display:false}}}}});
+new window.Chart(document.getElementById('chart-receita'),{type:'line',data:{labels:receitaLabels,datasets:[{label:'Receita (€)',data:receitaData,borderColor:accent,backgroundColor:accentSoft,fill:true,tension:.35,pointRadius:4,pointBackgroundColor:accent}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:v=>'€'+v}},x:{grid:{display:false}}}}});
 
 // Produtos por Categoria (doughnut)
 const catRaw = <?= json_encode($produtosPorCategoria) ?>;
 const catLabels = catRaw.map(c => c.nome);
 const catData = catRaw.map(c => parseInt(c.total));
-new Chart(document.getElementById('chart-categorias'),{type:'doughnut',data:{labels:catLabels,datasets:[{data:catData,backgroundColor:chartColors.slice(0,catLabels.length),borderWidth:0}]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{color:'#999',font:{size:11}}}}}});
+new window.Chart(document.getElementById('chart-categorias'),{type:'doughnut',data:{labels:catLabels,datasets:[{data:catData,backgroundColor:chartColors.slice(0,catLabels.length),borderWidth:0}]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{color:'#999',font:{size:11}}}}}});
 
 // Encomendas por Estado (pie)
 const encRaw = <?= json_encode($encomendasPorEstado) ?>;
 const encLabels = encRaw.map(e => e.estado);
 const encData = encRaw.map(e => parseInt(e.total));
-new Chart(document.getElementById('chart-encomendas'),{type:'pie',data:{labels:encLabels,datasets:[{data:encData,backgroundColor:chartColors.slice(0,encLabels.length),borderWidth:0}]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{color:'#999',font:{size:11}}}}}});
+new window.Chart(document.getElementById('chart-encomendas'),{type:'pie',data:{labels:encLabels,datasets:[{data:encData,backgroundColor:chartColors.slice(0,encLabels.length),borderWidth:0}]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{color:'#999',font:{size:11}}}}}});
 
 // Tickets por Estado (pie)
 const tickRaw = <?= json_encode($ticketsPorEstado) ?>;
 const tickLabels = tickRaw.map(t => t.estado);
 const tickData = tickRaw.map(t => parseInt(t.total));
-new Chart(document.getElementById('chart-tickets'),{type:'pie',data:{labels:tickLabels,datasets:[{data:tickData,backgroundColor:chartColors.slice(0,tickLabels.length),borderWidth:0}]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{color:'#999',font:{size:11}}}}}});
+new window.Chart(document.getElementById('chart-tickets'),{type:'pie',data:{labels:tickLabels,datasets:[{data:tickData,backgroundColor:chartColors.slice(0,tickLabels.length),borderWidth:0}]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{color:'#999',font:{size:11}}}}}});
 
 // Registos Diários (bar)
 const regRaw = <?= json_encode($registosDiarios) ?>;
 const regLabels = regRaw.map(r => r.dia);
 const regData = regRaw.map(r => parseInt(r.total));
-new Chart(document.getElementById('chart-registos'),{type:'bar',data:{labels:regLabels,datasets:[{label:'Novos Utilizadores',data:regData,backgroundColor:accent,borderRadius:6,barPercentage:.6}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1}},x:{grid:{display:false}}}}});
+new window.Chart(document.getElementById('chart-registos'),{type:'bar',data:{labels:regLabels,datasets:[{label:'Novos Utilizadores',data:regData,backgroundColor:accent,borderRadius:6,barPercentage:.6}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1}},x:{grid:{display:false}}}}});
 </script>
 
 </body>

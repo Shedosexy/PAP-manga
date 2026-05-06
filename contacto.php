@@ -53,121 +53,6 @@ $basePath    = '';
       overflow-x: hidden;
     }
 
-    /* ─── NAVBAR ─── */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(16px);
-      border-bottom: 1.5px solid var(--light-grey);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 48px;
-      height: 72px;
-    }
-
-    .nav-logo {
-      font-family: var(--font-display);
-      font-size: 1.35rem;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      color: var(--black);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .nav-logo span {
-      color: var(--accent);
-    }
-
-    .logo-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--accent);
-      border-radius: 50%;
-      animation: pulse 1.8s infinite;
-    }
-
-    @keyframes pulse {
-
-      0%,
-      100% {
-        opacity: 1;
-        transform: scale(1)
-      }
-
-      50% {
-        opacity: 0.4;
-        transform: scale(1.5)
-      }
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 36px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--grey);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover {
-      color: var(--black);
-    }
-
-    .nav-links a.active {
-      color: var(--black);
-    }
-
-    .cart-btn {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--black);
-      color: var(--white) !important;
-      padding: 10px 20px;
-      border-radius: 4px;
-      font-family: var(--font-mono) !important;
-      font-size: 0.72rem !important;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
-    }
-
-    .cart-btn:hover {
-      background: var(--accent) !important;
-      transform: translateY(-1px);
-    }
-
-    .cart-count {
-      background: var(--accent);
-      color: #fff;
-      border-radius: 50%;
-      width: 18px;
-      height: 18px;
-      font-size: 0.65rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-mono);
-      font-weight: 700;
-    }
-
     .page-wrap {
       padding-top: 72px;
     }
@@ -652,62 +537,10 @@ $basePath    = '';
       transform: none;
     }
 
-    /* ─── DARK MODE TOGGLE ─── */
-    .dark-mode-toggle {
-      background: none;
-      border: 1.5px solid var(--card-border);
-      border-radius: 8px;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: border-color .2s, background .2s;
-    }
-
-    .dark-mode-toggle:hover {
-      border-color: var(--accent);
-    }
-
     /* ─── DARK MODE ─── */
     body.dark-mode {
       background: #0a0a0a;
       color: #e0e0e0;
-    }
-
-    body.dark-mode nav {
-      background: rgba(18, 18, 18, .95);
-      border-bottom-color: #222;
-    }
-
-    body.dark-mode .nav-logo {
-      color: #fff;
-    }
-
-    body.dark-mode .nav-links a {
-      color: #999;
-    }
-
-    body.dark-mode .nav-links a:hover,
-    body.dark-mode .nav-links a.active {
-      color: #fff;
-    }
-
-    body.dark-mode .cart-btn {
-      background: #fff;
-      color: #0a0a0a !important;
-    }
-
-    body.dark-mode .cart-btn:hover {
-      background: var(--accent);
-      color: #fff !important;
-    }
-
-    body.dark-mode .dark-mode-toggle {
-      border-color: #444;
-      color: #fff;
     }
 
     body.dark-mode .contact-section {
@@ -880,10 +713,6 @@ $basePath    = '';
     }
 
     @media (max-width: 900px) {
-      nav {
-        padding: 0 24px;
-      }
-
       .contact-hero {
         min-height: auto;
         padding: 60px 24px;
@@ -1111,7 +940,7 @@ $basePath    = '';
   <script>
     $(document).ready(function () {
       // ── Scroll Reveal ──
-      const observer = new IntersectionObserver(function (entries) {
+      const observer = new window.IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) entry.target.classList.add('visible');
         });

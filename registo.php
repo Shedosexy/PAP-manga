@@ -142,7 +142,6 @@ if (isLoggedIn()) { header('Location: marketplace.php'); exit; }
     .footer-copy { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); }
 
     @media (max-width: 900px) {
-      nav { padding: 0 24px; }
       .register-page { grid-template-columns: 1fr; }
       .register-visual { padding: 60px 24px; }
       .register-visual::before { right: 24px; font-size: 10rem; }
