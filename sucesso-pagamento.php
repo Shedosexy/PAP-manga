@@ -30,7 +30,7 @@ $basePath    = '';
 
 <div class="result-page">
   <div class="result-card">
-    <div class="result-icon">✅</div>
+    <div class="result-icon">OK</div>
     <h1>Pagamento Concluído!</h1>
     <?php if(isset($_GET['encomenda'])): ?>
       <p>A tua encomenda foi registada com sucesso.</p>

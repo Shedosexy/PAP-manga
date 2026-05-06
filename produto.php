@@ -4,6 +4,8 @@
 // ════════════════════════════════════════════════════════
 require_once 'assets/config/database.php';
 
+$user = getLoggedUser();
+
 header('Content-Type: application/json; charset=utf-8');
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
@@ -33,6 +35,9 @@ try {
         exit;
     }
 
+    $produto = applyProductCatalogFallbacks($produto);
+    $canManage = canManageMarketplaceProduct($produto, $user);
+
     echo json_encode([
         'success' => true,
         'produto' => [
@@ -46,12 +51,16 @@ try {
             'preco_antigo'   => $produto['preco_antigo'] ? (float)$produto['preco_antigo'] : null,
             'stock'          => (int)$produto['stock'],
             'volume'         => $produto['volume'] ?? '',
+            'imagem'         => $produto['imagem'] ?? null,
             'badge'          => $produto['badge'] ?? null,
             'cor1'           => $produto['cor1'] ?? '#0a0a0a',
             'cor2'           => $produto['cor2'] ?? '#e8002d',
             'condicao'       => $produto['condicao'] ?? 'novo',
             'condicao_pct'   => (int)($produto['condicao_pct'] ?? 100),
+            'vendedor_id'    => $produto['vendedor_id'] !== null ? (int)$produto['vendedor_id'] : null,
             'vendedor_nome'  => $produto['vendedor_nome'] ?? null,
+            'pode_editar'    => $canManage,
+            'pode_eliminar'  => $canManage,
             'criado_em'      => $produto['criado_em'] ?? null,
         ],
     ]);

@@ -22,6 +22,20 @@ function navActive(string $page, string $current): string {
     return $page === $current ? ' class="active"' : '';
 }
 
+function navLinkClass(string $page, string $current, string $extraClass = ''): string {
+    $classes = [];
+
+    if ($page === $current) {
+        $classes[] = 'active';
+    }
+
+    if ($extraClass !== '') {
+        $classes[] = $extraClass;
+    }
+
+    return implode(' ', $classes);
+}
+
 // Cart count via PHP session (admin não precisa de carrinho)
 $_nav_cartCount = 0;
 if (isLoggedIn() && $_nav_role !== 'admin') {
@@ -40,16 +54,16 @@ if (isLoggedIn() && $_nav_role !== 'admin') {
     </a>
 
     <ul class="nav-links">
-        <li><a href="<?= $basePath ?>index.php" <?= navActive('loja', $currentPage) ?>>Loja</a></li>
-        <li><a href="<?= $basePath ?>marketplace.php" <?= navActive('marketplace', $currentPage) ?>>Marketplace</a></li>
-        <li><a href="<?= $basePath ?>contacto.php" <?= navActive('contacto', $currentPage) ?>>Contacto</a></li>
-        <li><a href="<?= $basePath ?>suporte.php" <?= navActive('suporte', $currentPage) ?>>Suporte</a></li>
+        <li><a href="<?= $basePath ?>index.php" class="<?= navLinkClass('loja', $currentPage) ?>">Loja</a></li>
+        <li><a href="<?= $basePath ?>marketplace.php" class="<?= navLinkClass('marketplace', $currentPage) ?>">Marketplace</a></li>
+        <li><a href="<?= $basePath ?>contacto.php" class="<?= navLinkClass('contacto', $currentPage) ?>">Contacto</a></li>
+        <li><a href="<?= $basePath ?>suporte.php" class="<?= navLinkClass('suporte', $currentPage) ?>">Suporte</a></li>
 
         <?php if ($_nav_user): ?>
         <?php if ($_nav_role === 'admin'): ?>
         <li>
-            <a href="<?= $basePath ?>admin/index.php" <?= navActive('admin', $currentPage) ?> class="admin-link">
-                ⚙ Painel Admin
+            <a href="<?= $basePath ?>admin/index.php" class="<?= navLinkClass('admin', $currentPage, 'admin-link') ?>">
+                Painel Admin
             </a>
         </li>
         <?php endif; ?>
@@ -57,11 +71,11 @@ if (isLoggedIn() && $_nav_role !== 'admin') {
         <li class="user-info-nav">
             <span class="user-badge">
                 <?php if ($_nav_role === 'admin'): ?>
-                🛡 <?= htmlspecialchars($_nav_user['nome']) ?>
+                Admin: <?= htmlspecialchars($_nav_user['nome']) ?>
                 <?php elseif ($_nav_role === 'vendedor'): ?>
-                🏪 <?= htmlspecialchars($_nav_user['nome']) ?>
+                Vendedor: <?= htmlspecialchars($_nav_user['nome']) ?>
                 <?php else: ?>
-                👤 <?= htmlspecialchars($_nav_user['nome']) ?>
+                Cliente: <?= htmlspecialchars($_nav_user['nome']) ?>
                 <?php endif; ?>
             </span>
             <span class="role-badge role-<?= $_nav_role ?>"><?= $_nav_role ?></span>
@@ -69,8 +83,8 @@ if (isLoggedIn() && $_nav_role !== 'admin') {
 
         <?php if ($_nav_role !== 'admin'): ?>
         <li>
-            <a href="<?= $basePath ?>carrinho.php" <?= navActive('carrinho', $currentPage) ?> class="cart-btn">
-                🛒 Carrinho
+            <a href="<?= $basePath ?>carrinho.php" class="<?= navLinkClass('carrinho', $currentPage, 'cart-btn') ?>">
+                Carrinho
                 <span class="cart-count" id="nav-cart-count"><?= $_nav_cartCount ?></span>
             </a>
         </li>
@@ -87,9 +101,8 @@ if (isLoggedIn() && $_nav_role !== 'admin') {
         <li><a href="#" id="nav-logout-btn" class="nav-logout">Sair</a></li>
 
         <?php else: ?>
-        <li><a href="<?= $basePath ?>login.php" <?= navActive('login', $currentPage) ?>>Login</a></li>
-        <li><a href="<?= $basePath ?>registo.php" <?= navActive('registo', $currentPage) ?>
-                class="nav-register-btn">Registar</a></li>
+        <li><a href="<?= $basePath ?>login.php" class="<?= navLinkClass('login', $currentPage) ?>">Login</a></li>
+        <li><a href="<?= $basePath ?>registo.php" class="<?= navLinkClass('registo', $currentPage, 'nav-register-btn') ?>">Registar</a></li>
 
         <!-- Dark Mode Toggle -->
         <li>
@@ -992,17 +1005,276 @@ body.dark-mode .ticket-meta {
     color: #777 !important;
 }
 
+/* Force the shared navbar styling over page-local navbar CSS */
+body > nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1.5px solid #ececec;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    height: 72px;
+    gap: 24px;
+}
+
+body > nav .nav-logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    color: #0a0a0a;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 0 0 auto;
+}
+
+body > nav .nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 36px;
+    list-style: none;
+    flex-wrap: nowrap;
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+body > nav .nav-links li {
+    flex: 0 0 auto;
+}
+
+body > nav .nav-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+    text-decoration: none;
+    transition: color 0.2s;
+    white-space: nowrap;
+}
+
+body > nav .nav-links a.active,
+body > nav .nav-links a:hover,
+body > nav .user-badge {
+    color: #0a0a0a;
+}
+
+body > nav .nav-links a.active {
+    font-weight: 700;
+}
+
+body > nav .admin-link {
+    color: #e8002d !important;
+    border: 1.5px solid #e8002d;
+    padding: 6px 14px;
+    border-radius: 4px;
+}
+
+body > nav .admin-link:hover {
+    background: #e8002d;
+    color: #fff !important;
+}
+
+body > nav .user-info-nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 0 0 auto;
+    min-width: 0;
+}
+
+body > nav .user-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    display: inline-block;
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body > nav .role-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 100px;
+    flex: 0 0 auto;
+}
+
+body > nav .cart-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #0a0a0a;
+    color: #fff !important;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-family: 'Space Mono', monospace !important;
+    font-size: 0.72rem !important;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    flex: 0 0 auto;
+}
+
+body > nav .cart-btn:hover {
+    background: #e8002d !important;
+    transform: translateY(-1px);
+}
+
+body > nav .cart-count {
+    background: #e8002d;
+    color: #fff;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 0.65rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+}
+
+body > nav .nav-register-btn {
+    background: #e8002d;
+    color: #fff !important;
+    padding: 9px 18px;
+    border-radius: 4px;
+    border: 1.5px solid #e8002d;
+}
+
+body > nav .nav-register-btn:hover {
+    background: #0a0a0a !important;
+    border-color: #0a0a0a;
+}
+
+body > nav .nav-logout {
+    color: #8a8a8a !important;
+}
+
+body > nav .nav-logout:hover {
+    color: #e8002d !important;
+}
+
+body > nav .dark-mode-toggle {
+    background: none;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s;
+    font-size: 1rem;
+    padding: 0;
+    flex: 0 0 auto;
+}
+
+body > nav .dark-mode-toggle:hover {
+    border-color: #0a0a0a;
+    transform: scale(1.1);
+}
+
+body.dark-mode > nav {
+    background: rgba(14, 14, 14, 0.95) !important;
+    border-bottom-color: #2a2a2a !important;
+}
+
+body.dark-mode > nav .nav-logo,
+body.dark-mode > nav .nav-links a.active,
+body.dark-mode > nav .nav-links a:hover,
+body.dark-mode > nav .user-badge {
+    color: #f0f0f0 !important;
+}
+
+body.dark-mode > nav .nav-links a {
+    color: #999 !important;
+}
+
+body.dark-mode > nav .cart-btn {
+    background: #f0f0f0 !important;
+    color: #0e0e0e !important;
+}
+
+body.dark-mode > nav .cart-btn:hover,
+body.dark-mode > nav .admin-link:hover {
+    color: #fff !important;
+}
+
+body.dark-mode > nav .dark-mode-toggle {
+    border-color: #444 !important;
+}
+
+body.dark-mode > nav .dark-mode-toggle:hover {
+    border-color: #f0f0f0 !important;
+}
+
+body.dark-mode > nav .nav-register-btn {
+    background: #e8002d;
+    color: #fff !important;
+}
+
+@media (max-width: 1180px) {
+    body > nav {
+        padding: 0 24px;
+        gap: 18px;
+    }
+
+    body > nav .nav-links {
+        gap: 20px;
+    }
+
+    body > nav .user-badge {
+        max-width: 150px;
+    }
+}
+
 @media (max-width: 900px) {
-    nav {
-        padding: 0 20px;
+    nav,
+    body > nav {
+        padding: 0 24px;
     }
 
-    .nav-links {
-        gap: 16px;
+    body > nav .nav-links {
+        gap: 14px;
     }
 
-    .nav-links a {
-        font-size: 0.62rem;
+    body > nav .nav-links a {
+        font-size: 0.68rem;
+    }
+
+    body > nav .user-badge {
+        max-width: 96px;
+    }
+
+    body > nav .role-badge {
+        font-size: 0.5rem;
+        padding: 2px 6px;
+    }
+
+    body > nav .cart-btn,
+    body > nav .nav-register-btn {
+        padding: 9px 14px;
+    }
+
+    body > nav .admin-link {
+        padding: 6px 10px;
     }
 }
 </style>
@@ -1016,7 +1288,7 @@ body.dark-mode .ticket-meta {
     // ── Dark Mode ──
     (function initDarkMode() {
         var stored = localStorage.getItem('mv_darkmode');
-        if (stored === null || stored === 'true') {
+        if (stored === 'true') {
             document.body.classList.add('dark-mode');
         }
         updateDMIcon();

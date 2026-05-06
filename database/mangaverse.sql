@@ -150,16 +150,26 @@ INSERT INTO utilizadores (nome, email, password, role) VALUES
   ('Ana Cliente',      'cliente@mangaverse.pt',  '$2y$10$e9uGbV9xgkRvXwV0yepmTeCTKV8iED98gG71jz.H1piCXypdkbFB2', 'cliente');
 
 -- Produtos de exemplo
-INSERT INTO produtos (nome, autor, descricao, categoria_id, preco, preco_antigo, stock, volume, badge, cor1, cor2, condicao, condicao_pct) VALUES
-  ('One Piece', 'Eiichiro Oda', 'A aventura épica de Monkey D. Luffy para se tornar o Rei dos Piratas.', 1, 7.99, NULL, 50, 'Vol. 104', 'hot', '#e8002d', '#f7a500', 'novo', 100),
-  ('Jujutsu Kaisen', 'Gege Akutami', 'Yuji Itadori junta-se à escola de feiticeiros para combater maldições.', 1, 6.99, NULL, 35, 'Vol. 24', 'new', '#0057ff', '#000000', 'novo', 100),
-  ('Chainsaw Man', 'Tatsuki Fujimoto', 'Denji funde-se com o seu demónio motosserra para caçar demónios.', 1, 7.49, 9.99, 40, 'Vol. 16', 'sale', '#222222', '#e8002d', 'novo', 100),
-  ('Berserk', 'Kentaro Miura', 'A jornada sombria do espadachim Guts num mundo medieval.', 1, 12.99, NULL, 20, 'Vol. 41', NULL, '#1a1a2e', '#c5a028', 'novo', 100),
-  ('Attack on Titan', 'Hajime Isayama', 'A humanidade luta pela sobrevivência contra titãs gigantes.', 1, 8.99, 10.99, 30, 'Vol. 34', 'sale', '#3a3a3a', '#8b5a2b', 'novo', 100),
-  ('Demon Slayer', 'Koyoharu Gotouge', 'Tanjiro embarca numa jornada para curar a sua irmã e vingar a sua família.', 1, 6.49, NULL, 45, 'Vol. 23', 'new', '#1a472a', '#c21807', 'novo', 100),
-  ('Duna', 'Frank Herbert', 'A obra-prima da ficção científica sobre poder, religião e ecologia.', 2, 14.99, 18.99, 25, 'Ed. Especial', 'sale', '#c5a028', '#8b3a0a', 'novo', 100),
-  ('Neuromancer', 'William Gibson', 'O romance cyberpunk que definiu um género inteiro.', 2, 11.99, NULL, 15, 'Edição 2026', 'new', '#0d1117', '#00ff88', 'novo', 100),
-  ('Vinland Saga', 'Makoto Yukimura', 'A saga viking de Thorfinn na era dos exploradores nórdicos.', 1, 9.99, NULL, 22, 'Vol. 27', NULL, '#2c4a6e', '#d4a017', 'novo', 100),
-  ('Tokyo Ghoul', 'Sui Ishida', 'Ken Kaneki torna-se meio-ghoul após um encontro fatídico.', 1, 7.99, 9.49, 35, 'Vol. 14', 'sale', '#1a0a2e', '#8b1a4a', 'novo', 100),
-  ('Maus', 'Art Spiegelman', 'A graphic novel vencedora do Pulitzer sobre o Holocausto.', 2, 16.99, NULL, 18, 'Completo', 'hot', '#2d2d2d', '#f0f0f0', 'novo', 100),
-  ('Blue Period', 'Tsubasa Yamaguchi', 'Um jovem descobre a sua paixão pela arte e luta para entrar na universidade.', 1, 7.49, NULL, 28, 'Vol. 14', 'new', '#1a3a6e', '#4a90d9', 'novo', 100);
+INSERT INTO produtos (nome, autor, descricao, categoria_id, preco, preco_antigo, stock, volume, badge, cor1, cor2, condicao, condicao_pct, imagem) VALUES
+  ('One Piece', 'Eiichiro Oda', 'A aventura épica de Monkey D. Luffy para se tornar o Rei dos Piratas.', 1, 7.99, NULL, 50, 'Vol. 104', 'hot', '#e8002d', '#f7a500', 'novo', 100, 'assets/images/one piece vol 104.jpg'),
+  ('Jujutsu Kaisen', 'Gege Akutami', 'Yuji Itadori junta-se à escola de feiticeiros para combater maldições.', 1, 6.99, NULL, 35, 'Vol. 24', 'new', '#0057ff', '#000000', 'novo', 100, 'assets/images/jujutsu kaisen vol 24.jpg'),
+  ('Chainsaw Man', 'Tatsuki Fujimoto', 'Denji funde-se com o seu demónio motosserra para caçar demónios.', 1, 7.49, 9.99, 40, 'Vol. 16', 'sale', '#222222', '#e8002d', 'novo', 100, 'assets/images/chainsaw man vol16.jpg'),
+  ('Berserk', 'Kentaro Miura', 'A jornada sombria do espadachim Guts num mundo medieval.', 1, 12.99, NULL, 20, 'Vol. 41', NULL, '#1a1a2e', '#c5a028', 'novo', 100, 'assets/images/berserk vol 41.jpg'),
+  ('Attack on Titan', 'Hajime Isayama', 'A humanidade luta pela sobrevivência contra titãs gigantes.', 1, 8.99, 10.99, 30, 'Vol. 34', 'sale', '#3a3a3a', '#8b5a2b', 'novo', 100, 'assets/images/attack on titan vol 32.jpg'),
+  ('Demon Slayer', 'Koyoharu Gotouge', 'Tanjiro embarca numa jornada para curar a sua irmã e vingar a sua família.', 1, 6.49, NULL, 45, 'Vol. 23', 'new', '#1a472a', '#c21807', 'novo', 100, 'assets/images/demon slayer vol 23.jpg'),
+  ('Duna', 'Frank Herbert', 'A obra-prima da ficção científica sobre poder, religião e ecologia.', 2, 14.99, 18.99, 25, 'Ed. Especial', 'sale', '#c5a028', '#8b3a0a', 'novo', 100, NULL),
+  ('Neuromancer', 'William Gibson', 'O romance cyberpunk que definiu um género inteiro.', 2, 11.99, NULL, 15, 'Edição 2026', 'new', '#0d1117', '#00ff88', 'novo', 100, NULL),
+  ('Vinland Saga', 'Makoto Yukimura', 'A saga viking de Thorfinn na era dos exploradores nórdicos.', 1, 9.99, NULL, 22, 'Vol. 27', NULL, '#2c4a6e', '#d4a017', 'novo', 100, 'assets/images/vinland saga vol 27.jpg'),
+  ('Tokyo Ghoul', 'Sui Ishida', 'Ken Kaneki torna-se meio-ghoul após um encontro fatídico.', 1, 7.99, 9.49, 35, 'Vol. 14', 'sale', '#1a0a2e', '#8b1a4a', 'novo', 100, 'assets/images/tokyo ghoul vol 14.jpg'),
+  ('Maus', 'Art Spiegelman', 'A graphic novel vencedora do Pulitzer sobre o Holocausto.', 2, 16.99, NULL, 18, 'Completo', 'hot', '#2d2d2d', '#f0f0f0', 'novo', 100, NULL),
+  ('Blue Period', 'Tsubasa Yamaguchi', 'Um jovem descobre a sua paixão pela arte e luta para entrar na universidade.', 1, 7.49, NULL, 28, 'Vol. 14', 'new', '#1a3a6e', '#4a90d9', 'novo', 100, 'assets/images/blue period vol 14.jpg');
+
+UPDATE produtos SET imagem = 'assets/images/one piece vol 104.jpg' WHERE nome = 'One Piece';
+UPDATE produtos SET imagem = 'assets/images/jujutsu kaisen vol 24.jpg' WHERE nome = 'Jujutsu Kaisen';
+UPDATE produtos SET imagem = 'assets/images/chainsaw man vol16.jpg' WHERE nome = 'Chainsaw Man';
+UPDATE produtos SET imagem = 'assets/images/berserk vol 41.jpg' WHERE nome = 'Berserk';
+UPDATE produtos SET imagem = 'assets/images/attack on titan vol 32.jpg' WHERE nome = 'Attack on Titan';
+UPDATE produtos SET imagem = 'assets/images/demon slayer vol 23.jpg' WHERE nome = 'Demon Slayer';
+UPDATE produtos SET imagem = 'assets/images/vinland saga vol 27.jpg' WHERE nome = 'Vinland Saga';
+UPDATE produtos SET imagem = 'assets/images/tokyo ghoul vol 14.jpg' WHERE nome = 'Tokyo Ghoul';
+UPDATE produtos SET imagem = 'assets/images/blue period vol 14.jpg' WHERE nome = 'Blue Period';

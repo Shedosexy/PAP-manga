@@ -176,9 +176,12 @@ $basePath    = '';
     .contact-hero {
       background: var(--black);
       color: white;
-      padding: 80px 80px 72px;
+      min-height: 44vh;
+      padding: 72px 80px 64px;
       position: relative;
       overflow: hidden;
+      display: flex;
+      align-items: center;
     }
 
     .contact-hero::before {
@@ -207,16 +210,17 @@ $basePath    = '';
     .contact-hero-inner {
       position: relative;
       z-index: 2;
-      max-width: 600px;
+      max-width: 620px;
+      width: 100%;
     }
 
     .hero-eyebrow {
       font-family: var(--font-mono);
-      font-size: 0.68rem;
+      font-size: 0.7rem;
       letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 18px;
+      margin-bottom: 24px;
       display: flex;
       align-items: center;
       gap: 12px;
@@ -231,10 +235,11 @@ $basePath    = '';
 
     .hero-title {
       font-family: var(--font-display);
-      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
       font-weight: 900;
       line-height: 1.05;
-      margin-bottom: 18px;
+      letter-spacing: -0.02em;
+      margin-bottom: 28px;
     }
 
     .hero-title em {
@@ -243,9 +248,10 @@ $basePath    = '';
     }
 
     .hero-desc {
-      font-size: 1rem;
+      font-size: 1.05rem;
       line-height: 1.75;
       color: rgba(255, 255, 255, 0.55);
+      max-width: 540px;
     }
 
     /* ─── CONTACT SECTION ─── */
@@ -289,7 +295,10 @@ $basePath    = '';
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
       flex-shrink: 0;
     }
 
@@ -876,6 +885,7 @@ $basePath    = '';
       }
 
       .contact-hero {
+        min-height: auto;
         padding: 60px 24px;
       }
 
@@ -936,28 +946,28 @@ $basePath    = '';
           </p>
 
           <div class="contact-detail">
-            <div class="contact-icon">📍</div>
+            <div class="contact-icon">PT</div>
             <div>
               <div class="contact-label">Morada</div>
               <div class="contact-value">Rua das Mangás, 42 — Lisboa, Portugal</div>
             </div>
           </div>
           <div class="contact-detail">
-            <div class="contact-icon">✉️</div>
+            <div class="contact-icon">EM</div>
             <div>
               <div class="contact-label">Email</div>
               <div class="contact-value">suporte@mangaverse.pt</div>
             </div>
           </div>
           <div class="contact-detail">
-            <div class="contact-icon">📞</div>
+            <div class="contact-icon">TL</div>
             <div>
               <div class="contact-label">Telefone</div>
               <div class="contact-value">+351 210 000 000</div>
             </div>
           </div>
           <div class="contact-detail">
-            <div class="contact-icon">⏰</div>
+            <div class="contact-icon">HR</div>
             <div>
               <div class="contact-label">Horário</div>
               <div class="contact-value">Seg-Sex: 9h — 18h</div>
@@ -1080,8 +1090,6 @@ $basePath    = '';
         <h4>Suporte</h4>
         <ul>
           <li><a href="suporte.php">Centro de Suporte</a></li>
-          <li><a href="#">Envios</a></li>
-          <li><a href="#">Devoluções</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1089,7 +1097,6 @@ $basePath    = '';
         <ul>
           <li><a href="login.php">Login</a></li>
           <li><a href="registo.php">Registar</a></li>
-          <li><a href="carrinho.php">Carrinho</a></li>
         </ul>
       </div>
     </div>

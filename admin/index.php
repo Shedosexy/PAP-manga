@@ -169,7 +169,7 @@ $registosDiarios = $pdo->query("
     }
     .stat-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
     .stat-card.accent { border-color: var(--accent); background: #fff5f6; }
-    .stat-icon { font-size: 1.4rem; margin-bottom: 10px; }
+    .stat-icon { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 10px; }
     .stat-value {
       font-family: var(--font-display); font-size: 1.5rem; font-weight: 900;
       line-height: 1; margin-bottom: 4px;
@@ -305,37 +305,37 @@ $registosDiarios = $pdo->query("
   <section class="stats-section">
     <div class="stats-grid">
       <div class="stat-card">
-        <div class="stat-icon">👥</div>
+        <div class="stat-icon">UT</div>
         <div class="stat-value"><?= number_format($stats['utilizadores']) ?></div>
         <div class="stat-label">Utilizadores</div>
         <a href="#" class="stat-link">Ver todos →</a>
       </div>
       <div class="stat-card">
-        <div class="stat-icon">📚</div>
+        <div class="stat-icon">PD</div>
         <div class="stat-value"><?= number_format($stats['produtos']) ?></div>
         <div class="stat-label">Produtos</div>
         <a href="../marketplace.php" class="stat-link">Ver loja →</a>
       </div>
       <div class="stat-card">
-        <div class="stat-icon">📦</div>
+        <div class="stat-icon">EC</div>
         <div class="stat-value"><?= number_format($stats['encomendas']) ?></div>
         <div class="stat-label">Encomendas</div>
         <a href="#" class="stat-link">Ver todas →</a>
       </div>
       <div class="stat-card">
-        <div class="stat-icon">🎫</div>
+        <div class="stat-icon">TK</div>
         <div class="stat-value"><?= number_format($stats['tickets']) ?></div>
         <div class="stat-label">Tickets Suporte</div>
         <a href="../suporte.php" class="stat-link">Ver suporte →</a>
       </div>
       <div class="stat-card">
-        <div class="stat-icon">✉️</div>
+        <div class="stat-icon">CT</div>
         <div class="stat-value"><?= number_format($stats['contactos']) ?></div>
         <div class="stat-label">Contactos</div>
         <a href="../contacto.php" class="stat-link">Ver formulário →</a>
       </div>
       <div class="stat-card accent">
-        <div class="stat-icon">💶</div>
+        <div class="stat-icon">€</div>
         <div class="stat-value"><?= number_format($stats['receita'], 2, ',', '.') ?>€</div>
         <div class="stat-label">Receita Total</div>
       </div>

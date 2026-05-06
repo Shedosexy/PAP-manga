@@ -37,17 +37,17 @@ if (isLoggedIn()) { header('Location: marketplace.php'); exit; }
 
     /* ─── REGISTER LAYOUT ─── */
     .register-page {
-      flex: 1; display: grid; grid-template-columns: 1fr 1fr;
-      min-height: 100vh; padding-top: 72px;
+      flex: 1; display: grid; grid-template-columns: minmax(340px, 0.95fr) minmax(0, 1fr);
+      min-height: calc(100vh - 72px); padding-top: 72px;
     }
     .register-visual {
       background: var(--black); position: relative; overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
+      display: flex; align-items: center; justify-content: flex-start; padding: 72px 80px 64px;
     }
     .register-visual::before {
       content: '登録';
-      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      font-family: var(--font-display); font-size: 14rem; font-weight: 900;
+      position: absolute; top: 50%; right: 60px; transform: translateY(-50%);
+      font-family: var(--font-display); font-size: 16rem; font-weight: 900;
       color: rgba(255,255,255,0.03); pointer-events: none;
     }
     .register-visual-grid {
@@ -58,24 +58,30 @@ if (isLoggedIn()) { header('Location: marketplace.php'); exit; }
       background-size: 60px 60px; pointer-events: none;
     }
     .register-visual-content {
-      position: relative; z-index: 2; text-align: center; color: white; padding: 40px;
+      position: relative; z-index: 2; text-align: left; color: white; padding: 0; max-width: 620px;
     }
+    .auth-hero-eyebrow {
+      font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 24px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .auth-hero-eyebrow::before { content: ''; width: 32px; height: 1.5px; background: var(--accent); }
     .register-visual-content h2 {
-      font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.8rem);
-      font-weight: 900; line-height: 1.1; margin-bottom: 20px;
+      font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 4.2rem);
+      font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 28px;
     }
     .register-visual-content h2 em { font-style: normal; color: var(--accent); }
     .register-visual-content p {
-      color: rgba(255,255,255,0.5); font-size: 1rem; line-height: 1.75; max-width: 360px; margin: 0 auto;
+      color: rgba(255,255,255,0.55); font-size: 1.05rem; line-height: 1.75; max-width: 480px; margin: 0;
     }
 
     .register-benefits {
-      display: flex; flex-direction: column; gap: 20px; margin-top: 40px; text-align: left; max-width: 320px; margin-left: auto; margin-right: auto;
+      display: flex; flex-direction: column; gap: 20px; margin-top: 40px; text-align: left; max-width: 420px; margin-left: 0; margin-right: 0;
     }
     .benefit-item { display: flex; align-items: center; gap: 14px; }
     .benefit-icon {
       width: 40px; height: 40px; border: 1.5px solid rgba(255,255,255,0.15); border-radius: 8px;
-      display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; flex-shrink: 0;
     }
     .benefit-text {
       font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em;
@@ -138,7 +144,8 @@ if (isLoggedIn()) { header('Location: marketplace.php'); exit; }
     @media (max-width: 900px) {
       nav { padding: 0 24px; }
       .register-page { grid-template-columns: 1fr; }
-      .register-visual { display: none; }
+      .register-visual { padding: 60px 24px; }
+      .register-visual::before { right: 24px; font-size: 10rem; }
       .register-form-side { padding: 32px 24px; }
       footer { padding: 24px; flex-direction: column; gap: 12px; }
     }
@@ -152,23 +159,24 @@ if (isLoggedIn()) { header('Location: marketplace.php'); exit; }
     <div class="register-visual">
       <div class="register-visual-grid"></div>
       <div class="register-visual-content">
+        <div class="auth-hero-eyebrow">Nova Conta · 2026</div>
         <h2>Junta-te ao<br><em>MangaVerse</em></h2>
         <p>Cria a tua conta e acede a milhares de mangás e ao marketplace P2P.</p>
         <div class="register-benefits">
           <div class="benefit-item">
-            <div class="benefit-icon">🛒</div>
+            <div class="benefit-icon">01</div>
             <span class="benefit-text">Carrinho e encomendas guardadas</span>
           </div>
           <div class="benefit-item">
-            <div class="benefit-icon">💰</div>
+            <div class="benefit-icon">02</div>
             <span class="benefit-text">Vende os teus mangás no marketplace</span>
           </div>
           <div class="benefit-item">
-            <div class="benefit-icon">🎯</div>
+            <div class="benefit-icon">03</div>
             <span class="benefit-text">Descontos exclusivos para membros</span>
           </div>
           <div class="benefit-item">
-            <div class="benefit-icon">📦</div>
+            <div class="benefit-icon">04</div>
             <span class="benefit-text">Rastreamento de encomendas</span>
           </div>
         </div>

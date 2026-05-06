@@ -67,7 +67,8 @@ class ModelMangas {
 
         $stmt = $db->prepare($sql);
         $stmt->execute($params);
-        return $stmt->fetchAll();
+
+        return array_map('applyProductCatalogFallbacks', $stmt->fetchAll());
     }
 
     /**
@@ -84,7 +85,9 @@ class ModelMangas {
             WHERE p.id = ?
         ");
         $stmt->execute([$id]);
-        return $stmt->fetch();
+        $produto = $stmt->fetch();
+
+        return $produto ? applyProductCatalogFallbacks($produto) : $produto;
     }
 
     /**
@@ -93,8 +96,8 @@ class ModelMangas {
     public static function criar($dados) {
         $db = getDB();
         $stmt = $db->prepare("
-            INSERT INTO produtos (nome, autor, descricao, categoria_id, preco, preco_antigo, stock, volume, badge, cor1, cor2, condicao, condicao_pct, vendedor_id)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO produtos (nome, autor, descricao, categoria_id, preco, preco_antigo, stock, volume, badge, cor1, cor2, condicao, condicao_pct, vendedor_id, imagem)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ");
         $stmt->execute([
             $dados['nome'],
@@ -110,9 +113,44 @@ class ModelMangas {
             $dados['cor2'] ?? '#e8002d',
             $dados['condicao'] ?? 'novo',
             $dados['condicao_pct'] ?? 100,
-            $dados['vendedor_id'] ?? null
+            $dados['vendedor_id'] ?? null,
+            $dados['imagem'] ?? null
         ]);
         return $db->lastInsertId();
+    }
+
+    public static function atualizar($id, $dados) {
+        $db = getDB();
+        $stmt = $db->prepare("\n            UPDATE produtos\n            SET nome = ?, autor = ?, descricao = ?, categoria_id = ?, preco = ?, preco_antigo = ?, stock = ?, volume = ?, condicao = ?, condicao_pct = ?, imagem = ?\n            WHERE id = ? AND ativo = 1\n        ");
+
+        return $stmt->execute([
+            $dados['nome'],
+            $dados['autor'] ?? 'Desconhecido',
+            $dados['descricao'] ?? '',
+            $dados['categoria_id'],
+            $dados['preco'],
+            $dados['preco_antigo'] ?? null,
+            $dados['stock'] ?? 1,
+            $dados['volume'] ?? null,
+            $dados['condicao'] ?? 'novo',
+            $dados['condicao_pct'] ?? 100,
+            $dados['imagem'] ?? null,
+            $id,
+        ]);
+    }
+
+    public static function eliminar($id) {
+        $db = getDB();
+        $stmt = $db->prepare("UPDATE produtos SET ativo = 0 WHERE id = ? AND ativo = 1");
+        return $stmt->execute([$id]);
+    }
+
+    public static function getCategoriaIdBySlug($slug) {
+        $db = getDB();
+        $stmt = $db->prepare("SELECT id FROM categorias WHERE slug = ? LIMIT 1");
+        $stmt->execute([$slug]);
+        $id = $stmt->fetchColumn();
+        return $id ? (int) $id : 0;
     }
 
     /**

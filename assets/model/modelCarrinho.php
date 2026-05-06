@@ -21,7 +21,7 @@ class ModelCarrinho {
             ORDER BY c.criado_em DESC
         ");
         $stmt->execute([$userId]);
-        return $stmt->fetchAll();
+        return array_map('applyProductCatalogFallbacks', $stmt->fetchAll());
     }
 
     /**

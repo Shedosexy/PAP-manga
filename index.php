@@ -165,11 +165,12 @@ $basePath    = '';
     }
 
     .hero {
-      min-height: 100vh;
-      padding: 72px 0 0;
+      min-height: 46vh;
+      padding: 72px 80px 64px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
       align-items: center;
+      gap: 48px;
       position: relative;
       overflow: hidden;
     }
@@ -197,9 +198,10 @@ $basePath    = '';
     }
 
     .hero-content {
-      padding: 80px 48px 80px 80px;
+      padding: 0;
       position: relative;
       z-index: 2;
+      max-width: 620px;
     }
 
     .hero-eyebrow {
@@ -234,6 +236,10 @@ $basePath    = '';
       font-style: normal;
       color: var(--accent);
       position: relative;
+    }
+
+    .hero-title-accent {
+      color: var(--accent) !important;
     }
 
     .hero-desc {
@@ -296,12 +302,12 @@ $basePath    = '';
 
     .hero-visual {
       height: 100%;
-      min-height: 600px;
+      min-height: 0;
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 80px 40px;
+      padding: 0 0 0 24px;
     }
 
     .hero-manga-stack {
@@ -358,8 +364,8 @@ $basePath    = '';
     .stats-bar {
       display: flex;
       gap: 48px;
-      margin-top: 56px;
-      padding-top: 40px;
+      margin-top: 40px;
+      padding-top: 28px;
       border-top: 1px solid var(--light-grey);
     }
 
@@ -694,7 +700,10 @@ $basePath    = '';
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
       flex-shrink: 0;
     }
 
@@ -918,6 +927,8 @@ $basePath    = '';
       }
 
       .hero {
+        min-height: auto;
+        padding: 60px 24px;
         grid-template-columns: 1fr;
       }
 
@@ -1244,9 +1255,13 @@ $basePath    = '';
     .drawer-overlay.open { opacity: 1; pointer-events: all; }
     .product-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 460px; max-width: 100vw; background: var(--white); z-index: 3001; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1); overflow-y: auto; display: flex; flex-direction: column; box-shadow: -8px 0 40px rgba(0,0,0,0.18); }
     .drawer-overlay.open .product-drawer { transform: translateX(0); }
-    .drawer-cover { width: 100%; aspect-ratio: 5/3; display: flex; align-items: flex-end; padding: 28px; position: relative; flex-shrink: 0; }
+    .drawer-cover { width: 100%; aspect-ratio: 5/3; display: flex; align-items: flex-end; padding: 28px; position: relative; flex-shrink: 0; overflow: hidden; }
+    .drawer-cover-media { position: absolute; inset: 0; }
+    .drawer-cover-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .drawer-cover-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.38) 0%, rgba(0,0,0,0.08) 55%, rgba(0,0,0,0.02) 100%); }
     .drawer-close { position: absolute; top: 16px; right: 16px; background: rgba(0,0,0,0.45); border: none; border-radius: 50%; width: 38px; height: 38px; color: white; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.18s; }
     .drawer-close:hover { background: var(--accent); }
+    .drawer-badge { display: none !important; }
     .drawer-body { padding: 28px 32px 40px; flex: 1; display: flex; flex-direction: column; }
     .drawer-type { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
     .drawer-title { font-family: var(--font-display); font-size: 1.4rem; font-weight: 900; line-height: 1.18; margin-bottom: 4px; }
@@ -1279,7 +1294,7 @@ $basePath    = '';
       <div class="hero-eyebrow">Novo Universo · 2026</div>
       <h1 class="hero-title">
         O Futuro dos<br>
-        <em>Mangás</em><br>
+        <em class="hero-title-accent">Mangás</em><br>
         chegou.
       </h1>
       <p class="hero-desc">
@@ -1288,7 +1303,7 @@ $basePath    = '';
       </p>
       <div class="hero-actions">
         <a href="#destaques" class="btn-primary">Ver Coleção</a>
-        <a href="carrinho.html" class="btn-outline">🛒 Ir ao Carrinho</a>
+        <a href="carrinho.php" class="btn-outline">Ir ao Carrinho</a>
       </div>
       <div class="stats-bar">
         <div class="stat-item">
@@ -1345,21 +1360,21 @@ $basePath    = '';
         <p>Tens uma dúvida sobre uma encomenda, queres saber sobre disponibilidade ou tens uma sugestão? A nossa equipa
           responde em menos de 24 horas.</p>
         <div class="contact-detail">
-          <div class="contact-icon">📍</div>
+          <div class="contact-icon">PT</div>
           <div>
             <div class="contact-label">Morada</div>
             <div class="contact-value">Rua das Mangás, 42 — Lisboa, Portugal</div>
           </div>
         </div>
         <div class="contact-detail">
-          <div class="contact-icon">✉️</div>
+          <div class="contact-icon">EM</div>
           <div>
             <div class="contact-label">Email</div>
             <div class="contact-value">suporte@mangaverse.pt</div>
           </div>
         </div>
         <div class="contact-detail">
-          <div class="contact-icon">📞</div>
+          <div class="contact-icon">TL</div>
           <div>
             <div class="contact-label">Telefone</div>
             <div class="contact-value">+351 210 000 000</div>
@@ -1429,15 +1444,15 @@ $basePath    = '';
   <script>
     const Model = {
       products: [
-        { id: 1, name: 'One Piece', author: 'Eiichiro Oda', type: 'manga', price: 7.99, oldPrice: null, badge: 'hot', color: ['#e8002d', '#f7a500'], vol: 'Vol. 104', imagem: 'one piece vol 104.jpg', desc: 'Acompanha Luffy e sua tripulação em busca do tesouro lendário. Uma aventura épica cheia de ação, amizade e sonhos impossíveis.' },
-        { id: 2, name: 'Jujutsu Kaisen', author: 'Gege Akutami', type: 'manga', price: 6.99, oldPrice: null, badge: 'new', color: ['#0057ff', '#000'], vol: 'Vol. 24', imagem: 'jujutsu kaisen vol 24.jpg', desc: 'Yuji Itadori mergulha no mundo perigoso do jujutsu, enfrentando maldições e desvendando segredos sombrios. Ação intensa e misticismo envolvente.' },
-        { id: 3, name: 'Chainsaw Man', author: 'Tatsuki Fujimoto', type: 'manga', price: 7.49, oldPrice: 9.99, badge: 'sale', color: ['#222', '#e8002d'], vol: 'Vol. 16', imagem: 'chainsaw man vol16.jpg', desc: 'Denji, um jovem desesperado, ganha poderes sobrenaturais para caçar demónios. Uma história sombria, visceral e cheia de reviravoltas.' },
-        { id: 4, name: 'Berserk', author: 'Kentaro Miura', type: 'manga', price: 12.99, oldPrice: null, badge: null, color: ['#1a1a2e', '#c5a028'], vol: 'Vol. 41', imagem: 'berserk vol 41.jpg', desc: 'A jornada épica de Guts numa tragédia medieval sombria. Obra-prima da arte manga, questionando destino e resistência humana.' },
-        { id: 5, name: 'Attack on Titan', author: 'Hajime Isayama', type: 'manga', price: 8.99, oldPrice: 10.99, badge: 'sale', color: ['#3a3a3a', '#8b5a2b'], vol: 'Vol. 34', imagem: 'attack on titan vol 32.jpg', desc: 'Titãs gigantes atacam a humanidade encurralada em muros. Um thriller estratégico repleto de mistérios e combat espetacular.' },
-        { id: 6, name: 'Demon Slayer', author: 'Koyoharu Gotouge', type: 'manga', price: 6.49, oldPrice: null, badge: 'new', color: ['#1a472a', '#c21807'], vol: 'Vol. 23', imagem: 'demon slayer vol 23.jpg', desc: 'Tanjiro luta para salvar sua irmã transformada em demónio. Ação belíssima com ilustrações respirantes e coração emocional.' },
-        { id: 9, name: 'Vinland Saga', author: 'Makoto Yukimura', type: 'manga', price: 9.99, oldPrice: null, badge: null, color: ['#2c4a6e', '#d4a017'], vol: 'Vol. 27', imagem: 'vinland saga vol 27.jpg', desc: 'Uma saga histórica sobre vingança e redenção na era viking. Narrativa profunda explorando o significado da vida e guerra.' },
-        { id: 10, name: 'Tokyo Ghoul', author: 'Sui Ishida', type: 'manga', price: 7.99, oldPrice: 9.49, badge: 'sale', color: ['#1a0a2e', '#8b1a4a'], vol: 'Vol. 14', imagem: 'tokyo ghoul vol 14.jpg', desc: 'Ken Kaneki descobre um mundo oculto de criaturas sobrenaturais em Tóquio. Psicológico, sombrio e perturbadoramente cativante.' },
-        { id: 12, name: 'Blue Period', author: 'Tsubasa Yamaguchi', type: 'manga', price: 7.49, oldPrice: null, badge: 'new', color: ['#1a3a6e', '#4a90d9'], vol: 'Vol. 14', imagem: 'blue period vol 14.jpg', desc: 'Um estudante descobre paixão pela arte enquanto questiona seu futuro. Obra inspiradora sobre criatividade, ambição e identidade pessoal.' },
+        { id: 1, name: 'One Piece', author: 'Eiichiro Oda', type: 'manga', price: 7.99, oldPrice: null, badge: 'hot', color: ['#e8002d', '#f7a500'], vol: 'Vol. 104', imagem: 'assets/images/one piece vol 104.jpg', desc: 'A aventura épica de Monkey D. Luffy para se tornar o Rei dos Piratas.' },
+        { id: 2, name: 'Jujutsu Kaisen', author: 'Gege Akutami', type: 'manga', price: 6.99, oldPrice: null, badge: 'new', color: ['#0057ff', '#000'], vol: 'Vol. 24', imagem: 'assets/images/jujutsu kaisen vol 24.jpg', desc: 'Yuji Itadori junta-se à escola de feiticeiros para combater maldições.' },
+        { id: 3, name: 'Chainsaw Man', author: 'Tatsuki Fujimoto', type: 'manga', price: 7.49, oldPrice: 9.99, badge: 'sale', color: ['#222', '#e8002d'], vol: 'Vol. 16', imagem: 'assets/images/chainsaw man vol16.jpg', desc: 'Denji funde-se com o seu demónio motosserra para caçar demónios.' },
+        { id: 4, name: 'Berserk', author: 'Kentaro Miura', type: 'manga', price: 12.99, oldPrice: null, badge: null, color: ['#1a1a2e', '#c5a028'], vol: 'Vol. 41', imagem: 'assets/images/berserk vol 41.jpg', desc: 'A jornada sombria do espadachim Guts num mundo medieval.' },
+        { id: 5, name: 'Attack on Titan', author: 'Hajime Isayama', type: 'manga', price: 8.99, oldPrice: 10.99, badge: 'sale', color: ['#3a3a3a', '#8b5a2b'], vol: 'Vol. 34', imagem: 'assets/images/attack on titan vol 32.jpg', desc: 'A humanidade luta pela sobrevivência contra titãs gigantes.' },
+        { id: 6, name: 'Demon Slayer', author: 'Koyoharu Gotouge', type: 'manga', price: 6.49, oldPrice: null, badge: 'new', color: ['#1a472a', '#c21807'], vol: 'Vol. 23', imagem: 'assets/images/demon slayer vol 23.jpg', desc: 'Tanjiro embarca numa jornada para curar a sua irmã e vingar a sua família.' },
+        { id: 9, name: 'Vinland Saga', author: 'Makoto Yukimura', type: 'manga', price: 9.99, oldPrice: null, badge: null, color: ['#2c4a6e', '#d4a017'], vol: 'Vol. 27', imagem: 'assets/images/vinland saga vol 27.jpg', desc: 'A saga viking de Thorfinn na era dos exploradores nórdicos.' },
+        { id: 10, name: 'Tokyo Ghoul', author: 'Sui Ishida', type: 'manga', price: 7.99, oldPrice: 9.49, badge: 'sale', color: ['#1a0a2e', '#8b1a4a'], vol: 'Vol. 14', imagem: 'assets/images/tokyo ghoul vol 14.jpg', desc: 'Ken Kaneki torna-se meio-ghoul após um encontro fatídico.' },
+        { id: 12, name: 'Blue Period', author: 'Tsubasa Yamaguchi', type: 'manga', price: 7.49, oldPrice: null, badge: 'new', color: ['#1a3a6e', '#4a90d9'], vol: 'Vol. 14', imagem: 'assets/images/blue period vol 14.jpg', desc: 'Um jovem descobre a sua paixão pela arte e luta para entrar na universidade.' },
       ],
 
       cart: JSON.parse(localStorage.getItem('mv_cart') || '[]'),
@@ -1482,17 +1497,17 @@ $basePath    = '';
         const stack = document.getElementById('hero-stack');
         if (!stack) return;
         const heroProducts = [
-          { imagem: 'one piece vol 104.jpg', name: 'One Piece' },
-          { imagem: 'jujutsu kaisen vol 24.jpg', name: 'Jujutsu Kaisen' },
-          { imagem: 'chainsaw man vol16.jpg', name: 'Chainsaw Man' },
-          { imagem: 'berserk vol 41.jpg', name: 'Berserk' },
-          { imagem: 'attack on titan vol 32.jpg', name: 'Attack on Titan' },
-          { imagem: 'demon slayer vol 23.jpg', name: 'Demon Slayer' },
+          { imagem: 'assets/images/one piece vol 104.jpg', name: 'One Piece' },
+          { imagem: 'assets/images/jujutsu kaisen vol 24.jpg', name: 'Jujutsu Kaisen' },
+          { imagem: 'assets/images/chainsaw man vol16.jpg', name: 'Chainsaw Man' },
+          { imagem: 'assets/images/berserk vol 41.jpg', name: 'Berserk' },
+          { imagem: 'assets/images/attack on titan vol 32.jpg', name: 'Attack on Titan' },
+          { imagem: 'assets/images/demon slayer vol 23.jpg', name: 'Demon Slayer' },
         ];
         heroProducts.forEach((product, i) => {
           const card = document.createElement('div');
           card.className = 'hero-manga-card';
-          card.innerHTML = `<img src="assets/images/${product.imagem}" alt="${product.name}" style="width:100%;height:100%;object-fit:cover;">`;
+          card.innerHTML = `<img src="${product.imagem}" alt="${product.name}" style="width:100%;height:100%;object-fit:cover;">`;
           stack.appendChild(card);
         });
       },
@@ -1507,14 +1522,14 @@ $basePath    = '';
           card.style.transitionDelay = `${idx * 60}ms`;
           let coverHtml = '';
           if (p.imagem) {
-            coverHtml = `<img src="assets/images/${p.imagem}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;">`;
+            coverHtml = `<img src="${p.imagem}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;">`;
           } else {
             coverHtml = `<div class="product-cover" style="background:linear-gradient(160deg,${p.color[0]},${p.color[1]})">
               ${p.name}<br><span style="font-size:0.5rem;opacity:0.7">${p.vol}</span>
             </div>`;
           }
           card.innerHTML = `
-          ${p.badge ? `<span class="product-badge badge-${p.badge}">${p.badge === 'new' ? 'Novo' : p.badge === 'hot' ? '🔥 Hot' : 'Sale'}</span>` : ''}
+          ${p.badge ? `<span class="product-badge badge-${p.badge}">${p.badge === 'new' ? 'Novo' : p.badge === 'hot' ? 'Hot' : 'Sale'}</span>` : ''}
           <div class="product-img-wrap">
             ${coverHtml}
           </div>
@@ -1660,6 +1675,7 @@ $basePath    = '';
   <div class="drawer-overlay" id="drawer-overlay">
     <div class="product-drawer" id="product-drawer">
       <div class="drawer-cover" id="drawer-cover">
+        <div class="drawer-cover-media" id="drawer-cover-media"></div>
         <button class="drawer-close" id="drawer-close" title="Fechar">✕</button>
         <span class="drawer-badge" id="drawer-badge" style="display:none"></span>
       </div>
@@ -1675,7 +1691,7 @@ $basePath    = '';
           <span class="drawer-price" id="drawer-price"></span>
           <span class="drawer-stock" id="drawer-stock"></span>
         </div>
-        <button class="drawer-add-btn" id="drawer-add-btn">🛒 Adicionar ao Carrinho</button>
+        <button class="drawer-add-btn" id="drawer-add-btn">Adicionar ao Carrinho</button>
       </div>
     </div>
   </div>
@@ -1688,26 +1704,22 @@ $basePath    = '';
       function openDrawer(p) {
         _drawerProduct = p;
 
-        document.getElementById('drawer-cover').style.background =
+        var drawerCover = document.getElementById('drawer-cover');
+        var drawerCoverMedia = document.getElementById('drawer-cover-media');
+        drawerCover.style.background =
           'linear-gradient(160deg,' + (p.color ? p.color[0] : '#0a0a0a') + ',' + (p.color ? p.color[1] : '#e8002d') + ')';
+        drawerCoverMedia.innerHTML = p.imagem
+          ? '<img src="' + String(p.imagem).replace(/"/g, '&quot;') + '" alt="' + String(p.name || '').replace(/"/g, '&quot;') + '">'
+          : '';
 
-        var badgeEl = document.getElementById('drawer-badge');
-        var badgeLabel = { new: 'Novo', hot: '🔥 Hot', sale: 'Sale' }[p.badge] || '';
-        var badgeClass = { new: 'badge-new', hot: 'badge-hot', sale: 'badge-sale' }[p.badge] || '';
-        if (p.badge) {
-          badgeEl.className = 'drawer-badge listing-badge ' + badgeClass;
-          badgeEl.textContent = badgeLabel;
-          badgeEl.style.display = '';
-        } else {
-          badgeEl.style.display = 'none';
-        }
+        document.getElementById('drawer-badge').style.display = 'none';
 
         document.getElementById('drawer-type').textContent = '// Mangá';
         document.getElementById('drawer-title').textContent = p.name + (p.vol ? ' — ' + p.vol : '');
         document.getElementById('drawer-author').textContent = 'por ' + p.author;
-        document.getElementById('drawer-desc').textContent = 'Sem descrição disponível.';
+        document.getElementById('drawer-desc').textContent = p.desc || 'Sem descrição disponível.';
 
-        var meta = '<span class="drawer-meta-item">✅ Novo</span>';
+        var meta = '<span class="drawer-meta-item">Estado: Novo</span>';
         document.getElementById('drawer-meta').innerHTML = meta;
 
         var oldEl = document.getElementById('drawer-old-price');
@@ -1723,7 +1735,7 @@ $basePath    = '';
 
         var btn = document.getElementById('drawer-add-btn');
         btn.disabled = false;
-        btn.textContent = '🛒 Adicionar ao Carrinho';
+        btn.textContent = 'Adicionar ao Carrinho';
 
         document.getElementById('drawer-overlay').classList.add('open');
       }
@@ -1763,7 +1775,7 @@ $basePath    = '';
         var product = Model.addToCart(_drawerProduct.id);
         View.updateCartCount(Model.getCartCount());
         btn.textContent = '✓ Adicionado!';
-        setTimeout(function() { btn.textContent = '🛒 Adicionar ao Carrinho'; }, 1800);
+        setTimeout(function() { btn.textContent = 'Adicionar ao Carrinho'; }, 1800);
         Swal.fire({
           toast: true, position: 'bottom-end', icon: 'success',
           title: '<span style="font-family:\'Orbitron\',sans-serif;font-size:0.78rem">' + (_drawerProduct.name || '') + '</span>',

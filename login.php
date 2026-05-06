@@ -46,19 +46,19 @@ if (isLoggedIn()) { header('Location: marketplace.php'); exit; }
 
     /* ─── LOGIN LAYOUT ─── */
     .login-page {
-      flex: 1; display: grid; grid-template-columns: 1fr 1fr;
-      min-height: 100vh; padding-top: 72px;
+      flex: 1; display: grid; grid-template-columns: minmax(340px, 0.95fr) minmax(0, 1fr);
+      min-height: calc(100vh - 72px); padding-top: 72px;
     }
 
     .login-visual {
       background: var(--black); position: relative; overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
+      display: flex; align-items: center; justify-content: flex-start; padding: 72px 80px 64px;
     }
     .login-visual::before {
       content: 'ログイン';
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      font-family: var(--font-display); font-size: 12rem; font-weight: 900;
+      position: absolute; top: 50%; right: 60px;
+      transform: translateY(-50%);
+      font-family: var(--font-display); font-size: 16rem; font-weight: 900;
       color: rgba(255,255,255,0.03); pointer-events: none; white-space: nowrap;
     }
     .login-visual-grid {
@@ -69,15 +69,21 @@ if (isLoggedIn()) { header('Location: marketplace.php'); exit; }
       background-size: 60px 60px; pointer-events: none;
     }
     .login-visual-content {
-      position: relative; z-index: 2; text-align: center; color: white; padding: 40px;
+      position: relative; z-index: 2; text-align: left; color: white; padding: 0; max-width: 620px;
     }
+    .auth-hero-eyebrow {
+      font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 24px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .auth-hero-eyebrow::before { content: ''; width: 32px; height: 1.5px; background: var(--accent); }
     .login-visual-content h2 {
-      font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.8rem);
-      font-weight: 900; line-height: 1.1; margin-bottom: 20px;
+      font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 4.2rem);
+      font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 28px;
     }
     .login-visual-content h2 em { font-style: normal; color: var(--accent); }
     .login-visual-content p {
-      color: rgba(255,255,255,0.5); font-size: 1rem; line-height: 1.75; max-width: 360px; margin: 0 auto;
+      color: rgba(255,255,255,0.55); font-size: 1.05rem; line-height: 1.75; max-width: 480px; margin: 0;
     }
 
     .login-form-side {
@@ -151,7 +157,8 @@ if (isLoggedIn()) { header('Location: marketplace.php'); exit; }
     @media (max-width: 900px) {
       nav { padding: 0 24px; }
       .login-page { grid-template-columns: 1fr; }
-      .login-visual { display: none; }
+      .login-visual { padding: 60px 24px; }
+      .login-visual::before { right: 24px; font-size: 10rem; }
       .login-form-side { padding: 32px 24px; }
       footer { padding: 24px; flex-direction: column; gap: 12px; }
     }
@@ -166,6 +173,7 @@ if (isLoggedIn()) { header('Location: marketplace.php'); exit; }
     <div class="login-visual">
       <div class="login-visual-grid"></div>
       <div class="login-visual-content">
+        <div class="auth-hero-eyebrow">Área de Cliente · 2026</div>
         <h2>Bem-vindo de<br>volta ao <em>MangaVerse</em></h2>
         <p>Entra na tua conta para aceder ao carrinho, encomendas e marketplace.</p>
       </div>

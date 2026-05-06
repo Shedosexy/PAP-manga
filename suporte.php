@@ -42,15 +42,15 @@ $basePath    = '';
     .page-wrap { padding-top: 72px; }
 
     /* ─── HERO ─── */
-    .sup-hero { background: var(--black); color: white; padding: 64px 80px 56px; position: relative; overflow: hidden; }
+    .sup-hero { background: var(--black); color: white; min-height: 44vh; padding: 72px 80px 64px; position: relative; overflow: hidden; display: flex; align-items: center; }
     .sup-hero::before { content: '支援'; position: absolute; right: 60px; top: 50%; transform: translateY(-50%); font-family: var(--font-display); font-size: 16rem; font-weight: 900; color: rgba(255,255,255,0.03); pointer-events: none; }
     .sup-hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
-    .sup-hero-inner { position: relative; z-index: 2; }
-    .sup-eyebrow { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
+    .sup-hero-inner { position: relative; z-index: 2; width: 100%; max-width: 620px; }
+    .sup-eyebrow { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
     .sup-eyebrow::before { content: ''; width: 32px; height: 1.5px; background: var(--accent); }
-    .sup-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 900; line-height: 1.1; margin-bottom: 16px; }
+    .sup-title { font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 4.2rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 28px; }
     .sup-title em { font-style: normal; color: var(--accent); }
-    .sup-desc { font-size: 1rem; line-height: 1.75; color: rgba(255,255,255,0.5); max-width: 540px; }
+    .sup-desc { font-size: 1.05rem; line-height: 1.75; color: rgba(255,255,255,0.55); max-width: 540px; }
 
     /* ─── CONTENT ─── */
     .sup-content { max-width: 1100px; margin: 0 auto; padding: 60px 48px; }
@@ -91,7 +91,7 @@ $basePath    = '';
     .status-fechado { background: var(--light-grey); color: var(--grey); }
 
     .empty-state { text-align: center; padding: 80px 24px; color: var(--grey); }
-    .empty-state-icon { font-size: 3rem; margin-bottom: 16px; }
+    .empty-state-icon { font-family: var(--font-mono); font-size: 1.2rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 16px; }
     .empty-state-text { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.1em; }
 
     /* ─── TICKET DETAIL ─── */
@@ -124,8 +124,8 @@ $basePath    = '';
     .reply-btn:hover { background: var(--accent); }
 
     /* ─── FAQ ─── */
-    .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .faq-card { background: var(--off-white); border: 1.5px solid var(--card-border); border-radius: 12px; padding: 24px; cursor: pointer; transition: all 0.2s; }
+    .faq-grid { column-count: 2; column-gap: 16px; }
+    .faq-card { background: var(--off-white); border: 1.5px solid var(--card-border); border-radius: 12px; padding: 24px; cursor: pointer; transition: all 0.2s; display: inline-block; width: 100%; margin: 0 0 16px; break-inside: avoid; }
     .faq-card:hover { border-color: var(--black); }
     .faq-card.open .faq-answer { display: block; }
     .faq-card.open .faq-toggle { transform: rotate(45deg); }
@@ -138,9 +138,9 @@ $basePath    = '';
 
     @media (max-width: 900px) {
       nav { padding: 0 24px; }
-      .sup-hero { padding: 48px 24px; }
+      .sup-hero { min-height: auto; padding: 60px 24px; }
       .sup-content { padding: 40px 20px; }
-      .faq-grid { grid-template-columns: 1fr; }
+      .faq-grid { column-count: 1; }
       .ticket-card { grid-template-columns: 1fr; gap: 8px; }
       .form-row { grid-template-columns: 1fr; }
       .reply-form { flex-direction: column; }
@@ -179,7 +179,7 @@ $basePath    = '';
       <div class="tab-panel active" id="tab-criar">
         <?php if (!$user): ?>
           <div class="empty-state">
-            <div class="empty-state-icon">🔒</div>
+            <div class="empty-state-icon">Login</div>
             <div class="empty-state-text">Precisas de fazer <a href="login.php" style="color:var(--accent)">login</a> para criar um ticket de suporte.</div>
           </div>
         <?php else: ?>
@@ -226,14 +226,14 @@ $basePath    = '';
       <div class="tab-panel" id="tab-tickets">
         <?php if (!$user): ?>
           <div class="empty-state">
-            <div class="empty-state-icon">🔒</div>
+            <div class="empty-state-icon">Login</div>
             <div class="empty-state-text">Precisas de <a href="login.php" style="color:var(--accent)">fazer login</a> para ver os teus tickets.</div>
           </div>
         <?php else: ?>
           <div id="tickets-list-view">
             <div class="ticket-list" id="ticket-list">
               <div class="empty-state">
-                <div class="empty-state-icon">📭</div>
+                <div class="empty-state-icon">Sem</div>
                 <div class="empty-state-text">A carregar tickets...</div>
               </div>
             </div>
@@ -377,7 +377,7 @@ $basePath    = '';
           list.empty();
 
           if (res.tickets.length === 0) {
-            list.html('<div class="empty-state"><div class="empty-state-icon">📭</div><div class="empty-state-text">Ainda não tens nenhum ticket de suporte.</div></div>');
+            list.html('<div class="empty-state"><div class="empty-state-icon">Sem</div><div class="empty-state-text">Ainda não tens nenhum ticket de suporte.</div></div>');
             return;
           }
 

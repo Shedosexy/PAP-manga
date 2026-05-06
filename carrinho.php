@@ -81,9 +81,12 @@ $basePath    = '';
     .cart-hero {
         background: var(--black);
         color: white;
-        padding: 56px 80px 48px;
+        min-height: 40vh;
+        padding: 72px 80px 64px;
         position: relative;
         overflow: hidden;
+        display: flex;
+        align-items: center;
     }
 
     .cart-hero::before {
@@ -312,7 +315,10 @@ $basePath    = '';
     }
 
     .cart-empty-icon {
-        font-size: 3.5rem;
+        font-family: var(--font-mono);
+        font-size: 1.4rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
         margin-bottom: 16px;
     }
 
@@ -723,7 +729,8 @@ $basePath    = '';
         }
 
         .cart-hero {
-            padding: 40px 24px;
+            min-height: auto;
+            padding: 60px 24px;
         }
 
         .cart-hero-inner {
@@ -793,7 +800,7 @@ $basePath    = '';
             <div class="cart-main">
                 <div id="cart-items-container">
                     <div class="cart-empty">
-                        <div class="cart-empty-icon">🛒</div>
+                        <div class="cart-empty-icon">Carrinho</div>
                         <div class="cart-empty-text">A carregar o teu carrinho...</div>
                     </div>
                 </div>
@@ -835,7 +842,7 @@ $basePath    = '';
                     <span class="pm-icon">Stripe</span>
                     <span class="pm-icon">MB Way</span>
                 </div>
-                <div class="secure-text">🔒 Pagamento seguro via Stripe</div>
+                <div class="secure-text">Pagamento seguro via Stripe</div>
             </div>
 
         </div>
@@ -938,7 +945,7 @@ $basePath    = '';
 
                 <!-- Step 3: Confirmation -->
                 <div id="checkout-step-3" style="display:none;text-align:center;padding:40px 0;">
-                    <div style="font-size:3.5rem;margin-bottom:16px;">✅</div>
+                    <div style="font-family:var(--font-mono);font-size:1.4rem;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;">OK</div>
                     <div style="font-family:var(--font-display);font-size:1.3rem;font-weight:900;margin-bottom:10px;">
                         Encomenda confirmada!</div>
                     <div
@@ -1016,6 +1023,7 @@ $basePath    = '';
                                 preco: p.preco,
                                 quantidade: li.qty || 1,
                                 categoria_slug: p.categoria_slug,
+                                imagem: p.imagem || null,
                                 cor1: p.cor1 || '#0a0a0a',
                                 cor2: p.cor2 || '#e8002d'
                             });
@@ -1036,7 +1044,7 @@ $basePath    = '';
             if (cartItems.length === 0) {
                 container.html(
                     '<div class="cart-empty">' +
-                    '<div class="cart-empty-icon">🛒</div>' +
+                    '<div class="cart-empty-icon">Carrinho</div>' +
                     '<div class="cart-empty-text">O teu carrinho está vazio.</div>' +
                     '<a href="index.php" class="cart-empty-btn">Explorar Loja →</a>' +
                     '</div>'
@@ -1052,7 +1060,7 @@ $basePath    = '';
 
                 var coverHtml = '';
                 if (item.imagem) {
-                    coverHtml = '<img src="assets/images/' + item.imagem + '" alt="' + $('<span>').text(item.nome).html() + '" style="width:100%;height:100%;object-fit:cover;">';
+                    coverHtml = '<img src="' + $('<span>').text(item.imagem).html() + '" alt="' + $('<span>').text(item.nome).html() + '" style="width:100%;height:100%;object-fit:cover;">';
                 } else {
                     coverHtml = '<div style="background:linear-gradient(160deg,' + (item.cor1 || '#0a0a0a') + ',' + (item.cor2 || '#e8002d') + ');width:100%;height:100%;display:flex;align-items:center;justify-content:center;text-align:center;">' + $('<span>').text(item.nome).html() + '</div>';
                 }
