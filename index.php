@@ -1169,7 +1169,8 @@ $basePath    = '';
       <a href="#destaques" class="btn-primary" style="white-space:nowrap;">Explorar Mangás →</a>
     </div>
   </section>
-
+  <br>
+  <br>
   <footer>
     <div class="footer-grid">
       <div class="footer-brand">
