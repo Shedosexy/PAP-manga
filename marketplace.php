@@ -1479,7 +1479,7 @@ $basePath    = '';
                         var badgeClass = p.badge === 'new' ? 'badge-new' : p.badge === 'hot' ?
                             'badge-hot' : 'badge-sale';
                         var badgeLabel = p.badge === 'new' ? 'Novo' : p.badge === 'hot' ?
-                            'Hot' : 'Sale';
+                            'Popular' : 'Promoção';
                         badgeHtml = '<span class="listing-badge ' + badgeClass + '">' +
                             badgeLabel + '</span>';
                     }

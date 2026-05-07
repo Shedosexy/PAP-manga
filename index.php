@@ -1167,12 +1167,12 @@ $basePath    = '';
 
   <section class="banner-section reveal" id="edicos-especiais">
     <div>
-      <div class="banner-eyebrow">// Edições Especiais · 2026</div>
-      <h2 class="banner-title">Mergulha no<br>Universo dos<br>Mangás</h2>
-      <p class="banner-desc">Descobre histórias épicas, personagens memoráveis e arte magnifica de autores renomados. Edições especiais e lançamentos exclusivos.</p>
+      <div class="banner-eyebrow">// Coleção · 2026</div>
+      <h2 class="banner-title">Temos mais no<br>Marketplace<br></h2>
+      <p class="banner-desc">Descobre obras primas, personagens memoráveis e arte magnifica de autores renomados. Edições especiais e lançamentos exclusivos.</p>
     </div>
     <div>
-      <a href="#destaques" class="btn-primary" style="white-space:nowrap;">Ver Edições →</a>
+      <a href="#destaques" class="btn-primary" style="white-space:nowrap;">Explorar Mangás →</a>
     </div>
   </section>
 
@@ -1358,7 +1358,7 @@ $basePath    = '';
             </div>`;
           }
           card.innerHTML = `
-          ${p.badge ? `<span class="product-badge badge-${p.badge}">${p.badge === 'new' ? 'Novo' : p.badge === 'hot' ? 'Hot' : 'Sale'}</span>` : ''}
+          ${p.badge ? `<span class="product-badge badge-${p.badge}">${p.badge === 'new' ? 'Novo' : p.badge === 'hot' ? 'Popular' : 'Promoção'}</span>` : ''}
           <div class="product-img-wrap">
             ${coverHtml}
           </div>
