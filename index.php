@@ -1239,15 +1239,51 @@ $basePath    = '';
 
       addToCart(id) {
         const product = this.products.find(p => p.id === id);
-        if (!product) return;
-        const existing = this.cart.find(c => c.id === id);
-        if (existing) {
-          existing.qty += 1;
-        } else {
-          this.cart.push({ ...product, qty: 1 });
+        if (!product) {
+          return Promise.reject({ message: 'Produto não encontrado.' });
         }
-        this._saveCart();
-        return product;
+
+        if (!isLoggedIn) {
+          const existing = this.cart.find(c => c.id === id);
+          if (existing) {
+            existing.qty += 1;
+          } else {
+            this.cart.push({ ...product, qty: 1 });
+          }
+          this._saveCart();
+
+          return Promise.resolve({
+            product,
+            totalItems: this.getCartCount()
+          });
+        }
+
+        return new Promise((resolve, reject) => {
+          $.ajax({
+            url: 'assets/controller/controllerCarrinho.php',
+            method: 'POST',
+            dataType: 'json',
+            data: {
+              acao: 'adicionar',
+              produto_id: id,
+              quantidade: 1
+            },
+            success: (res) => {
+              if (!res || !res.success) {
+                reject(res || { message: 'Não foi possível adicionar ao carrinho.' });
+                return;
+              }
+
+              resolve({
+                product,
+                totalItems: Number(res.total_itens || 0)
+              });
+            },
+            error: (xhr) => {
+              reject(xhr.responseJSON || { message: 'Não foi possível adicionar ao carrinho.' });
+            }
+          });
+        });
       },
 
       getCartCount() {
@@ -1355,7 +1391,9 @@ $basePath    = '';
       init() {
         View.renderHeroStack();
         this.renderProducts('all');
-        View.updateCartCount(Model.getCartCount());
+        if (!isLoggedIn) {
+          View.updateCartCount(Model.getCartCount());
+        }
         this._bindFilterTabs();
         this._bindContactForm();
         this._bindScrollReveal();
@@ -1392,25 +1430,47 @@ $basePath    = '';
               }).then(() => { window.location.href = 'login.php'; });
               return;
             }
+
             const id = parseInt(btn.dataset.id);
-            const product = Model.addToCart(id);
-            View.updateCartCount(Model.getCartCount());
-            View.showAddedAlert(product);
-            btn.style.background = '#e8002d';
-            btn.textContent = '✓';
-            setTimeout(() => {
-              btn.style.background = '';
-              btn.textContent = '+';
-            }, 1200);
+            btn.disabled = true;
+
+            Model.addToCart(id).then(result => {
+              View.updateCartCount(result.totalItems);
+              View.showAddedAlert(result.product);
+              btn.style.background = '#e8002d';
+              btn.textContent = '✓';
+              setTimeout(() => {
+                btn.style.background = '';
+                btn.textContent = '+';
+                btn.disabled = false;
+              }, 1200);
+            }).catch(error => {
+              btn.disabled = false;
+              Swal.fire({
+                icon: 'error',
+                title: 'Erro ao adicionar',
+                text: error.message || 'Não foi possível adicionar o produto ao carrinho.',
+                confirmButtonColor: '#e8002d'
+              });
+            });
           });
         });
       },
 
       _bindContactForm() {
-        document.getElementById('contact-submit').addEventListener('click', () => {
-          const name = document.getElementById('contact-name').value.trim();
-          const email = document.getElementById('contact-email').value.trim();
-          const msg = document.getElementById('contact-msg').value.trim();
+        const submitButton = document.getElementById('contact-submit');
+        const nameInput = document.getElementById('contact-name');
+        const emailInput = document.getElementById('contact-email');
+        const messageInput = document.getElementById('contact-msg');
+
+        if (!submitButton || !nameInput || !emailInput || !messageInput) {
+          return;
+        }
+
+        submitButton.addEventListener('click', () => {
+          const name = nameInput.value.trim();
+          const email = emailInput.value.trim();
+          const msg = messageInput.value.trim();
           if (!name || !email || !msg) {
             Swal.fire({ icon: 'warning', title: 'Campos em falta', text: 'Por favor preenche todos os campos.', confirmButtonColor: '#e8002d' });
             return;
@@ -1422,9 +1482,9 @@ $basePath    = '';
             confirmButtonColor: '#0a0a0a',
             confirmButtonText: 'Fechar'
           });
-          document.getElementById('contact-name').value = '';
-          document.getElementById('contact-email').value = '';
-          document.getElementById('contact-msg').value = '';
+          nameInput.value = '';
+          emailInput.value = '';
+          messageInput.value = '';
         });
       },
 
@@ -1565,16 +1625,29 @@ $basePath    = '';
           return;
         }
         var btn = this;
-        var product = Model.addToCart(_drawerProduct.id);
-        View.updateCartCount(Model.getCartCount());
-        btn.textContent = '✓ Adicionado!';
-        setTimeout(function() { btn.textContent = 'Adicionar ao Carrinho'; }, 1800);
-        Swal.fire({
-          toast: true, position: 'bottom-end', icon: 'success',
-          title: '<span style="font-family:\'Orbitron\',sans-serif;font-size:0.78rem">' + (_drawerProduct.name || '') + '</span>',
-          text: 'Adicionado ao carrinho!',
-          showConfirmButton: false, timer: 2200, timerProgressBar: true,
-          background: '#0a0a0a', color: '#fff', iconColor: '#e8002d'
+        btn.disabled = true;
+        Model.addToCart(_drawerProduct.id).then(function(result) {
+          View.updateCartCount(result.totalItems);
+          btn.textContent = '✓ Adicionado!';
+          setTimeout(function() {
+            btn.textContent = 'Adicionar ao Carrinho';
+            btn.disabled = false;
+          }, 1800);
+          Swal.fire({
+            toast: true, position: 'bottom-end', icon: 'success',
+            title: '<span style="font-family:\'Orbitron\',sans-serif;font-size:0.78rem">' + (_drawerProduct.name || '') + '</span>',
+            text: 'Adicionado ao carrinho!',
+            showConfirmButton: false, timer: 2200, timerProgressBar: true,
+            background: '#0a0a0a', color: '#fff', iconColor: '#e8002d'
+          });
+        }).catch(function(error) {
+          btn.disabled = false;
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro ao adicionar',
+            text: (error && error.message) || 'Não foi possível adicionar o produto ao carrinho.',
+            confirmButtonColor: '#e8002d'
+          });
         });
       });
     })();
