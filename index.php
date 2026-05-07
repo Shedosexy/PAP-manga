@@ -1214,6 +1214,8 @@ $basePath    = '';
 
   <script>
     const isLoggedIn = <?= $user ? 'true' : 'false' ?>;
+    const userRole = <?= json_encode($user['role'] ?? null, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
+    const isAdminUser = userRole === 'admin';
 
     const Model = {
       products: [
@@ -1241,6 +1243,13 @@ $basePath    = '';
         const product = this.products.find(p => p.id === id);
         if (!product) {
           return Promise.reject({ message: 'Produto não encontrado.' });
+        }
+
+        if (isAdminUser) {
+          return Promise.reject({
+            code: 'admin-cart-disabled',
+            message: 'Administradores não podem adicionar produtos ao carrinho.'
+          });
         }
 
         if (!isLoggedIn) {
@@ -1381,6 +1390,17 @@ $basePath    = '';
           iconColor: '#e8002d',
           customClass: { popup: 'swal-dark-toast' }
         });
+      },
+
+      showCartAddError(error) {
+        const isAdminCartDisabled = error && error.code === 'admin-cart-disabled';
+
+        Swal.fire({
+          icon: isAdminCartDisabled ? 'info' : 'error',
+          title: isAdminCartDisabled ? 'Carrinho indisponível' : 'Erro ao adicionar',
+          text: (error && error.message) || 'Não foi possível adicionar o produto ao carrinho.',
+          confirmButtonColor: isAdminCartDisabled ? '#0a0a0a' : '#e8002d'
+        });
       }
     };
 
@@ -1446,12 +1466,7 @@ $basePath    = '';
               }, 1200);
             }).catch(error => {
               btn.disabled = false;
-              Swal.fire({
-                icon: 'error',
-                title: 'Erro ao adicionar',
-                text: error.message || 'Não foi possível adicionar o produto ao carrinho.',
-                confirmButtonColor: '#e8002d'
-              });
+              View.showCartAddError(error);
             });
           });
         });
@@ -1577,8 +1592,8 @@ $basePath    = '';
         document.getElementById('drawer-stock').textContent = 'Em Stock';
 
         var btn = document.getElementById('drawer-add-btn');
-        btn.disabled = false;
-        btn.textContent = 'Adicionar ao Carrinho';
+        btn.disabled = isAdminUser;
+        btn.textContent = isAdminUser ? 'Indisponível para Admin' : 'Adicionar ao Carrinho';
 
         document.getElementById('drawer-overlay').classList.add('open');
       }
@@ -1630,7 +1645,7 @@ $basePath    = '';
           View.updateCartCount(result.totalItems);
           btn.textContent = '✓ Adicionado!';
           setTimeout(function() {
-            btn.textContent = 'Adicionar ao Carrinho';
+            btn.textContent = isAdminUser ? 'Indisponível para Admin' : 'Adicionar ao Carrinho';
             btn.disabled = false;
           }, 1800);
           Swal.fire({
@@ -1642,12 +1657,8 @@ $basePath    = '';
           });
         }).catch(function(error) {
           btn.disabled = false;
-          Swal.fire({
-            icon: 'error',
-            title: 'Erro ao adicionar',
-            text: (error && error.message) || 'Não foi possível adicionar o produto ao carrinho.',
-            confirmButtonColor: '#e8002d'
-          });
+          btn.textContent = isAdminUser ? 'Indisponível para Admin' : 'Adicionar ao Carrinho';
+          View.showCartAddError(error);
         });
       });
     })();

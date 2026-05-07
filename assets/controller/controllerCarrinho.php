@@ -25,6 +25,14 @@ switch ($acao) {
         break;
 
     case 'adicionar':
+        if (($_SESSION['user_role'] ?? '') === 'admin') {
+            jsonResponse([
+                'success' => false,
+                'code' => 'admin-cart-disabled',
+                'message' => 'Administradores não podem adicionar produtos ao carrinho.'
+            ], 403);
+        }
+
         $produtoId  = intval($_POST['produto_id'] ?? 0);
         $quantidade = intval($_POST['quantidade'] ?? 1);
 
