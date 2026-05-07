@@ -1446,6 +1446,7 @@ $basePath    = '';
                     return s + parseInt(c.total)
                 }, 0)) + '</span></div>';
             res.contagem.forEach(function(c) {
+                if (c.slug === 'livro') return;
                 html += '<div class="cat-item" data-cat="' + c.slug +
                     '"><span class="cat-name">' + c.nome + '</span><span class="cat-count">' + c
                     .total + '</span></div>';

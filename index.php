@@ -1130,7 +1130,6 @@ $basePath    = '';
       </p>
       <div class="hero-actions">
         <a href="#destaques" class="btn-primary">Ver Coleção</a>
-        <a href="carrinho.php" class="btn-outline">Ir ao Carrinho</a>
       </div>
       <div class="stats-bar">
         <div class="stat-item">

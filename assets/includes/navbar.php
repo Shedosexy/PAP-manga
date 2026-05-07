@@ -298,9 +298,25 @@ nav {
     border: 1.5px solid #e8002d;
 }
 
+.nav-links a.nav-register-btn {
+    color: #fff !important;
+}
+
+.nav-links a.nav-register-btn:hover {
+    color: #fff !important;
+}
+
+.nav-links a.nav-register-btn.active {
+    color: #fff !important;
+}
+
 .nav-register-btn:hover {
     background: #0a0a0a !important;
     border-color: #0a0a0a;
+}
+
+.nav-register-btn.active {
+    color: #fff !important;
 }
 
 /* Logout */
@@ -1160,9 +1176,25 @@ body > nav .nav-register-btn {
     border: 1.5px solid #e8002d;
 }
 
+body > nav .nav-links a.nav-register-btn {
+    color: #fff !important;
+}
+
+body > nav .nav-links a.nav-register-btn:hover {
+    color: #fff !important;
+}
+
+body > nav .nav-links a.nav-register-btn.active {
+    color: #fff !important;
+}
+
 body > nav .nav-register-btn:hover {
     background: #0a0a0a !important;
     border-color: #0a0a0a;
+}
+
+body > nav .nav-register-btn.active {
+    color: #fff !important;
 }
 
 body > nav .nav-logout {
@@ -1230,6 +1262,22 @@ body.dark-mode > nav .dark-mode-toggle:hover {
 
 body.dark-mode > nav .nav-register-btn {
     background: #e8002d;
+    color: #fff !important;
+}
+
+body.dark-mode > nav .nav-links a.nav-register-btn {
+    color: #fff !important;
+}
+
+body.dark-mode > nav .nav-links a.nav-register-btn:hover {
+    color: #fff !important;
+}
+
+body.dark-mode > nav .nav-links a.nav-register-btn.active {
+    color: #fff !important;
+}
+
+body.dark-mode > nav .nav-register-btn.active {
     color: #fff !important;
 }
 

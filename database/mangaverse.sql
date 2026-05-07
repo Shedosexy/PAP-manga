@@ -30,7 +30,6 @@ CREATE TABLE IF NOT EXISTS categorias (
 
 INSERT INTO categorias (nome, slug) VALUES
   ('Mangá', 'manga'),
-  ('Livro', 'livro'),
   ('Artbook', 'artbook'),
   ('Coleção', 'colecao');
 
