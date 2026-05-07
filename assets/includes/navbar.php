@@ -38,12 +38,17 @@ function navLinkClass(string $page, string $current, string $extraClass = ''): s
 
 // Cart count via PHP session (admin não precisa de carrinho)
 $_nav_cartCount = 0;
+$_nav_orderCount = 0;
 if (isLoggedIn() && $_nav_role !== 'admin') {
     try {
         $db = getDB();
         $stmt = $db->prepare("SELECT COALESCE(SUM(quantidade),0) FROM carrinho WHERE utilizador_id = ?");
         $stmt->execute([$_nav_user['id']]);
         $_nav_cartCount = (int)$stmt->fetchColumn();
+
+        $stmt = $db->prepare("SELECT COUNT(*) FROM encomendas WHERE utilizador_id = ?");
+        $stmt->execute([$_nav_user['id']]);
+        $_nav_orderCount = (int)$stmt->fetchColumn();
     } catch (Throwable $e) { $_nav_cartCount = 0; }
 }
 ?>
@@ -82,6 +87,12 @@ if (isLoggedIn() && $_nav_role !== 'admin') {
         </li>
 
         <?php if ($_nav_role !== 'admin'): ?>
+        <?php if ($_nav_orderCount > 0): ?>
+        <li>
+            <a href="<?= $basePath ?>historico.php" class="<?= navLinkClass('historico', $currentPage) ?>">Histórico</a>
+        </li>
+        <?php endif; ?>
+
         <li>
             <a href="<?= $basePath ?>carrinho.php" class="<?= navLinkClass('carrinho', $currentPage, 'cart-btn') ?>">
                 Carrinho
@@ -258,8 +269,9 @@ nav {
     display: flex;
     align-items: center;
     gap: 8px;
-    background: #0a0a0a;
+    background: #e8002d;
     color: #fff !important;
+    border: 1.5px solid #e8002d;
     padding: 9px 18px;
     border-radius: 4px;
     font-family: 'Space Mono', monospace !important;
@@ -267,11 +279,12 @@ nav {
     letter-spacing: 0.12em;
     text-transform: uppercase;
     text-decoration: none;
-    transition: background 0.2s, transform 0.15s;
+    transition: background 0.2s, border-color 0.2s, transform 0.15s;
 }
 
 .cart-btn:hover {
-    background: #e8002d !important;
+    background: #0a0a0a !important;
+    border-color: #0a0a0a;
     transform: translateY(-1px);
 }
 
@@ -393,12 +406,18 @@ body.dark-mode .dark-mode-toggle:hover {
 }
 
 body.dark-mode .cart-btn {
-    background: #f0f0f0;
-    color: #0e0e0e !important;
+    background: #e8002d !important;
+    border-color: #e8002d !important;
+    color: #fff !important;
+}
+
+body.dark-mode .cart-btn span {
+    color: #fff !important;
 }
 
 body.dark-mode .cart-btn:hover {
-    background: #e8002d !important;
+    background: #0a0a0a !important;
+    border-color: #0a0a0a !important;
     color: #fff !important;
 }
 
@@ -458,6 +477,10 @@ body.dark-mode .admin-header p {
 
 body.dark-mode .mp-stat-label {
     color: rgba(255, 255, 255, 0.35) !important;
+}
+
+body.dark-mode .mp-stat-sub {
+    color: rgba(255, 255, 255, 0.25) !important;
 }
 
 body.dark-mode .cart-hero-count {
@@ -532,6 +555,15 @@ body.dark-mode .listing-name {
 
 body.dark-mode .listing-author {
     color: #888 !important;
+}
+
+body.dark-mode .listing-rating {
+    color: #888 !important;
+}
+
+body.dark-mode .listing-rating-value,
+body.dark-mode .drawer-rating-value {
+    color: #f0f0f0 !important;
 }
 
 body.dark-mode .listing-type {
@@ -719,6 +751,7 @@ body.dark-mode .drawer-title {
 }
 
 body.dark-mode .drawer-author,
+body.dark-mode .drawer-rating,
 body.dark-mode .drawer-desc {
     color: #888 !important;
 }
@@ -1136,8 +1169,9 @@ body > nav .cart-btn {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: #0a0a0a;
+    background: #e8002d;
     color: #fff !important;
+    border: 1.5px solid #e8002d;
     padding: 10px 20px;
     border-radius: 4px;
     font-family: 'Space Mono', monospace !important;
@@ -1145,12 +1179,14 @@ body > nav .cart-btn {
     letter-spacing: 0.12em;
     text-transform: uppercase;
     text-decoration: none;
-    transition: background 0.2s, transform 0.15s;
+    transition: background 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.15s;
     flex: 0 0 auto;
 }
 
 body > nav .cart-btn:hover {
-    background: #e8002d !important;
+    background: #b00024 !important;
+    border-color: #b00024 !important;
+    box-shadow: 0 10px 26px rgba(232, 0, 45, 0.25);
     transform: translateY(-1px);
 }
 
@@ -1243,13 +1279,19 @@ body.dark-mode > nav .nav-links a {
 }
 
 body.dark-mode > nav .cart-btn {
-    background: #f0f0f0 !important;
-    color: #0e0e0e !important;
+    background: #e8002d !important;
+    border-color: #e8002d !important;
+    color: #fff !important;
 }
 
 body.dark-mode > nav .cart-btn:hover,
 body.dark-mode > nav .admin-link:hover {
     color: #fff !important;
+}
+
+body.dark-mode > nav .cart-btn:hover {
+    background: #b00024 !important;
+    border-color: #b00024 !important;
 }
 
 body.dark-mode > nav .dark-mode-toggle {

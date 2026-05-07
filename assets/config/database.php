@@ -13,8 +13,38 @@ function getDB(): PDO {
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_EMULATE_PREPARES   => false,
         ]);
+        ensureMangaVerseSchema($pdo);
     }
     return $pdo;
+}
+
+function ensureMangaVerseSchema(PDO $pdo): void {
+    static $schemaEnsured = false;
+
+    if ($schemaEnsured) {
+        return;
+    }
+
+    $pdo->exec(
+        "CREATE TABLE IF NOT EXISTS produto_avaliacoes (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            produto_id INT NOT NULL,
+            utilizador_id INT NOT NULL,
+            encomenda_id INT DEFAULT NULL,
+            classificacao TINYINT NOT NULL,
+            comentario VARCHAR(500) DEFAULT NULL,
+            criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
+            atualizado_em DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            UNIQUE KEY unique_user_product_rating (utilizador_id, produto_id),
+            KEY idx_avaliacoes_produto (produto_id),
+            KEY idx_avaliacoes_encomenda (encomenda_id),
+            CONSTRAINT fk_avaliacoes_produto FOREIGN KEY (produto_id) REFERENCES produtos(id) ON DELETE CASCADE,
+            CONSTRAINT fk_avaliacoes_utilizador FOREIGN KEY (utilizador_id) REFERENCES utilizadores(id) ON DELETE CASCADE,
+            CONSTRAINT fk_avaliacoes_encomenda FOREIGN KEY (encomenda_id) REFERENCES encomendas(id) ON DELETE SET NULL
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    );
+
+    $schemaEnsured = true;
 }
 
 // ── Sessão ───────────────────────────────────────────────

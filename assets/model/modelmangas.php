@@ -57,11 +57,20 @@ class ModelMangas {
             }
         }
 
-        $sql = "SELECT p.*, c.nome AS categoria_nome, c.slug AS categoria_slug,
-                       u.nome AS vendedor_nome
+         $sql = "SELECT p.*, c.nome AS categoria_nome, c.slug AS categoria_slug,
+                  u.nome AS vendedor_nome,
+                  ratings.rating_media,
+                  COALESCE(ratings.rating_total, 0) AS rating_total
                 FROM produtos p
                 JOIN categorias c ON p.categoria_id = c.id
                 LEFT JOIN utilizadores u ON p.vendedor_id = u.id
+              LEFT JOIN (
+                  SELECT produto_id,
+                      ROUND(AVG(classificacao), 1) AS rating_media,
+                      COUNT(*) AS rating_total
+                  FROM produto_avaliacoes
+                  GROUP BY produto_id
+              ) ratings ON ratings.produto_id = p.id
                 WHERE {$whereSQL}
                 ORDER BY {$orderBy}";
 
@@ -77,11 +86,20 @@ class ModelMangas {
     public static function getById($id) {
         $db = getDB();
         $stmt = $db->prepare("
-            SELECT p.*, c.nome AS categoria_nome, c.slug AS categoria_slug,
-                   u.nome AS vendedor_nome
+                 SELECT p.*, c.nome AS categoria_nome, c.slug AS categoria_slug,
+                     u.nome AS vendedor_nome,
+                     ratings.rating_media,
+                     COALESCE(ratings.rating_total, 0) AS rating_total
             FROM produtos p
             JOIN categorias c ON p.categoria_id = c.id
             LEFT JOIN utilizadores u ON p.vendedor_id = u.id
+                 LEFT JOIN (
+                  SELECT produto_id,
+                      ROUND(AVG(classificacao), 1) AS rating_media,
+                      COUNT(*) AS rating_total
+                  FROM produto_avaliacoes
+                  GROUP BY produto_id
+                 ) ratings ON ratings.produto_id = p.id
             WHERE p.id = ?
         ");
         $stmt->execute([$id]);

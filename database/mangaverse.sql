@@ -88,6 +88,24 @@ CREATE TABLE IF NOT EXISTS encomenda_itens (
   FOREIGN KEY (produto_id) REFERENCES produtos(id)
 ) ENGINE=InnoDB;
 
+-- ─── AVALIAÇÕES DE PRODUTOS ─────────────────────────────
+CREATE TABLE IF NOT EXISTS produto_avaliacoes (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  produto_id INT NOT NULL,
+  utilizador_id INT NOT NULL,
+  encomenda_id INT DEFAULT NULL,
+  classificacao TINYINT NOT NULL,
+  comentario VARCHAR(500) DEFAULT NULL,
+  criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
+  atualizado_em DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY unique_user_product_rating (utilizador_id, produto_id),
+  KEY idx_avaliacoes_produto (produto_id),
+  KEY idx_avaliacoes_encomenda (encomenda_id),
+  FOREIGN KEY (produto_id) REFERENCES produtos(id) ON DELETE CASCADE,
+  FOREIGN KEY (utilizador_id) REFERENCES utilizadores(id) ON DELETE CASCADE,
+  FOREIGN KEY (encomenda_id) REFERENCES encomendas(id) ON DELETE SET NULL
+) ENGINE=InnoDB;
+
 -- ─── CARRINHO ───────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS carrinho (
   id INT AUTO_INCREMENT PRIMARY KEY,

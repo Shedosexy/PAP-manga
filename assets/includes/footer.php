@@ -16,7 +16,7 @@
     <div class="footer-col">
       <h4>Suporte</h4>
       <ul>
-        <li><a href="<?= $basePath ?? '' ?>suporte.php">Centro de Suporte</a></li>
+        <li><a href="<?= $basePath ?? '' ?>suporte.php">Suporte</a></li>
         <li><a href="<?= $basePath ?? '' ?>contacto.php">Contacto</a></li>
       </ul>
     </div>

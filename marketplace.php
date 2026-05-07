@@ -1,8 +1,10 @@
 <?php
 require_once 'assets/config/database.php';
+require_once 'assets/model/modelAvaliacoes.php';
 initSession();
 $user = getLoggedUser();
 $canCreateMangas = $user && in_array($user['role'], ['vendedor', 'admin'], true);
+$siteRating = ModelAvaliacoes::getSiteResumo();
 $currentPage = 'marketplace';
 $basePath    = '';
 ?>
@@ -171,6 +173,16 @@ $basePath    = '';
         letter-spacing: 0.18em;
         text-transform: uppercase;
         color: rgba(255, 255, 255, 0.35);
+    }
+
+    .mp-stat-sub {
+        display: block;
+        margin-top: 6px;
+        font-family: var(--font-mono);
+        font-size: 0.56rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.25);
     }
 
     /* ─── SELL BANNER ─── */
@@ -569,7 +581,28 @@ $basePath    = '';
     .listing-author {
         font-size: 0.78rem;
         color: var(--grey);
-        margin-bottom: 12px;
+        margin-bottom: 10px;
+    }
+
+    .listing-rating {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 14px;
+        font-family: var(--font-mono);
+        font-size: 0.6rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--grey);
+    }
+
+    .listing-rating-value {
+        color: var(--black);
+        font-weight: 700;
+    }
+
+    .listing-rating-empty {
+        color: var(--grey);
     }
 
     .listing-bottom {
@@ -1025,10 +1058,20 @@ $basePath    = '';
         overflow: hidden;
     }
 
+    .drawer-cover-media {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
     .drawer-cover-media img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: center center;
         display: block;
     }
 
@@ -1092,7 +1135,25 @@ $basePath    = '';
     .drawer-author {
         font-size: 0.88rem;
         color: var(--grey);
+        margin-bottom: 12px;
+    }
+
+    .drawer-rating {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
         margin-bottom: 18px;
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--grey);
+    }
+
+    .drawer-rating-value {
+        color: var(--black);
+        font-weight: 700;
     }
 
     .drawer-sep {
@@ -1266,8 +1327,8 @@ $basePath    = '';
                 <div class="mp-hero-stats">
                     <div class="mp-stat"><span class="mp-stat-num" id="stat-produtos">0</span><span
                             class="mp-stat-label">Produtos</span></div>
-                    <div class="mp-stat"><span class="mp-stat-num">4.9★</span><span
-                            class="mp-stat-label">Avaliação</span></div>
+                    <div class="mp-stat"><span class="mp-stat-num" id="site-rating-value"><?= number_format((float) $siteRating['media'], 1) ?>★</span><span
+                        class="mp-stat-label">Avaliação</span><span class="mp-stat-sub" id="site-rating-total"><?= (int) $siteRating['total'] > 0 ? (int) $siteRating['total'] . ' avaliações' : 'Sem avaliações ainda' ?></span></div>
                 </div>
             </div>
         </div>
@@ -1435,6 +1496,30 @@ $basePath    = '';
         var editingProductId = null;
         var editingProductData = null;
 
+        function getListingRatingHtml(media, total) {
+            var ratingTotal = parseInt(total || 0, 10);
+
+            if (ratingTotal > 0 && media !== null && media !== undefined && media !== '') {
+                return '<div class="listing-rating"><span class="listing-rating-value">' +
+                    parseFloat(media).toFixed(1) + '★</span><span class="listing-rating-count">' +
+                    ratingTotal + ' avaliação' + (ratingTotal !== 1 ? 'ões' : '') + '</span></div>';
+            }
+
+            return '<div class="listing-rating listing-rating-empty">Sem avaliações</div>';
+        }
+
+        function getDrawerRatingHtml(media, total) {
+            var ratingTotal = parseInt(total || 0, 10);
+
+            if (ratingTotal > 0 && media !== null && media !== undefined && media !== '') {
+                return '<span class="drawer-rating-value">' + parseFloat(media).toFixed(1) +
+                    '★</span><span>' + ratingTotal + ' avaliação' + (ratingTotal !== 1 ? 'ões' : '') +
+                    ' no site</span>';
+            }
+
+            return '<span>Sem avaliações no site</span>';
+        }
+
         // ── Load categories ──
         $.get('assets/controller/controllerMangas.php', {
             acao: 'categorias'
@@ -1487,6 +1572,7 @@ $basePath    = '';
                     var typeLabel = '// Mangá';
                     var oldPriceHtml = p.preco_antigo ? '<div class="listing-old-price">' +
                         parseFloat(p.preco_antigo).toFixed(2) + '€</div>' : '';
+                    var ratingHtml = getListingRatingHtml(p.rating_media, p.rating_total);
 
                     var coverHtml = '';
                     if (p.imagem) {
@@ -1512,6 +1598,7 @@ $basePath    = '';
                         '</div>' +
                         '<div class="listing-author">' + $('<span>').text(p.autor).html() +
                         '</div>' +
+                        ratingHtml +
                         '<div class="listing-bottom">' +
                         '<div class="listing-price-wrap">' + oldPriceHtml +
                         '<div class="listing-price">' + parseFloat(p.preco).toFixed(2) +
@@ -1851,6 +1938,7 @@ $basePath    = '';
                 $('#drawer-type').text(typeLabel);
                 $('#drawer-title').text(p.nome + (p.volume ? ' — ' + p.volume : ''));
                 $('#drawer-author').text('por ' + p.autor);
+                $('#drawer-rating').html(getDrawerRatingHtml(p.rating_media, p.rating_total));
                 $('#drawer-desc').text(p.descricao || 'Sem descrição disponível.');
 
                 var meta = '';
@@ -1915,7 +2003,6 @@ $basePath    = '';
                 icon: 'warning',
                 title: 'Eliminar produto?',
                 text: 'Esta ação remove o produto do marketplace.',
-                position: 'top',
                 showCancelButton: true,
                 confirmButtonText: 'Eliminar',
                 cancelButtonText: 'Cancelar',
@@ -1939,7 +2026,6 @@ $basePath    = '';
                                 icon: 'success',
                                 title: 'Eliminado!',
                                 text: 'O produto foi removido do marketplace.',
-                                position: 'top',
                                 confirmButtonColor: '#0a0a0a'
                             });
                             loadProducts();
@@ -1948,7 +2034,6 @@ $basePath    = '';
                                 icon: 'error',
                                 title: 'Erro',
                                 text: res.message,
-                                position: 'top',
                                 confirmButtonColor: '#e8002d'
                             });
                         }
@@ -1960,7 +2045,6 @@ $basePath    = '';
                             title: 'Erro',
                             text: data.message ||
                                 'Não foi possível eliminar o produto.',
-                            position: 'top',
                             confirmButtonColor: '#e8002d'
                         });
                     }
@@ -2056,6 +2140,7 @@ $basePath    = '';
                 <div class="drawer-type" id="drawer-type"></div>
                 <div class="drawer-title" id="drawer-title"></div>
                 <div class="drawer-author" id="drawer-author"></div>
+                <div class="drawer-rating" id="drawer-rating"></div>
                 <hr class="drawer-sep">
                 <p class="drawer-desc" id="drawer-desc"></p>
                 <div class="drawer-meta" id="drawer-meta"></div>

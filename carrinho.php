@@ -1271,17 +1271,54 @@ $basePath    = '';
             $('#step-1, #step-2, #step-3').removeClass('active done');
             for (var i = 1; i < n; i++) $('#step-' + i).addClass('done');
             $('#step-' + n).addClass('active');
+
+            if (n === 2 && cardElement) {
+                cardElement.update({
+                    style: getStripeCardStyle()
+                });
+            }
         }
 
-        // Step navigation
-        $('#ck-next-1').on('click', function() {
-            if (!$('#ck-nome').val().trim() || !$('#ck-email').val().trim()) {
+        function getCheckoutDeliveryData() {
+            return {
+                nome: $('#ck-nome').val().trim(),
+                email: $('#ck-email').val().trim(),
+                morada: $('#ck-morada').val().trim(),
+                cidade: $('#ck-cidade').val().trim(),
+                codigoPostal: $('#ck-cp').val().trim(),
+                telefone: $('#ck-telefone').val().trim()
+            };
+        }
+
+        function validateCheckoutDeliveryData() {
+            var data = getCheckoutDeliveryData();
+
+            if (!data.nome || !data.email) {
                 Swal.fire({
                     icon: 'warning',
                     title: 'Campos obrigatórios',
                     text: 'Preenche o nome e email.',
                     confirmButtonColor: '#0a0a0a'
                 });
+                return false;
+            }
+
+            if (!data.morada || !data.cidade || !data.codigoPostal || !data.telefone) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Dados de entrega incompletos',
+                    text: 'Preenche morada, cidade, código postal e telefone antes de pagar.',
+                    confirmButtonColor: '#e8002d'
+                });
+                return false;
+            }
+
+            return true;
+        }
+
+        // Step navigation
+        $('#ck-next-1').on('click', function() {
+            if (!validateCheckoutDeliveryData()) {
                 return;
             }
             showStep(2);
@@ -1304,6 +1341,26 @@ $basePath    = '';
         // ── Stripe ──
         var stripe, elements, cardElement, stripeInitialized = false;
 
+        function getStripeCardStyle() {
+            var isDarkMode = document.body.classList.contains('dark-mode');
+
+            return {
+                base: {
+                    fontFamily: '"Space Mono", monospace',
+                    fontSize: '14px',
+                    color: isDarkMode ? '#f0f0f0' : '#0a0a0a',
+                    iconColor: isDarkMode ? '#f0f0f0' : '#0a0a0a',
+                    '::placeholder': {
+                        color: isDarkMode ? '#999999' : '#8a8a8a'
+                    }
+                },
+                invalid: {
+                    color: '#e8002d',
+                    iconColor: '#e8002d'
+                }
+            };
+        }
+
         function initStripe() {
             if (stripeInitialized) return;
             stripeInitialized = true;
@@ -1313,16 +1370,7 @@ $basePath    = '';
                 );
             elements = stripe.elements();
             cardElement = elements.create('card', {
-                style: {
-                    base: {
-                        fontFamily: '"Space Mono", monospace',
-                        fontSize: '14px',
-                        color: '#0a0a0a',
-                        '::placeholder': {
-                            color: '#8a8a8a'
-                        }
-                    }
-                }
+                style: getStripeCardStyle()
             });
             cardElement.mount('#card-element');
             cardElement.on('change', function(e) {
@@ -1335,6 +1383,12 @@ $basePath    = '';
         $('#ck-pay').on('click', function() {
             var btn = $(this);
             btn.prop('disabled', true).text('A processar...');
+
+            if (!validateCheckoutDeliveryData()) {
+                btn.prop('disabled', false).html('Pagar <span id="ck-pay-total">' + $('#ck-pay-total').text() + '</span> →');
+                showStep(1);
+                return;
+            }
 
             var metodo = $('#ck-metodo').val();
             var envio = subtotal >= 30 ? 0 : 4.99;
@@ -1374,10 +1428,10 @@ $basePath    = '';
                     total: total,
                     itens: JSON.stringify(itens),
                     stripe_token: stripeToken || '',
-                    morada: $('#ck-morada').val(),
-                    cidade: $('#ck-cidade').val(),
-                    codigo_postal: $('#ck-cp').val(),
-                    telefone: $('#ck-telefone').val(),
+                    morada: $('#ck-morada').val().trim(),
+                    cidade: $('#ck-cidade').val().trim(),
+                    codigo_postal: $('#ck-cp').val().trim(),
+                    telefone: $('#ck-telefone').val().trim(),
                     codigo_promo: promoCode || ''
                 },
                 dataType: 'json',
@@ -1405,11 +1459,12 @@ $basePath    = '';
                         btn.prop('disabled', false).text('Pagar ' + total + '€ →');
                     }
                 },
-                error: function() {
+                error: function(xhr) {
+                    var data = xhr.responseJSON || {};
                     Swal.fire({
                         icon: 'error',
-                        title: 'Erro de ligação',
-                        text: 'Verifica a tua ligação e tenta novamente.',
+                        title: 'Erro no pagamento',
+                        text: data.message || 'Verifica os dados do checkout e tenta novamente.',
                         confirmButtonColor: '#e8002d'
                     });
                     btn.prop('disabled', false).text('Pagar ' + total + '€ →');

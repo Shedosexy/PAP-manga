@@ -20,10 +20,19 @@ try {
     $db = getDB();
     $stmt = $db->prepare("
         SELECT p.*, c.nome AS categoria_nome, c.slug AS categoria_slug,
-               u.nome AS vendedor_nome
+               u.nome AS vendedor_nome,
+               ratings.rating_media,
+               COALESCE(ratings.rating_total, 0) AS rating_total
         FROM produtos p
         JOIN categorias c ON p.categoria_id = c.id
         LEFT JOIN utilizadores u ON p.vendedor_id = u.id
+        LEFT JOIN (
+            SELECT produto_id,
+                   ROUND(AVG(classificacao), 1) AS rating_media,
+                   COUNT(*) AS rating_total
+            FROM produto_avaliacoes
+            GROUP BY produto_id
+        ) ratings ON ratings.produto_id = p.id
         WHERE p.id = ? AND p.ativo = 1
     ");
     $stmt->execute([$id]);
@@ -57,6 +66,8 @@ try {
             'cor2'           => $produto['cor2'] ?? '#e8002d',
             'condicao'       => $produto['condicao'] ?? 'novo',
             'condicao_pct'   => (int)($produto['condicao_pct'] ?? 100),
+            'rating_media'   => $produto['rating_media'] !== null ? (float)$produto['rating_media'] : null,
+            'rating_total'   => (int)($produto['rating_total'] ?? 0),
             'vendedor_id'    => $produto['vendedor_id'] !== null ? (int)$produto['vendedor_id'] : null,
             'vendedor_nome'  => $produto['vendedor_nome'] ?? null,
             'pode_editar'    => $canManage,

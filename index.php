@@ -1,7 +1,9 @@
 <?php
 require_once 'assets/config/database.php';
+require_once 'assets/model/modelAvaliacoes.php';
 initSession();
 $user        = getLoggedUser();
+$siteRating  = ModelAvaliacoes::getSiteResumo();
 $currentPage = 'loja';
 $basePath    = '';
 ?>
@@ -1130,19 +1132,12 @@ $basePath    = '';
       </p>
       <div class="hero-actions">
         <a href="#destaques" class="btn-primary">Ver Coleção</a>
+        <a href="contacto.php" class="btn-outline">Falar Connosco</a>
       </div>
       <div class="stats-bar">
         <div class="stat-item">
-          <span class="stat-num">2.4K+</span>
-          <span class="stat-label">Títulos</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-num">98%</span>
-          <span class="stat-label">Satisfação</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-num">24h</span>
-          <span class="stat-label">Envio</span>
+          <span class="stat-num"><?= number_format((float) $siteRating['media'], 1) ?>★</span>
+          <span class="stat-label">Avaliação</span>
         </div>
       </div>
     </div>
@@ -1172,56 +1167,6 @@ $basePath    = '';
     </div>
     <div>
       <a href="#destaques" class="btn-primary" style="white-space:nowrap;">Explorar Mangás →</a>
-    </div>
-  </section>
-
-  <section id="contacto">
-    <div class="section-header reveal">
-      <span class="section-eyebrow">// Fala connosco</span>
-      <h2 class="section-title">Contacto</h2>
-    </div>
-    <div class="contact-grid">
-      <div class="contact-info reveal">
-        <h3>Estamos aqui para ti</h3>
-        <p>Tens uma dúvida sobre uma encomenda, queres saber sobre disponibilidade ou tens uma sugestão? A nossa equipa
-          responde em menos de 24 horas.</p>
-        <div class="contact-detail">
-          <div class="contact-icon">PT</div>
-          <div>
-            <div class="contact-label">Morada</div>
-            <div class="contact-value">Rua das Mangás, 42 — Lisboa, Portugal</div>
-          </div>
-        </div>
-        <div class="contact-detail">
-          <div class="contact-icon">EM</div>
-          <div>
-            <div class="contact-label">Email</div>
-            <div class="contact-value">suporte@mangaverse.pt</div>
-          </div>
-        </div>
-        <div class="contact-detail">
-          <div class="contact-icon">TL</div>
-          <div>
-            <div class="contact-label">Telefone</div>
-            <div class="contact-value">+351 210 000 000</div>
-          </div>
-        </div>
-      </div>
-      <div class="contact-form reveal">
-        <div class="form-group">
-          <label class="form-label">Nome</label>
-          <input type="text" class="form-input" id="contact-name" placeholder="O teu nome">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Email</label>
-          <input type="email" class="form-input" id="contact-email" placeholder="email@exemplo.com">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Mensagem</label>
-          <textarea class="form-textarea" id="contact-msg" placeholder="Como podemos ajudar?"></textarea>
-        </div>
-        <button class="btn-primary" style="width:100%" id="contact-submit">Enviar Mensagem</button>
-      </div>
     </div>
   </section>
 
