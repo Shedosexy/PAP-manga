@@ -1166,7 +1166,7 @@ $basePath    = '';
       <p class="banner-desc">Descobre obras primas, personagens memoráveis e arte magnifica de autores renomados. Edições especiais e lançamentos exclusivos.</p>
     </div>
     <div>
-      <a href="#destaques" class="btn-primary" style="white-space:nowrap;">Explorar Mangás →</a>
+      <a href="marketplace.php" class="btn-primary" style="white-space:nowrap;">Explorar Mangás →</a>
     </div>
   </section>
   <br>
@@ -1224,11 +1224,12 @@ $basePath    = '';
         { id: 2, name: 'Jujutsu Kaisen', author: 'Gege Akutami', type: 'manga', price: 6.99, oldPrice: null, badge: 'new', color: ['#0057ff', '#000'], vol: 'Vol. 24', imagem: 'assets/images/jujutsu kaisen vol 24.jpg', desc: 'Yuji Itadori junta-se à escola de feiticeiros para combater maldições.' },
         { id: 3, name: 'Chainsaw Man', author: 'Tatsuki Fujimoto', type: 'manga', price: 7.49, oldPrice: 9.99, badge: 'sale', color: ['#222', '#e8002d'], vol: 'Vol. 16', imagem: 'assets/images/chainsaw man vol16.jpg', desc: 'Denji funde-se com o seu demónio motosserra para caçar demónios.' },
         { id: 4, name: 'Berserk', author: 'Kentaro Miura', type: 'manga', price: 12.99, oldPrice: null, badge: null, color: ['#1a1a2e', '#c5a028'], vol: 'Vol. 41', imagem: 'assets/images/berserk vol 41.jpg', desc: 'A jornada sombria do espadachim Guts num mundo medieval.' },
-        { id: 5, name: 'Attack on Titan', author: 'Hajime Isayama', type: 'manga', price: 8.99, oldPrice: 10.99, badge: 'sale', color: ['#3a3a3a', '#8b5a2b'], vol: 'Vol. 34', imagem: 'assets/images/attack on titan vol 32.jpg', desc: 'A humanidade luta pela sobrevivência contra titãs gigantes.' },
-        { id: 6, name: 'Demon Slayer', author: 'Koyoharu Gotouge', type: 'manga', price: 6.49, oldPrice: null, badge: 'new', color: ['#1a472a', '#c21807'], vol: 'Vol. 23', imagem: 'assets/images/demon slayer vol 23.jpg', desc: 'Tanjiro embarca numa jornada para curar a sua irmã e vingar a sua família.' },
-        { id: 9, name: 'Vinland Saga', author: 'Makoto Yukimura', type: 'manga', price: 9.99, oldPrice: null, badge: null, color: ['#2c4a6e', '#d4a017'], vol: 'Vol. 27', imagem: 'assets/images/vinland saga vol 27.jpg', desc: 'A saga viking de Thorfinn na era dos exploradores nórdicos.' },
+        { id: 5, name: 'Re:Zero', author: 'Tappei Nagatsuki', type: 'manga', price: 8.99, oldPrice: null, badge: null, color: ['#1a1a4d', '#d4af37'], vol: 'Arc 4', imagem: 'assets/images/re-zero-manga-arc-4-20260507040740.jpg', desc: 'Subaru é enviado para um mundo paralelo com o poder de voltar no tempo.' },
+        { id: 6, name: 'Goodbye Eri', author: 'Tatsuki Fujimoto', type: 'manga', price: 7.99, oldPrice: null, badge: null, color: ['#2d2d44', '#ff6b9d'], vol: 'Vol. 1', imagem: 'assets/images/goodbye-eri-vol1-20260507042139.jpeg', desc: 'Uma história única sobre a morte, o cinema e o amor reescrito.' },
+        { id: 9, name: 'Kagurabachi', author: 'Takeru Hokazono', type: 'manga', price: 6.99, oldPrice: null, badge: null, color: ['#1a1a1a', '#ff6b35'], vol: 'Vol. 3', imagem: 'assets/images/kagurabachi-vol-3-20260507042832.jpg', desc: 'Chihiro persegue os responsáveis pela morte do seu pai, armado com uma espada sagrada.' },
         { id: 10, name: 'Tokyo Ghoul', author: 'Sui Ishida', type: 'manga', price: 7.99, oldPrice: 9.49, badge: 'sale', color: ['#1a0a2e', '#8b1a4a'], vol: 'Vol. 14', imagem: 'assets/images/tokyo ghoul vol 14.jpg', desc: 'Ken Kaneki torna-se meio-ghoul após um encontro fatídico.' },
         { id: 12, name: 'Blue Period', author: 'Tsubasa Yamaguchi', type: 'manga', price: 7.49, oldPrice: null, badge: 'new', color: ['#1a3a6e', '#4a90d9'], vol: 'Vol. 14', imagem: 'assets/images/blue period vol 14.jpg', desc: 'Um jovem descobre a sua paixão pela arte e luta para entrar na universidade.' },
+        { id: 13, name: 'Vagabond', author: 'Takehiko Inoue', type: 'manga', price: 10.99, oldPrice: null, badge: null, color: ['#2c1810', '#d4af37'], vol: 'Vol. 20', imagem: 'assets/images/vagabond-vol-20-20260507045148.jpg', desc: 'A epopeia de Musashi numa jornada de auto-descoberta e domínio da espada.' },
       ],
 
       cart: JSON.parse(localStorage.getItem('mv_cart') || '[]'),
@@ -1316,12 +1317,12 @@ $basePath    = '';
         const stack = document.getElementById('hero-stack');
         if (!stack) return;
         const heroProducts = [
-          { imagem: 'assets/images/one piece vol 104.jpg', name: 'One Piece' },
-          { imagem: 'assets/images/jujutsu kaisen vol 24.jpg', name: 'Jujutsu Kaisen' },
+          { imagem: 'assets/images/jojo-vol-91-20260507035959.jpg', name: 'JoJo' },
+          { imagem: 'assets/images/goodnight-punpun-vol-2-20260507033146.jpg', name: 'Goodnight Punpun' },
           { imagem: 'assets/images/chainsaw man vol16.jpg', name: 'Chainsaw Man' },
           { imagem: 'assets/images/berserk vol 41.jpg', name: 'Berserk' },
-          { imagem: 'assets/images/attack on titan vol 32.jpg', name: 'Attack on Titan' },
-          { imagem: 'assets/images/demon slayer vol 23.jpg', name: 'Demon Slayer' },
+          { imagem: 'assets/images/re-zero-manga-arc-4-20260507040740.jpg', name: 'Re:Zero' },
+          { imagem: 'assets/images/goodbye-eri-vol1-20260507042139.jpeg', name: 'Goodbye Eri' },
         ];
         heroProducts.forEach((product, i) => {
           const card = document.createElement('div');
