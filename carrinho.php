@@ -1366,7 +1366,7 @@ $basePath    = '';
             stripeInitialized = true;
             // Note: Replace with your real Stripe publishable key
             stripe = Stripe(
-                'pk_test_51SAniYBgsjq4eGslSQL7yh2GZw8cmWjzm2ECCRUDNsOoINeLwjXHIBHeDre0PQMu1qSoDZOb2g5EGPuRP4n6R2co00YQOyOxT9'
+                'pk_test_51TUuYSFA8vzALLHv6eMrF6tBENJsQCMxpcqLXdRav0miPCtcMeR3CV9bC4yvIwP5fqQVzqQex1CjbPrU0cuKY9IS00f1jKa1CL'
                 );
             elements = stripe.elements();
             cardElement = elements.create('card', {
