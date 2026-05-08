@@ -1175,8 +1175,7 @@ $basePath    = '';
     <div class="footer-grid">
       <div class="footer-brand">
         <span class="logo">Manga<span>Verse</span></span>
-        <p>A loja de mangás do futuro. Curadoria premium, envio rápido e uma comunidade apaixonada por cultura
-          japonesa.</p>
+        <p>A loja de mangás do futuro. Curadoria<br>premium, envio rápido e uma comunidade apaixonada por cultura japonesa.</p>
       </div>
       <div class="footer-col">
         <h4>Loja</h4>
