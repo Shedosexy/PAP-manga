@@ -1122,16 +1122,16 @@ $basePath    = '';
     <div class="hero-content">
       <div class="hero-eyebrow">Novo Universo · 2026</div>
       <h1 class="hero-title">
-        O Futuro dos<br>
+        Os Melhores<br>
         <em class="hero-title-accent">Mangás</em><br>
-        chegou.
+        chegaram.
       </h1>
       <p class="hero-desc">
-        Descobre a maior coleção de mangás do universo. Edições limitadas, lançamentos exclusivos e as tuas
-        séries favoritas — tudo num só lugar.
+        Descobre a maior coleção de mangás de Portugal. Edições limitadas, lançamentos exclusivos e as tuas
+        séries favoritas, tudo num só lugar.
       </p>
       <div class="hero-actions">
-        <a href="#destaques" class="btn-primary">Ver Coleção</a>
+        <a href="#destaques" class="btn-primary">Ver Coleção em destaque</a>
         <a href="contacto.php" class="btn-outline">Falar Connosco</a>
       </div>
       <div class="stats-bar">
